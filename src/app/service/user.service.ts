@@ -80,6 +80,26 @@ export class UserService {
     );
   }
 
+  Activate(value: {
+    regid: string;
+  }) {
+    const token = this.token.getToken(); // ⛳ Optional: If token is required
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token && { Authorization: `Bearer ${token}` }) // Use token only if exists
+      }),
+    };
+
+    return this.http.post(
+      this.AUTH_API + 'Activateid',
+      {
+        regid: value.regid,
+      },
+      httpOptions
+    );
+  }
+
 
   }
 
