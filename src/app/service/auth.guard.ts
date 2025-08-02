@@ -2,6 +2,7 @@ import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { TokenService } from './token.service';
 
+
 export const authGuard: CanActivateFn = (route, state) => {
   const tokenService = inject(TokenService);
   const router = inject(Router);
@@ -12,13 +13,12 @@ export const authGuard: CanActivateFn = (route, state) => {
     return false;
   }
 
-  // ✅ Get the user role from the token
   const userRole = tokenService.getRole() || '';
-
-  // ✅ Allow or deny access based on role and route
+  
+  // ✅ Role check
   if (route.data && route.data['usertype']) {
     const allowedRoles = route.data['usertype'] as string[];
-    if (!userRole || !allowedRoles.includes(userRole)) {
+    if (!allowedRoles.includes(userRole)) {
       console.warn(`Access denied for role: ${userRole}`);
       router.navigate(['/login']);
       return false;
