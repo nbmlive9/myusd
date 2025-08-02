@@ -50,24 +50,7 @@ export class UserService {
     );
   }
 
-  login(value: { regid: string; password: string }) {
-    const token = this.token.getToken(); // optional if required
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        ...(token && { Authorization: `Bearer ${token}` }) // include only if token exists
-      }),
-    };
 
-    return this.http.post(
-      this.AUTH_API + 'Index',
-      {
-        regid: value.regid,
-        password: value.password,
-      },
-      httpOptions
-    );
-  }
   home() {
     const token = this.token.getToken(); 
     const httpOptions = {
