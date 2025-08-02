@@ -21,6 +21,7 @@ import { DirectTeamComponent } from './direct-team/direct-team.component';
 import { authGuard } from './service/auth.guard';
 const routes: Routes = [
   // Login route - does NOT use layout
+  { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'sign-in', component: SignInComponent },
   // Layout routes (shown after login)
