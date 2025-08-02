@@ -1,0 +1,121 @@
+<div class="d-flex justify-content-end">
+    <a href="javascript:void(0)" 
+       data-bs-toggle="modal" 
+       data-bs-target="#withdrawModal" 
+       class="btn btn-success  px-4">
+      Withdraw Amount
+    </a>
+  </div>
+  
+<div class="mb-3">
+    <label for="teamSelect" class="form-label ">Select Team</label>
+    <select id="teamSelect" class="form-select">
+      <option value=""> Select packages</option>
+      <option value="left">Sliver</option>
+      <option value="right">Gold</option>
+      <option value="tree">Diamond</option>
+    </select>
+  </div>
+    <h2 class="fw-bold">Deposit Funds</h2>
+    <table>
+        <thead>
+            <tr>           
+                <th>S.No</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Transfer ID</th>
+                <th>Wallet Address</th>
+
+                <th>From → To</th>
+                <th>Value</th>
+                <th>Status</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="transaction">0x90ef...0607</span></td>
+                <td>0x37e9...d762 → 0x0000...1000</td>
+                <td><span class="value">0.0026 BNB</span></td>
+                <td>56062318</td>
+                <td>56062318</td>
+                <td>56062318</td>
+                <td>2 minutes ago</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="modal fade" id="addFundModal" tabindex="-1" aria-labelledby="addFundModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered ">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="addFundModalLabel">Add Fund</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="coinSelect" class="form-label">Select Coin</label>
+                <select class="form-select" id="coinSelect" aria-label="Select Coin"
+                  style="border-radius: 16px; font-size: 20px; ">
+                  <option selected>Select Coin</option>
+                  <option value="1">Bitcoin</option>
+                  <option value="2">Ethereum</option>
+                  <option value="3">Litecoin</option>
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" style="background-color: #4A90E2;">GET DEPOSIT ADDRESS</button>
+              <button type="button" class="btn btn-primary" style="background-color: #4A90E2;" data-bs-toggle="modal" data-bs-target="#depositFundModal" >Confirm</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      
+
+  <div class="modal fade" id="withdrawModal" tabindex="-1" aria-labelledby="withdrawModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-3 rounded-4">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title fw-bold" id="withdrawModalLabel">Withdraw</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+  
+          <p class="mb-2 fw-semibold">Available Balance :
+            <span class="text-success fw-bold"><i class="fas fa-wallet me-1"></i> $0.00</span>
+          </p>
+  
+          <div class="mb-3">
+            <input type="text" class="form-control input-rounded" placeholder="Enter Amount...">
+          </div>
+  
+          <div class="mb-3">
+            <input type="text" class="form-control input-rounded" value="USDT BEP20" readonly>
+          </div>
+  
+          <div class="mb-3">
+            <input type="text" class="form-control input-rounded" placeholder="Wallet address">
+          </div>
+  
+          <div class="info-text mb-3">
+            <p class="mb-1 text-dark"><strong>Min Amount:</strong> <span class="text-primary">$10</span></p>
+            <p class="mb-1 text-dark"><strong>Amount:</strong></p>
+            <p class="mb-1 text-dark"><strong>Fee:</strong> <span class="text-primary">15.00%</span></p>
+            <p class="mb-0 text-dark"><strong>Receivable Amount:</strong> <span class="text-primary">$0</span></p>
+          </div>
+  
+          <div class="d-flex justify-content-between align-items-center">
+            <button class="btn btn-success rounded-pill px-4">SEND OTP</button>
+            <button class="btn btn-link text-dark" data-bs-dismiss="modal">CLOSE</button>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,77 @@
+
+// meter section
+.summary-card {
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 20px;
+}
+.bonus-box {
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.bonus-box.active {
+  background-color: #0050ff;
+  color: white;
+}
+
+.bonus-box.inactive {
+  background-color: #e6eeff;
+  color: #333;
+}
+
+.bonus-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.chart-box {
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
+.form-control {
+    border-radius: 18px;
+    font-size: 20px;
+  }
+  
+  label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .form-control:disabled {
+    background-color: #e9ecef;
+  }
+  
+  .btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+  }
+  
+  .btn-cancel {
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #ddd;
+  }
+  
+  .summary-card {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+  
+  h6:hover {
+    text-decoration: underline;
+  }
+  
+
+
+

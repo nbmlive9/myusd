@@ -1,0 +1,59 @@
+.qr-code {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 1rem;
+    display: block;
+}
+.address {
+    font-size: 0.9rem;
+    word-break: break-all;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.copy-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+.copy-btn i {
+    font-size: 1rem;
+}
+.info-text {
+    text-align: center;
+    color: #6c757d;
+}
+.close-btn {
+    background-color: #e9ecef;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+}
+// sdasdssswwww
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f8f9fa;
+}
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+th {
+    background-color: #e9ecef;
+}
+.transaction {
+    color: #007bff;
+}
+.value {
+    color: #007bff;
+    font-weight: bold;
+}
