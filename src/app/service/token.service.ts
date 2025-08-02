@@ -44,7 +44,7 @@ export class TokenService {
     }
     return this.user;
   }
-
+// 
   public getRole(): string | null {
     const user = this.getUser();
     return user ? user.role : null;
