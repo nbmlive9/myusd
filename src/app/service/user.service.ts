@@ -1,18 +1,21 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
+import { TokenService } from './token.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class ServiceService {
+export class UserService {
+
   private readonly AUTH_API = 'https://crypturegrid.com/MYUSD/MYUSD/User/';
 
   constructor(
     private http: HttpClient,
     private route: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private token:TokenService
   ) {}
 
   register(value: {
@@ -24,7 +27,7 @@ export class ServiceService {
     position: string;
     country: string;
   }) {
-    const token = this.authService.getToken(); // ⛳ Optional: If token is required
+    const token = this.token.getToken(); // ⛳ Optional: If token is required
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -48,7 +51,7 @@ export class ServiceService {
   }
 
   login(value: { regid: string; password: string }) {
-    const token = this.authService.getToken(); // optional if required
+    const token = this.token.getToken(); // optional if required
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -66,7 +69,7 @@ export class ServiceService {
     );
   }
   home() {
-    const token = this.authService.getToken(); 
+    const token = this.token.getToken(); 
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -77,7 +80,7 @@ export class ServiceService {
     return this.http.get(this.AUTH_API + 'Home', httpOptions);
   }
   forgotPassword(value: { regid: string; email: string }) {
-    const token = this.authService.getToken(); // optional if required
+    const token = this.token.getToken(); // optional if required
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

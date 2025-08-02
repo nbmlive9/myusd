@@ -1,8 +1,8 @@
 import { AfterViewInit, Component } from '@angular/core';
 declare var Gauge: any;
 import { Chart, registerables } from 'chart.js';
-import { ServiceService } from '../service.service';
 import { Router } from '@angular/router';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +15,7 @@ export class DashboardComponent implements AfterViewInit {
   showShareIcons = false;
   dashboarddata: any;
   homedata: any;
-  constructor(private api:ServiceService,private router:Router) {
+  constructor(private api:UserService,private router:Router) {
     Chart.register(...registerables);
   }
   ngOnInit() {

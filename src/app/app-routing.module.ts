@@ -18,6 +18,7 @@ import { DepositComponent } from './deposit/deposit.component';
 import { SponsorIncomeComponent } from './sponsor-income/sponsor-income.component';
 import { MatchingIncomeComponent } from './matching-income/matching-income.component';
 import { DirectTeamComponent } from './direct-team/direct-team.component';
+import { authGuard } from './service/auth.guard';
 const routes: Routes = [
   // Login route - does NOT use layout
   { path: 'login', component: LoginComponent },
@@ -28,22 +29,22 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
-      { path: 'wallet', component: WalletComponent },
-      { path: 'profile', component: ProfileComponent },
-      { path: 'subscription', component: SubscriptionComponent },
-      { path: 'dashboard', component: DashboardComponent },
-      {path:"leftteam",component:TeamLeftComponent},
-      {path:"rightteam",component:TeamRightComponent},
-      {path:"treeview",component:TreeViewComponent},
-      {path:"report",component:ReportsComponent},
-      {path:"deposit",component:DepositComponent},
-      {path:"withdraw",component:WithdrawComponent},
-      {path:"transfer",component:TransferComponent},
-      {path:"recieved",component:ReceivedComponent},
-      {path:"direct",component:ReportsComponent},
-      {path:"sponsorincome",component:SponsorIncomeComponent},
-      {path:"matchingincome",component:MatchingIncomeComponent},
-      {path:"direct-team",component:DirectTeamComponent},
+      { path: 'wallet', component: WalletComponent , canActivate: [authGuard]},
+      { path: 'profile', component: ProfileComponent , canActivate: [authGuard]},
+      { path: 'subscription', component: SubscriptionComponent , canActivate: [authGuard]},
+      { path: 'dashboard', component: DashboardComponent , canActivate: [authGuard]},
+      {path:"leftteam",component:TeamLeftComponent , canActivate: [authGuard]},
+      {path:"rightteam",component:TeamRightComponent , canActivate: [authGuard]},
+      {path:"treeview",component:TreeViewComponent , canActivate: [authGuard]},
+      {path:"report",component:ReportsComponent , canActivate: [authGuard]},
+      {path:"deposit",component:DepositComponent , canActivate: [authGuard]},
+      {path:"withdraw",component:WithdrawComponent , canActivate: [authGuard]},
+      {path:"transfer",component:TransferComponent , canActivate: [authGuard]},
+      {path:"recieved",component:ReceivedComponent , canActivate: [authGuard]},
+      {path:"direct",component:ReportsComponent , canActivate: [authGuard]},
+      {path:"sponsorincome",component:SponsorIncomeComponent , canActivate: [authGuard]},
+      {path:"matchingincome",component:MatchingIncomeComponent , canActivate: [authGuard]},
+      {path:"direct-team",component:DirectTeamComponent , canActivate: [authGuard]},
     ]
   },
 

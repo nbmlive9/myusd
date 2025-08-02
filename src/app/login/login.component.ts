@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ServiceService } from '../service.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private api: ServiceService,
+    private api: AuthService,
     private router: Router
   ) {}
 
@@ -39,19 +39,15 @@ export class LoginComponent implements OnInit {
 
   Login(): void {
     if (this.loginForm.valid) {
-      const payload = this.loginForm.value;
+      const f = this.loginForm.value;
       this.isLoading = true;
-      this.api.login(payload).subscribe({
+      this.api.login(f.regid,f.password).subscribe({
         next: (res: any) => {
           this.dashboarddata=res
           console.log("profiledata:",this.dashboarddata);
-          
-          this.isLoading = false;
-          if (res.token) {
-            localStorage.setItem('token', res.token);
-            this.router.navigate(['/dashboard']);
-          }
+            this.router.navigate(['/dashboard'])
         },
+
         error: err => {
           this.isLoading = false;
           this.errorMessage = 'Login failed. Please check credentials.';
@@ -63,22 +59,22 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  sendOtp(): void {
-    if (this.forgotForm.valid) {
-      const payload = this.forgotForm.value;
+  // sendOtp(): void {
+  //   if (this.forgotForm.valid) {
+  //     const payload = this.forgotForm.value;
 
-      this.api.forgotPassword(payload).subscribe({
-        next: (res: any) => {
-          console.log('OTP sent:', res);
-          this.otpSentMessage = 'OTP sent to your email.';
-        },
-        error: err => {
-          this.otpSentMessage = 'Failed to send OTP. Please try again.';
-          console.error('OTP error:', err);
-        }
-      });
-    }
-  }
+  //     this.api.forgotPassword(payload).subscribe({
+  //       next: (res: any) => {
+  //         console.log('OTP sent:', res);
+  //         this.otpSentMessage = 'OTP sent to your email.';
+  //       },
+  //       error: err => {
+  //         this.otpSentMessage = 'Failed to send OTP. Please try again.';
+  //         console.error('OTP error:', err);
+  //       }
+  //     });
+  //   }
+  // }
 
   toggleForgotPassword() {
     this.isForgotPassword = true;
