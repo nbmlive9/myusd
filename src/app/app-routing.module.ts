@@ -24,6 +24,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'sign-in', component: SignInComponent },
   // Layout routes (shown after login)
+  // 
   {
     path: '',
     component: LayoutComponent,
@@ -32,7 +33,7 @@ const routes: Routes = [
       { path: 'wallet', component: WalletComponent , canActivate: [authGuard]},
       { path: 'profile', component: ProfileComponent , canActivate: [authGuard]},
       { path: 'subscription', component: SubscriptionComponent , canActivate: [authGuard]},
-      { path: 'dashboard', component: DashboardComponent , canActivate: [authGuard]},
+      { path: 'dashboard', component: DashboardComponent , },
       {path:"leftteam",component:TeamLeftComponent , canActivate: [authGuard]},
       {path:"rightteam",component:TeamRightComponent , canActivate: [authGuard]},
       {path:"treeview",component:TreeViewComponent , canActivate: [authGuard]},
