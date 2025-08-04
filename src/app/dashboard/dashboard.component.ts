@@ -133,7 +133,6 @@ export class DashboardComponent implements AfterViewInit {
       },
       error: (err) => {
         console.error('Home API error:', err);
-        // Optional: Show error message to user
       }
     });
   }

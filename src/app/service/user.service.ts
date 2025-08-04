@@ -80,6 +80,39 @@ export class UserService {
     );
   }
 
+  updateProfile(value: {
+    sponcerid: string;
+    name: string;
+    phone: string;
+    email: string;
+    password: string;
+    position: string;
+    country: string;
+  }) {
+    const token = this.token.getToken(); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token && { Authorization: `Bearer ${token}` })
+      }),
+    };
+
+    return this.http.post(
+      this.AUTH_API + 'Get_Userdatabyregid/$id',
+      {
+        sponcerid: value.sponcerid,
+        name: value.name,
+        phone: value.phone,
+        email: value.email,
+        password: value.password,
+        position: value.position,
+        country: value.country,
+      },
+      httpOptions
+    );
+  }
+
+
 
   }
 

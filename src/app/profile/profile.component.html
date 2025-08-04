@@ -21,50 +21,52 @@
 
       <!-- Profile Section -->
       <div *ngIf="currentTab === 'profile'">
-        <div class="form-card">
+        <div class="form-card" *ngIf="homedata?.profiledata">
           <h5>Sponsor Details</h5>
           <div class="row mb-3">
             <div class="col-md-6">
               <label>Sponsor ID</label>
-              <input type="text" class="form-control" value="6371924" readonly>
+              <input type="text" class="form-control" [value]="homedata.profiledata.refid" readonly>
             </div>
             <div class="col-md-6">
               <label>Sponsor Name</label>
-              <input type="text" class="form-control" value="Vidala pavani" readonly>
+              <input type="text" class="form-control" [value]="homedata.profiledata.sponcername || 'N/A'" readonly>
             </div>
           </div>
-
+        
           <h5 class="mt-4">Basic Details</h5>
           <div class="row mb-3">
             <div class="col-md-6">
               <label>Name</label>
-              <input type="text" class="form-control" value="Chandu">
+              <input type="text" class="form-control" [(ngModel)]="homedata.profiledata.name" name="name">
             </div>
             <div class="col-md-6">
               <label>Email Address</label>
-              <input type="email" class="form-control" value="nbmlive9@gmail.com" readonly>
+              <input type="email" class="form-control" [value]="homedata.profiledata.email" readonly>
             </div>
           </div>
-
+        
           <h5 class="mt-4">Contact Details</h5>
           <div class="row mb-3">
             <div class="col-md-6">
               <label>Country</label>
-              <select class="form-control">
-                <option>India</option>
+              <select class="form-control" [(ngModel)]="homedata.profiledata.country" name="country">
+                <option value="India">India</option>
+                <option value="USA">USA</option>
               </select>
             </div>
             <div class="col-md-6">
               <label>Phone</label>
-              <input type="text" class="form-control" value="6309358113">
+              <input type="text" class="form-control" [(ngModel)]="homedata.profiledata.phone" name="phone">
             </div>
           </div>
-
+        
           <div class="text-end">
             <button class="btn btn-cancel me-2">Cancel</button>
             <button class="btn btn-primary">Save</button>
           </div>
         </div>
+        
       </div>
 
       <!-- Password Section -->
