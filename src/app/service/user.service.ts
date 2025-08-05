@@ -3,14 +3,13 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { TokenService } from './token.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-
   private readonly AUTH_API = 'https://crypturegrid.com/MYUSD/MYUSD/User/';
-
   constructor(
     private http: HttpClient,
     private route: Router,
@@ -49,8 +48,6 @@ export class UserService {
       httpOptions
     );
   }
-
-
   home() {
     const token = this.token.getToken(); 
     const httpOptions = {
@@ -80,28 +77,203 @@ export class UserService {
     );
   }
 
-  Activate(value: {
-    regid: string;
-  }) {
-    const token = this.token.getToken(); // ⛳ Optional: If token is required
+  subscription(value: { regid: string }) {
+    const token = this.token.getToken(); 
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        ...(token && { Authorization: `Bearer ${token}` }) // Use token only if exists
+        ...(token && { Authorization: `Bearer ${token}` })
       }),
     };
-
+  
     return this.http.post(
       this.AUTH_API + 'Activateid',
       {
-        regid: value.regid,
+        regid: value.regid
+      },
+      httpOptions
+    );
+  }
+  ActivationData() {
+    const token = this.token.getToken(); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      }),
+    };
+      return this.http.get(this.AUTH_API + 'Activation_data', httpOptions);
+  }
+
+  updateProfile(value: {
+    name: string;
+    phone: string;
+    country: string;
+  }) {
+    const token = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token && { Authorization: `Bearer ${token}` })
+      }),
+    };
+  
+    return this.http.post(
+      this.AUTH_API + 'Profileiupdate', 
+      value,
+      httpOptions
+    );
+  }
+  
+  selfTransfer(value: { 
+    amount:string,
+    remark:string,
+   }) {
+    const token = this.token.getToken(); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token && { Authorization: `Bearer ${token}` })
+      }),
+    };
+  
+    return this.http.post(
+      this.AUTH_API + 'Wallet_SelfTransefer',
+      {
+        amount: value.amount,
+        remark:value.remark
       },
       httpOptions
     );
   }
 
+  walletTransfer(value: { 
+    regid: string,
+    amount:string,
+    remark:string,
 
+   }) {
+    const token = this.token.getToken(); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token && { Authorization: `Bearer ${token}` })
+      }),
+    };
+  
+    return this.http.post(
+      this.AUTH_API + 'Wallet_Transefer',
+      {
+        regid: value.regid,
+        amount:value.amount,
+        remark:value.remark,
+      },
+      httpOptions
+    );
+  }
+
+  DirectTeam() {
+    const token = this.token.getToken(); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      }),
+    };
+      return this.http.get(this.AUTH_API + 'Directteam', httpOptions);
+  }
+  
+
+  getProfiledata() {
+    const token = this.token.getToken(); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      }),
+    };
+      return this.http.get(this.AUTH_API + 'Profile', httpOptions);
   }
 
 
+  getWalletTransfer() {
+    const token = this.token.getToken(); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      }),
+    };
+      return this.http.get(this.AUTH_API + 'Wallet_Transeferreport', httpOptions);
+  }
+  getselfTransfer() {
+    const token = this.token.getToken(); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      }),
+    };
+      return this.http.get(this.AUTH_API + 'User_SelfTransreport', httpOptions);
+  }
+  getregiddata(id:any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+      return this.http.get(this.AUTH_API + 'Get_Userdatabyregid/'+id, httpOptions);
+  }
+
+    getleftTeam() {
+    const token = this.token.getToken(); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      }),
+    };
+      return this.http.get(this.AUTH_API + 'Left_members', httpOptions);
+  }
+
+    getrightTeam() {
+    const token = this.token.getToken(); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      }),
+    };
+      return this.http.get(this.AUTH_API + 'Right_members', httpOptions);
+  }
+
+  UserTreeView(id:any): Observable<any>{
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  }
+  return this.http.get(
+    this.AUTH_API + `Tree_view/${id}`,
+    httpOptions
+  );
+}
+
+UserTreeViewDataById(id:any): Observable<any>{
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  }
+  return this.http.get(
+    this.AUTH_API + `Treedata/`+id,
+    httpOptions
+  );
+}
+
+}
 

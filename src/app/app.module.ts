@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Required for Toastr
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
+// Component imports
+import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LayoutComponent } from './layout/layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -23,9 +26,7 @@ import { WithdrawComponent } from './withdraw/withdraw.component';
 import { DepositComponent } from './deposit/deposit.component';
 import { TransferComponent } from './transfer/transfer.component';
 import { ReceivedComponent } from './received/received.component';
-import { DirectTeamComponent } from './direct-team/direct-team.component'; // Add this import
-
-
+import { DirectTeamComponent } from './direct-team/direct-team.component';
 
 @NgModule({
   declarations: [
@@ -53,8 +54,17 @@ import { DirectTeamComponent } from './direct-team/direct-team.component'; // Ad
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
-    FormsModule
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      closeButton: true,
+      progressBar: true,
+      preventDuplicates: true
+    }),
+
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -3,6 +3,7 @@ declare var Gauge: any;
 import { Chart, registerables } from 'chart.js';
 import { Router } from '@angular/router';
 import { UserService } from '../service/user.service';
+import { FormBuilder, Validators,FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,12 +16,20 @@ export class DashboardComponent implements AfterViewInit {
   showShareIcons = false;
   dashboarddata: any;
   homedata: any;
-  constructor(private api:UserService,private router:Router) {
+  form: FormGroup;
+  activationDetails: any;
+  pfdata: any;
+  constructor(private api:UserService,private router:Router,private fb:FormBuilder) {
     Chart.register(...registerables);
+
+    this.form = this.fb.group({
+      regid: ['', Validators.required],
+    });
   }
   ngOnInit() {
     this.createChart();
     this.Home();
+    this.activationData();
   }
   createChart() {
     const ctx = document.getElementById('transactionChart') as HTMLCanvasElement;
@@ -126,18 +135,46 @@ export class DashboardComponent implements AfterViewInit {
     this.api.home().subscribe({
       next: (res) => {
         console.log('Home API response:', res);
-        this.dashboarddata=res
-        this.homedata=this.dashboarddata.data
+        this.dashboarddata=res;
+        this.homedata=this.dashboarddata.data;
+        this.pfdata=this.dashboarddata.data.profiledata;
+
         console.log("home:",this.homedata);
 
       },
       error: (err) => {
         console.error('Home API error:', err);
-        // Optional: Show error message to user
+      }
+    });
+  }
+
+  Subscription() {
+    const payload = {
+      regid: this.form.value.regid
+    };
+     console.log("payload:",payload);
+    this.api.subscription(payload).subscribe({
+      next: (response) => {
+        console.log('Activation successful:', response);
+      },
+      error: (error) => {
+        console.error('Activation failed:', error);
+      }
+    });
+  }
+  activationData(): void {
+    this.api.ActivationData().subscribe({
+      next: (res) => {
+        console.log('Activation data:', res);
+        this.activationDetails = res;
+      },
+      error: (err) => {
+        console.error('Failed to fetch activation data:', err);
       }
     });
   }
   
+
 
 
 }

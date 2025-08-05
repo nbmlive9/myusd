@@ -21,12 +21,11 @@ import { DirectTeamComponent } from './direct-team/direct-team.component';
 import { authGuard } from './service/auth.guard';
 const routes: Routes = [
   // Login route - does NOT use layout
-  { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
+    { path: '', component: LoginComponent },
   { path: 'sign-in', component: SignInComponent },
   // Layout routes (shown after login)
   // 
-  // lll
   {
     path: '',
     component: LayoutComponent,
@@ -38,7 +37,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent ,canActivate: [authGuard] , data: { usertype: ['user'] }},
       {path:"leftteam",component:TeamLeftComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       {path:"rightteam",component:TeamRightComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
-      {path:"treeview",component:TreeViewComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
+      {path:"treeview/:regid",component:TreeViewComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       {path:"report",component:ReportsComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       {path:"deposit",component:DepositComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       {path:"withdraw",component:WithdrawComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
