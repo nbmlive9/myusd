@@ -8,9 +8,7 @@ import { TokenService } from './token.service';
   providedIn: 'root'
 })
 export class UserService {
-
   private readonly AUTH_API = 'https://crypturegrid.com/MYUSD/MYUSD/User/';
-
   constructor(
     private http: HttpClient,
     private route: Router,
@@ -49,8 +47,6 @@ export class UserService {
       httpOptions
     );
   }
-
-
   home() {
     const token = this.token.getToken(); 
     const httpOptions = {
@@ -80,15 +76,7 @@ export class UserService {
     );
   }
 
-  updateProfile(value: {
-    sponcerid: string;
-    name: string;
-    phone: string;
-    email: string;
-    password: string;
-    position: string;
-    country: string;
-  }) {
+  subscription(value: { regid: string }) {
     const token = this.token.getToken(); 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -96,25 +84,145 @@ export class UserService {
         ...(token && { Authorization: `Bearer ${token}` })
       }),
     };
-
+  
     return this.http.post(
-      this.AUTH_API + 'Get_Userdatabyregid/$id',
+      this.AUTH_API + 'Activateid',
       {
-        sponcerid: value.sponcerid,
-        name: value.name,
-        phone: value.phone,
-        email: value.email,
-        password: value.password,
-        position: value.position,
-        country: value.country,
+        regid: value.regid
+      },
+      httpOptions
+    );
+  }
+  ActivationData() {
+    const token = this.token.getToken(); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      }),
+    };
+      return this.http.get(this.AUTH_API + 'Activation_data', httpOptions);
+  }
+
+  updateProfile(value: {
+    name: string;
+    phone: string;
+    country: string;
+  }) {
+    const token = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token && { Authorization: `Bearer ${token}` })
+      }),
+    };
+  
+    return this.http.post(
+      this.AUTH_API + 'Profileiupdate', 
+      value,
+      httpOptions
+    );
+  }
+  
+  selfTransfer(value: { 
+    amount:string,
+    remark:string,
+   }) {
+    const token = this.token.getToken(); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token && { Authorization: `Bearer ${token}` })
+      }),
+    };
+  
+    return this.http.post(
+      this.AUTH_API + 'Wallet_SelfTransefer',
+      {
+        amount: value.amount,
+        remark:value.remark
       },
       httpOptions
     );
   }
 
+  walletTransfer(value: { 
+    regid: string,
+    amount:string,
+    remark:string,
 
+   }) {
+    const token = this.token.getToken(); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token && { Authorization: `Bearer ${token}` })
+      }),
+    };
+  
+    return this.http.post(
+      this.AUTH_API + 'Wallet_Transefer',
+      {
+        regid: value.regid,
+        amount:value.amount,
+        remark:value.remark,
+      },
+      httpOptions
+    );
+  }
 
+  DirectTeam() {
+    const token = this.token.getToken(); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      }),
+    };
+      return this.http.get(this.AUTH_API + 'Directteam', httpOptions);
+  }
+  
+
+  getProfiledata() {
+    const token = this.token.getToken(); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      }),
+    };
+      return this.http.get(this.AUTH_API + 'Profile', httpOptions);
   }
 
 
+  getWalletTransfer() {
+    const token = this.token.getToken(); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      }),
+    };
+      return this.http.get(this.AUTH_API + 'Wallet_Transeferreport', httpOptions);
+  }
+  getselfTransfer() {
+    const token = this.token.getToken(); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      }),
+    };
+      return this.http.get(this.AUTH_API + 'User_SelfTransreport', httpOptions);
+  }
+  getregiddata(id:any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+      return this.http.get(this.AUTH_API + 'Get_Userdatabyregid/'+id, httpOptions);
+  }
+
+}
 

@@ -14,58 +14,58 @@
       </h6>
     </div>
   </div>
-
   <!-- Main Content -->
   <div class="col-12 col-sm-8 col-md-9 col-lg-10">
     <div class="summary-card p-4">
-
       <!-- Profile Section -->
       <div *ngIf="currentTab === 'profile'">
-        <div class="form-card" *ngIf="homedata?.profiledata">
-          <h5>Sponsor Details</h5>
-          <div class="row mb-3">
-            <div class="col-md-6">
-              <label>Sponsor ID</label>
-              <input type="text" class="form-control" [value]="homedata.profiledata.refid" readonly>
+        <form >
+          <div class="form-card" *ngIf="pffdata">
+            <h5>Sponsor Details</h5>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label>Sponsor ID</label>
+                <input type="text" class="form-control" [value]="pffdata.refid" >
+              </div>
+              <div class="col-md-6">
+                <label>Sponsor Name</label>
+                <input type="text" class="form-control" [(ngModel)]="pffdata.name" name="name">
+              </div>
             </div>
-            <div class="col-md-6">
-              <label>Sponsor Name</label>
-              <input type="text" class="form-control" [value]="homedata.profiledata.sponcername || 'N/A'" readonly>
-            </div>
-          </div>
         
-          <h5 class="mt-4">Basic Details</h5>
-          <div class="row mb-3">
-            <div class="col-md-6">
-              <label>Name</label>
-              <input type="text" class="form-control" [(ngModel)]="homedata.profiledata.name" name="name">
+            <h5 class="mt-4">Basic Details</h5>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label>Name</label>
+                <input type="text" class="form-control" [(ngModel)]="pffdata.name" name="name" >
+              </div>
+              <div class="col-md-6">
+                <label>Email</label>
+                <input type="email" class="form-control" [value]="pffdata.email" >
+              </div>
             </div>
-            <div class="col-md-6">
-              <label>Email Address</label>
-              <input type="email" class="form-control" [value]="homedata.profiledata.email" readonly>
-            </div>
-          </div>
         
-          <h5 class="mt-4">Contact Details</h5>
-          <div class="row mb-3">
-            <div class="col-md-6">
-              <label>Country</label>
-              <select class="form-control" [(ngModel)]="homedata.profiledata.country" name="country">
-                <option value="India">India</option>
-                <option value="USA">USA</option>
-              </select>
+            <h5 class="mt-4">Contact Details</h5>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label>Country</label>
+                <select class="form-control" [(ngModel)]="pffdata.country" name="country" >
+                  <option value="India">India</option>
+                  <option value="USA">USA</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label>Phone</label>
+                <input type="text" class="form-control" [(ngModel)]="pffdata.phone" name="phone" >
+              </div>
             </div>
-            <div class="col-md-6">
-              <label>Phone</label>
-              <input type="text" class="form-control" [(ngModel)]="homedata.profiledata.phone" name="phone">
-            </div>
-          </div>
         
-          <div class="text-end">
-            <button class="btn btn-cancel me-2">Cancel</button>
-            <button class="btn btn-primary">Save</button>
+            <div class="text-end">
+              <button  class="btn btn-danger me-2" type="button" (click)="edit()">Edit</button>
+              <button  class="btn btn-success me-2" type="button" (click)="save()">Save</button>
+            </div>
           </div>
-        </div>
+        </form>
         
       </div>
 
@@ -85,7 +85,7 @@
             </div>
           </div>
           <div class="text-end">
-            <button class="btn btn-cancel me-2">Cancel</button>
+            <button class="btn btn-cancel me-2"  >Cancel</button>
             <button class="btn btn-primary">Update Password</button>
           </div>
         </div>

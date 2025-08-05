@@ -9,35 +9,35 @@ import { UserService } from '../service/user.service';
 export class ProfileComponent {
   dashboarddata: any;
   homedata:any;
+  pffdata: any;
+  currentTab: 'profile' | 'password' = 'profile';
+
   constructor(private api:UserService){}
 
 
   ngOnInit() {
-    this.Home();
+    this.getdata();
   }
   
-    currentTab: 'profile' | 'password' = 'profile';
   
     switchTab(tab: 'profile' | 'password') {
       this.currentTab = tab;
     }
     
 
-
-    Home() {
-      this.api.home().subscribe({
-        next: (res) => {
-          console.log('Home API response:', res);
-          this.dashboarddata=res
-          this.homedata=this.dashboarddata.data
-          console.log("home:",this.homedata);
-        },
-        error: (err) => {
-          console.error('Home API error:', err);
-        }
-      });
+    getdata(){
+      this.api.getProfiledata().subscribe((res:any)=>{
+          console.log("profiledata:",res);
+          this.pffdata=res.data[0];
+          console.log("pffdata:",this.pffdata);
+      })
     }
 
+    save(){
+    }
+    edit(){
+    }
+   
 
   }
 
