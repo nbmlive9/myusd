@@ -104,25 +104,7 @@ export class UserService {
       return this.http.get(this.AUTH_API + 'Activation_data', httpOptions);
   }
 
-  updateProfile(value: {
-    name: string;
-    phone: string;
-    country: string;
-  }) {
-    const token = this.token.getToken();
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        ...(token && { Authorization: `Bearer ${token}` })
-      }),
-    };
-  
-    return this.http.post(
-      this.AUTH_API + 'Profileiupdate', 
-      value,
-      httpOptions
-    );
-  }
+
   
   selfTransfer(value: { 
     amount:string,
@@ -223,6 +205,91 @@ export class UserService {
     };
       return this.http.get(this.AUTH_API + 'Get_Userdatabyregid/'+id, httpOptions);
   }
-
+receivedWallet() {
+  const token = this.token.getToken(); 
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }),
+  };
+    return this.http.get(this.AUTH_API + 'Wallet_Receivereport', httpOptions);
 }
 
+
+
+totalReport() {
+  const token = this.token.getToken(); 
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }),
+  };
+    return this.http.get(this.AUTH_API + 'Wallet_Report', httpOptions);
+}
+todayReport() {
+  const token = this.token.getToken(); 
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }),
+  };
+    return this.http.get(this.AUTH_API + 'Wallet_TodayReport', httpOptions);
+}
+
+
+sponsorIncome() {
+  const token = this.token.getToken(); 
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }),
+  };
+    return this.http.get(this.AUTH_API + 'Wallet_Sponsor', httpOptions);
+
+
+}
+matchIncome() {
+  const token = this.token.getToken(); 
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }),
+  };
+    return this.http.get(this.AUTH_API + 'Wallet_Matching', httpOptions);
+}
+
+updateProfile(value: {
+  name: string;
+  country: string;
+  password:string;
+  email:string;
+  regid:string;
+}) {
+  const token = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` })
+    }),
+  };
+
+  return this.http.post(
+    this.AUTH_API + 'Profileiupdate', 
+
+   {
+         regid:value.regid,
+        name: value.name,
+        email:value.email,
+        password:value.password,
+        country:value.country,
+
+      },
+    httpOptions
+  );
+}
+}

@@ -6,10 +6,10 @@
       <h6 class="mb-4" style="cursor: pointer;" (click)="switchTab('profile')" [class.text-primary]="currentTab === 'profile'">
         <i class="fa-solid fa-user me-2"></i>Profile
       </h6>
-      <h6 class="mb-4" style="cursor: pointer;" (click)="switchTab('password')" [class.text-primary]="currentTab === 'password'">
+      <!-- <h6 class="mb-4" style="cursor: pointer;" (click)="switchTab('password')" [class.text-primary]="currentTab === 'password'">
         <i class="fa-solid fa-lock me-2"></i>Password
-      </h6>
-      <h6 class="mb-4" style="cursor: pointer;">
+      </h6> -->
+      <h6 class="mb-4" style="cursor: pointer;" (click)="logout()">
         <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Logout
       </h6>
     </div>
@@ -19,17 +19,17 @@
     <div class="summary-card p-4">
       <!-- Profile Section -->
       <div *ngIf="currentTab === 'profile'">
-        <form >
+        <form [formGroup]="form">
           <div class="form-card" *ngIf="pffdata">
             <h5>Sponsor Details</h5>
             <div class="row mb-3">
               <div class="col-md-6">
                 <label>Sponsor ID</label>
-                <input type="text" class="form-control" [value]="pffdata.refid" >
+                <input type="text" class="form-control" [value]="pffdata.refid" readonly>
               </div>
               <div class="col-md-6">
                 <label>Sponsor Name</label>
-                <input type="text" class="form-control" [(ngModel)]="pffdata.name" name="name">
+                <input type="text" class="form-control" [value]="pffdata.name" readonly>
               </div>
             </div>
         
@@ -37,40 +37,56 @@
             <div class="row mb-3">
               <div class="col-md-6">
                 <label>Name</label>
-                <input type="text" class="form-control" [(ngModel)]="pffdata.name" name="name" >
+                <input *ngIf="isEdit" type="text" class="form-control" formControlName="name">
+                <input *ngIf="!isEdit" type="text" class="form-control" [value]="pffdata.name" readonly>
               </div>
               <div class="col-md-6">
                 <label>Email</label>
-                <input type="email" class="form-control" [value]="pffdata.email" >
+                <input *ngIf="isEdit" type="email" class="form-control" formControlName="email">
+                <input *ngIf="!isEdit" type="email" class="form-control" [value]="pffdata.email" readonly>
               </div>
             </div>
         
-            <h5 class="mt-4">Contact Details</h5>
             <div class="row mb-3">
               <div class="col-md-6">
                 <label>Country</label>
-                <select class="form-control" [(ngModel)]="pffdata.country" name="country" >
+                <select *ngIf="isEdit" class="form-control" formControlName="country">
                   <option value="India">India</option>
                   <option value="USA">USA</option>
                 </select>
+                <input *ngIf="!isEdit" type="text" class="form-control" [value]="pffdata.country" readonly>
+              </div>
+              <div class="col-md-6" *ngIf="pffdata.wallet1 == 1">
+                <label>Wallet1</label>
+                <p class="fw-bold">USDT BEP20</p>
+              </div>
+            </div>
+        
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label>Current Password</label>
+                <input *ngIf="isEdit" type="password" class="form-control" formControlName="password">
+                <input *ngIf="!isEdit" type="password" class="form-control" [value]="pffdata.password" readonly>
               </div>
               <div class="col-md-6">
-                <label>Phone</label>
-                <input type="text" class="form-control" [(ngModel)]="pffdata.phone" name="phone" >
+                <label>New Password</label>
+                <input *ngIf="isEdit" type="password" class="form-control" formControlName="password">
+                <input *ngIf="!isEdit" type="password" class="form-control" [value]="pffdata.password" readonly>
               </div>
             </div>
         
             <div class="text-end">
-              <button  class="btn btn-danger me-2" type="button" (click)="edit()">Edit</button>
-              <button  class="btn btn-success me-2" type="button" (click)="save()">Save</button>
+              <button class="btn btn-danger me-2" type="button" (click)="edit()" *ngIf="!isEdit">Edit</button>
+              <button class="btn btn-success me-2" type="button" (click)="save()" *ngIf="isEdit">Save</button>
             </div>
           </div>
         </form>
         
+        
       </div>
 
       <!-- Password Section -->
-      <div *ngIf="currentTab === 'password'">
+      <!-- <div *ngIf="currentTab === 'password'">
         <div class="form-card">
           <h5 class="mb-4">Change Password</h5>
           <div class="row mb-3">
@@ -89,7 +105,7 @@
             <button class="btn btn-primary">Update Password</button>
           </div>
         </div>
-      </div>
+      </div> -->
 
     </div>
   </div>
