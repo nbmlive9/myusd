@@ -26,7 +26,6 @@ const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   // Layout routes (shown after login)
   // 
-  // lll
   {
     path: '',
     component: LayoutComponent,
