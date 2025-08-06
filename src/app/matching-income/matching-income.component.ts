@@ -1,6 +1,5 @@
-import { Component,OnInit } from '@angular/core';
-import { UserService } from '../service/user.service';
-declare var $: any;
+import { Component } from '@angular/core';
+
 @Component({
   selector: 'app-matching-income',
   templateUrl: './matching-income.component.html',
@@ -8,26 +7,4 @@ declare var $: any;
 })
 export class MatchingIncomeComponent {
 
-  mdata:any;
- 
-    constructor(private api:UserService){
-    }
-    ngOnInit() {
-      this.MatchIncome();
-    }
-   
-    MatchIncome(){
-      this.api.matchIncome().subscribe((res:any)=>{
-          console.log("sdata:",res);
-          this.mdata=res.data
-          console.log("pffdata:",this.mdata);
-      })
-    }
-  
- 
-  
-  
-  
 }
-  
-

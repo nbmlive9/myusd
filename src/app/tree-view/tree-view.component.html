@@ -29,8 +29,8 @@
 
           <!-- User A -->
           <div class="d-flex flex-column align-items-center position-relative">
-            <div class="node-circle" >
-              <img (click)="mytree(data2?.a?.regid)" [src]="getImageByBoardStatus(data2?.a?.boardstatus)" class="img-fluid rounded-circle" alt="User A">
+            <div class="node-circle" (click)="mytree(data2?.a?.regid)">
+              <img [src]="getImageByBoardStatus(data2?.a?.boardstatus)" class="img-fluid rounded-circle" alt="User A">
             </div>
             <small class="text-center mt-2">{{ data2?.a?.name || 'No User' }}<br>{{ data2?.a?.regid || 'No User' }}</small>
 
@@ -59,7 +59,7 @@
           <!-- User B -->
           <div class="d-flex flex-column align-items-center position-relative">
             <div class="node-circle">
-              <img (click)="mytree(data2?.a?.regid)" [src]="getImageByBoardStatus(data2?.b?.boardstatus)" class="img-fluid rounded-circle" alt="User B">
+              <img [src]="getImageByBoardStatus(data2?.b?.boardstatus)" class="img-fluid rounded-circle" alt="User B">
             </div>
             <small class="text-center mt-2">{{ data2?.b?.name || 'No User' }}<br>{{ data2?.b?.regid || 'No User' }}</small>
 
@@ -85,7 +85,6 @@
             </div>
           </div>
         </div> <!-- End Level 1 -->
-
       </div>
     </div>
   </div>
