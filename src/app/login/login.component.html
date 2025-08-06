@@ -8,12 +8,12 @@
                       <div class="carousel-item active" data-bs-interval="10000">
                         <img src="assets/illustration-3.webp"  class="d-block w-100" alt="...">
                       </div>
-                      <div class="carousel-item" data-bs-interval="2000">
+                      <!-- <div class="carousel-item" data-bs-interval="2000">
                         <img src="..." class="d-block w-100" alt="...">
                       </div>
                       <div class="carousel-item">
                         <img src="..." class="d-block w-100" alt="...">
-                      </div>
+                      </div> -->
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
                       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -30,14 +30,14 @@
 <div class="col-lg-4 mt-5" *ngIf="!isForgotPassword">
   <div class="login-container">
     <div class="text-center">
-      <img src="assets/logo.webp" alt="">
+      <img src="assets/muusd.jpeg" alt="" style="height: 100px;width: 100px;">
     </div>
     <p>Securely log in to manage your nodes, rewards, and network activity with MYUSD.</p>
 
     <form [formGroup]="loginForm" (ngSubmit)="Login()">
       <div class="mb-3">
-        <label class="form-label text-start w-100">Email</label>
-        <input type="text" class="form-control" formControlName="regid" placeholder="Email Address" required>
+        <label class="form-label text-start w-100">UserID</label>
+        <input type="text" class="form-control" formControlName="regid" placeholder="Enter Userid" required>
       </div>
 
       <div class="mb-3">
@@ -65,24 +65,29 @@
 <div class="col-lg-4 mt-5" *ngIf="isForgotPassword">
   <div class="login-container">
     <div class="text-center">
-      <img src="assets/logo.webp" alt="">
+      <img src="assets/usd.jpeg" class="img img-fluid" style="width: 80px;" alt="">
     </div>
     <p>Reset your password using registered email and user ID.</p>
 
-    <form >
+    <form [formGroup]="forgotForm" (ngSubmit)="sentotp()">
       <div class="mb-3">
-        <label class="form-label text-start w-100">UserId</label>
-        <input type="text" class="form-control" formControlName="regid" placeholder="User Id" required>
+        <label class="form-label text-start w-100">User ID</label>
+        <input type="text" class="form-control" formControlName="regid" placeholder="User ID" required>
       </div>
-
+    
       <div class="mb-3">
         <label class="form-label text-start w-100">Email</label>
         <input type="email" class="form-control" formControlName="email" placeholder="Email" required>
       </div>
-
+    
       <button type="submit" class="btn btn-primary w-100">Send OTP</button>
       <button type="button" class="btn btn-link w-100 mt-2" (click)="backToLogin()">Back to Login</button>
+    
+      <!-- Alert messages -->
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+      <div *ngIf="otpSentMessage" class="alert alert-success mt-3">{{ otpSentMessage }}</div>
     </form>
+    
   </div>
 </div>
 

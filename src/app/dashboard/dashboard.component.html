@@ -1,9 +1,11 @@
 <div class="container-fluid wrapper ">
   <div class="row">
     <!-- Greeting Section -->
-    <div class="col-12 col-md-6 col-lg-3 mt-4" *ngIf="homedata?.profiledata">
+    <div class="col-12 col-md-6 col-lg-3 mt-4" >
       <h4 class="mb-1">Hi,</h4>
-      <h4 class="mb-0">{{ homedata?.profiledata?.name }}, {{ homedata?.profiledata?.regid }}</h4>
+      <h4 class="mb-3">{{ homedata.profiledata?.name }}, {{ homedata.profiledata?.regid }}</h4>
+      <p *ngIf="pfdata.topupstatus!='0'" class="text-success fw-bold" style="font-size: 20px;">
+        Your  Subscription is completed </p>
     </div>
 
     <!-- Share Link Section -->
@@ -16,7 +18,7 @@
         </h5>
         <!-- Share Icons -->
         <div *ngIf="showShareIcons" class="d-flex justify-content-md-end gap-3 mt-2">
-          <a href="https://wa.me/?text=Check%20this%20out!" target="_blank" title="WhatsApp">
+          <a (click)="sharwahtsapp(homedata.profiledata?.regid)" target="_blank" title="WhatsApp">
             <i class="fab fa-whatsapp fa-lg text-success"></i>
           </a>
           <a href="https://instagram.com" target="_blank" title="Instagram">
@@ -44,7 +46,7 @@
         <div class="col-12 col-sm-6 col-lg-4">
           <div class="card h-100 text-center p-3 shadow-sm">
             <p class="mb-2">Deposit Fund</p>
-            <h3 class="mb-3">$0.00</h3>
+            <h3 class="mb-3">{{homedata.profiledata?.actwallet | currency:'USD':true:'1.0-1'}}</h3>
             <a href="#" class="btn btn-custom btn-deposit" data-bs-toggle="modal" data-bs-target="#addFundModal">DEPOSIT</a>
           </div>
         </div>
@@ -52,7 +54,7 @@
         <div class="col-12 col-sm-6 col-lg-4">
           <div class="card h-100 text-center p-3 shadow-sm">
             <p class="mb-2">Withdraw Fund</p>
-            <h3 class="mb-3">$0.00</h3>
+            <h3 class="mb-3">{{homedata.profiledata?.walletamount | currency:'USD':true:'1.0-1'}}</h3>
             <a href="javascript:void(0)" class="btn btn-success rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#withdrawModal">WITHDRAW</a>
           </div>
         </div>
@@ -60,11 +62,11 @@
     </div>
   </div>
 </div>
+<!-- lll -->
 
+<!-- hhhhh. -->
 
-
-
-<div class="row">
+<!-- <div class="row">
   <div class="col-12 col-sm-6 col-lg-4 ">
     <div class="container py-4">
       <div class="summary-card">
@@ -84,7 +86,6 @@
     <div class="container py-4">
       <div class="summary-card">
         <div class="row">
-          <!-- Left: Bonus List -->
           <div class="col-md-4">
             <h5 class="mb-3">Summary</h5>
             <div class="bonus-box active">
@@ -102,7 +103,6 @@
               <div class="bonus-value">$0.00</div>
             </div>
           </div>
-          <!-- Right: Chart -->
           <div class="col-md-8">
             <div class="chart-box bg-white p-3">
               <canvas id="summaryChart"></canvas>
@@ -112,28 +112,28 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <div class="card p-4 mb-4" style="background-color: #fff; border-radius: 20px;">
   <h2 class="card-title">Income </h2>
   <div class="row" *ngIf="homedata">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <div class="row mt-5">
         <div class="col-sm-4">
           <div class="card" style="background-color: #17A2B8; color: white; padding: 20px;">
-            <h5> Sponsor Incoming</h5>
+            <h5> Sponsor Income</h5>
             <h3>${{homedata.sponcerincome}}</h3>
           </div>
         </div>
         <div class="col-sm-4">
           <div class="card" style="background-color: #30B32D; color: white; padding: 20px;">
-            <h5> Level Incoming</h5>
+            <h5> Level Binary Income</h5>
 
             <h3>${{homedata.levelbinary}}</h3>
           </div>
         </div>
         <div class="col-sm-4">
           <div class="card" style="background-color: #DC3545; color: white ; padding: 20px;">
-            <h5> Sliver Incoming</h5>
+            <h5> Sliver Income</h5>
             <h3>${{homedata.silverincome}}</h3>
           </div>
         </div>
@@ -157,27 +157,29 @@
             <h3>${{profiledata.upgrade}}</h3>
           </div>
         </div> -->
-        <div class="col-sm-4 mb-3" *ngIf="homedata?.profiledata">
+        <div class="col-sm-4 mb-3" *ngIf="homedata.profiledata">
           <div class="card text-white" style="background-color: #08A046; padding: 20px;">
             <h5 class="mb-2">Holding Wallet</h5>
             <h3 class="mb-0">
-              ${{ homedata?.profiledata.upgrade}}
+              ${{ homedata.profiledata.upgrade}}
             </h3>
           </div>
         </div>
         
       </div>
     </div>
-    <div class="col-md-4">
+    <!-- <div class="col-md-4">
       <div class="card p-3" style="   background-color: #fff;
         border-radius: 10px;">
         <h6 class="card-subtitle mb-2 text-muted">Transaction/Sec</h6>
         <canvas id="transactionChart" width="100" height="50"></canvas>
         <p class="text-muted mt-2">Measure of system throughput, indicating transactions processed every second.</p>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
+
+
 <!-- hjsduasduh -->
 <!-- <div class="card p-4 mb-4" style="background-color: #fff; border-radius: 20px;">
   <h2 class="card-title">My Users </h2>
@@ -279,6 +281,13 @@
       </div>
 
       <div class="col-md-3">
+        <div class="card card-custom Diamond">
+          <h5>Level Binary Users</h5>
+          <p>Left: {{homedata.levelleft}} | Right: {{homedata.levelright}}</p>
+        </div>
+      </div>
+
+      <div class="col-md-3">
         <div class="card card-custom silver">
           <h5>Silver</h5>
           <p>Left: {{homedata.silverleft}} | Right: {{homedata.silverright}}</p>
@@ -296,12 +305,7 @@
           <p>Left: {{homedata.diamondleft}} | Right: {{homedata.diamondleft}}</p>
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="card card-custom Diamond">
-          <h5>Level</h5>
-          <p>Left: {{homedata.levelleft}} | Right: {{homedata.levelright}}</p>
-        </div>
-      </div>
+      
     </div>
 
   </div>
@@ -311,7 +315,7 @@
 
 
 <!-- teams section -->
-<div class="container-fluid stats-container my-3">
+<!-- <div class="container-fluid stats-container my-3">
   <div class="stats-title">Team Stats</div>
   <div class="row g-3 stats-grid">
     <div class="col-12 col-sm-6 col-lg-3">
@@ -335,7 +339,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- end -->
 <!-- subcrition -->
@@ -369,7 +373,7 @@
   </div>
 
   <div class="container-fluid" 
-  *ngIf="!activationDetails?.data || activationDetails.data.length === 0"
+  *ngIf="!activationDetails || activationDetails.length === 0"
   style="background-color: white;
          border-radius: 20px;
          padding: 60px 20px;
@@ -399,7 +403,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of activationDetails.data; let i = index">
+            <tr *ngFor="let item of activationDetails; let i = index">
               <td>{{i+1}}</td>
               <td>{{ item.cdate }}</td>
               <td>{{ item.forid }}</td>
@@ -416,77 +420,6 @@
 </div>
 
 
-
-
-<div class="container-fluid mt-3 ">
-  <h3 class="fw-semibold mb-4">Delegator Live Transactions</h3>
-  <div class="transaction-table">
-    <div class="table-responsive">
-      <table class="table table-borderless align-middle text-nowrap">
-        <thead>
-          <tr>
-            <th>Transaction</th>
-            <th>From → To</th>
-            <th>Value</th>
-            <th>Block</th>
-            <th>Time</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><a href="#" class="link-icon text-decoration-none"><i class="bi bi-link-45deg"></i> 0x2f11...1ab1</a>
-            </td>
-            <td>
-              <a href="#" class="text-decoration-none text-primary">0x37e9...d762</a>
-              <span class="arrow-icon">→</span>
-              <a href="#" class="text-decoration-none text-primary">0x0000...1000</a>
-            </td>
-            <td><span class="bnb-badge">0.0035 BNB</span></td>
-            <td>55951775</td>
-            <td>5 minutes ago</td>
-          </tr>
-          <tr>
-            <td><a href="#" class="link-icon text-decoration-none"><i class="bi bi-link-45deg"></i> 0x2f11...1ab1</a>
-            </td>
-            <td>
-              <a href="#" class="text-decoration-none text-primary">0x37e9...d762</a>
-              <span class="arrow-icon">→</span>
-              <a href="#" class="text-decoration-none text-primary">0x0000...1000</a>
-            </td>
-            <td><span class="bnb-badge">0.0035 BNB</span></td>
-            <td>55951775</td>
-            <td>5 minutes ago</td>
-          </tr>
-          <tr>
-            <td><a href="#" class="link-icon text-decoration-none"><i class="bi bi-link-45deg"></i> 0x2f11...1ab1</a>
-            </td>
-            <td>
-              <a href="#" class="text-decoration-none text-primary">0x37e9...d762</a>
-              <span class="arrow-icon">→</span>
-              <a href="#" class="text-decoration-none text-primary">0x0000...1000</a>
-            </td>
-            <td><span class="bnb-badge">0.0035 BNB</span></td>
-            <td>55951775</td>
-            <td>5 minutes ago</td>
-          </tr>
-          <tr>
-            <td><a href="#" class="link-icon text-decoration-none"><i class="bi bi-link-45deg"></i> 0x2f11...1ab1</a>
-            </td>
-            <td>
-              <a href="#" class="text-decoration-none text-primary">0x37e9...d762</a>
-              <span class="arrow-icon">→</span>
-              <a href="#" class="text-decoration-none text-primary">0x0000...1000</a>
-            </td>
-            <td><span class="bnb-badge">0.0035 BNB</span></td>
-            <td>55951775</td>
-            <td>5 minutes ago</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="footer-note">Data refreshes every 10 seconds</p>
-  </div>
-</div>
 <!-- subcrition  Modal -->
 <div class="modal fade" id="subscriptionModal" tabindex="-1" aria-labelledby="subscriptionModalLabel"
   aria-hidden="true">
@@ -553,9 +486,9 @@
           <select class="form-select" id="coinSelect" aria-label="Select Coin"
             style="border-radius: 16px; font-size: 20px; ">
             <option selected>Select Coin</option>
-            <option value="1">Bitcoin</option>
-            <option value="2">Ethereum</option>
-            <option value="3">Litecoin</option>
+            <option value="USDTBEP2O">USDT BEP2O</option>
+            <option value="YOHANCOIN">YOHAN COIN</option>
+            
           </select>
         </div>
       </div>
@@ -575,37 +508,65 @@
         <h5 class="modal-title fw-bold" id="withdrawModalLabel">Withdraw</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+   
       <div class="modal-body">
 
         <p class="mb-2 fw-semibold">Available Balance :
-          <span class="text-success fw-bold"><i class="fas fa-wallet me-1"></i> $0.00</span>
+          <span class="text-success fw-bold">
+            <i class="fas fa-wallet me-1"></i>
+            {{ pfdata.walletamount | currency:'USD':true:'1.0-1' }}
+          </span>
         </p>
-
+      
+        <!-- Enter Amount -->
         <div class="mb-3">
-          <input type="text" class="form-control input-rounded" placeholder="Enter Amount...">
+          <input
+            type="number"
+            class="form-control input-rounded"
+            placeholder="Enter Amount..."
+            [(ngModel)]="enteredAmount"
+            (ngModelChange)="onAmountChange()" />
         </div>
-
+      
+        <!-- Red warning if amount < 10 -->
+        <div *ngIf="enteredAmount && enteredAmount < 10" class="text-danger mb-3 fw-semibold">
+          Please enter minimum amount $10
+        </div>
+      
+        <!-- Network Type -->
         <div class="mb-3">
-          <input type="text" class="form-control input-rounded" value="USDT BEP20" readonly>
+          <input type="text" class="form-control input-rounded" value="USDT BEP20" readonly />
         </div>
-
+      
+        <!-- Wallet Address -->
         <div class="mb-3">
-          <input type="text" class="form-control input-rounded" placeholder="Wallet address">
+          <input type="text" class="form-control input-rounded" [(ngModel)]="pfdata.wallet1" readonly />
         </div>
-
+      
+        <!-- Fee Details -->
         <div class="info-text mb-3">
           <p class="mb-1 text-dark"><strong>Min Amount:</strong> <span class="text-primary">$10</span></p>
-          <p class="mb-1 text-dark"><strong>Amount:</strong></p>
-          <p class="mb-1 text-dark"><strong>Fee:</strong> <span class="text-primary">15.00%</span></p>
-          <p class="mb-0 text-dark"><strong>Receivable Amount:</strong> <span class="text-primary">$0</span></p>
+          <p class="mb-1 text-dark"><strong>Amount:</strong> <span class="text-primary">${{ enteredAmount }}</span></p>
+          <p class="mb-1 text-dark"><strong>Fee:</strong> <span class="text-primary">10.00%</span></p>
+          <p class="mb-0 text-dark"><strong>Receivable Amount:</strong>
+            <span class="text-primary">${{ receivableAmount.toFixed(2) }}</span>
+          </p>
         </div>
+      
+        <!-- Action Buttons -->
+       <!-- Action Buttons -->
+<div class="d-flex justify-content-between align-items-center">
+  <button 
+    *ngIf="enteredAmount >= 10" 
+    class="btn btn-success rounded-pill px-4">
+    SEND OTP
+  </button>
+  <button class="btn btn-link text-dark" data-bs-dismiss="modal">CLOSE</button>
+</div>
 
-        <div class="d-flex justify-content-between align-items-center">
-          <button class="btn btn-success rounded-pill px-4">SEND OTP</button>
-          <button class="btn btn-link text-dark" data-bs-dismiss="modal">CLOSE</button>
-        </div>
-
+      
       </div>
+      
     </div>
   </div>
 </div>
@@ -641,8 +602,5 @@
 
 
 
-<!-- Safely stringify the entire dashboarddata object -->
-<div>
-  <pre>{{ dashboarddata | json }}</pre>
-</div>
+
 

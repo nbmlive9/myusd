@@ -1,91 +1,165 @@
-<div class="container-fluid text-center py-4 bg-light position-relative">
-  <div class="text-center mb-4">
-    <h3 class="fw-bold text-primary">My Network Tree</h3>
-  </div>
-    <button (click)="goBack()" class="btn btn-sm btn-primary"> <i class="pi pi-backward"></i> Back</button>
- <p class="text-primary p-1">Search User ID</p>  
-      <div class="flex justify-content-center">
-        <input type="text" pInputText [(ngModel)]="udata.regid" placeholder="Search Userid" class="mr-1" />
-        <button class="btn btn-sm btn-danger" (click)="mytree1()">Submit</button>
-
-  <div class="overflow-auto px-2" style="white-space: nowrap;">
-    <div class="d-inline-block position-relative">
-      <!-- MAIN USER -->
-      <div class="d-flex flex-column align-items-center">
-        <div class="node-circle main-node">
-          <img [src]="getImageByBoardStatus(data2?.main?.boardstatus)" class="img-fluid rounded-circle" alt="Main">
-        </div>
-        <small class="text-center mt-2 fw-semibold">
-          {{ data2?.main?.name }}<br>{{ data2?.main?.regid }}
-        </small>
-
-        <!-- Vertical line ↓ -->
-        <div class="tree-line-vertical mt-2 mb-2"></div>
-
-        <!-- LEVEL 1: A & B -->
-        <div class="d-flex justify-content-center align-items-start gap-custom flex-nowrap position-relative">
-          <!-- Horizontal line ➖ -->
-          <div class="tree-line-horizontal mt-2 mb-2"></div>
-
-          <!-- User A -->
-          <div class="d-flex flex-column align-items-center position-relative">
-            <div class="node-circle" (click)="mytree(data2?.a?.regid)">
-              <img [src]="getImageByBoardStatus(data2?.a?.boardstatus)" class="img-fluid rounded-circle" alt="User A">
-            </div>
-            <small class="text-center mt-2">{{ data2?.a?.name || 'No User' }}<br>{{ data2?.a?.regid || 'No User' }}</small>
-
-            <!-- ↓ Line -->
-            <div class="tree-line-vertical mt-2 mb-2"></div>
-
-            <!-- A Children -->
-            <div class="d-flex gap-custom flex-nowrap position-relative">
-              <!-- Horizontal line ➖ -->
-              <div class="tree-line-horizontal child-line"></div>
-
-              <!-- A Left -->
-              <div class="d-flex flex-column align-items-center">
-                <img [src]="getImageByBoardStatus(data2?.aleft?.boardstatus)" class="img-fluid border border-primary rounded-circle small-node">
-                <small class="text-center mt-1">{{ data2?.aleft?.name || 'No User' }}<br>{{ data2?.aleft?.regid || 'No User' }}</small>
-              </div>
-
-              <!-- A Right -->
-              <div class="d-flex flex-column align-items-center">
-                <img [src]="getImageByBoardStatus(data2?.aright?.boardstatus)" class="img-fluid border border-primary rounded-circle small-node">
-                <small class="text-center mt-1">{{ data2?.aright?.name || 'No User' }}<br>{{ data2?.aright?.regid || 'No User' }}</small>
-              </div>
-            </div>
-          </div>
-
-          <!-- User B -->
-          <div class="d-flex flex-column align-items-center position-relative">
-            <div class="node-circle">
-              <img [src]="getImageByBoardStatus(data2?.b?.boardstatus)" class="img-fluid rounded-circle" alt="User B">
-            </div>
-            <small class="text-center mt-2">{{ data2?.b?.name || 'No User' }}<br>{{ data2?.b?.regid || 'No User' }}</small>
-
-            <!-- ↓ Line -->
-            <div class="tree-line-vertical mt-2 mb-2"></div>
-
-            <!-- B Children -->
-            <div class="d-flex gap-custom flex-nowrap position-relative">
-              <!-- Horizontal line ➖ -->
-              <div class="tree-line-horizontal child-line"></div>
-
-              <!-- B Left -->
-              <div class="d-flex flex-column align-items-center">
-                <img [src]="getImageByBoardStatus(data2?.bleft?.boardstatus)" class="img-fluid border border-primary rounded-circle small-node">
-                <small class="text-center mt-1">{{ data2?.bleft?.name || 'No User' }}<br>{{ data2?.bleft?.regid || 'No User' }}</small>
-              </div>
-
-              <!-- B Right -->
-              <div class="d-flex flex-column align-items-center">
-                <img [src]="getImageByBoardStatus(data2?.bright?.boardstatus)" class="img-fluid border border-primary rounded-circle small-node">
-                <small class="text-center mt-1">{{ data2?.bright?.name || 'No User' }}<br>{{ data2?.bright?.regid || 'No User' }}</small>
-              </div>
-            </div>
-          </div>
-        </div> <!-- End Level 1 -->
-      </div>
-    </div>
-  </div>
+<div class="card p-3 m-2">
+    <div class="row">
+       <div class="col-md-5">
+           <p-tag icon="pi pi-sitemap" severity="success" value="My Genealogy" [rounded]="true"></p-tag>
+       </div>
+     </div>
+    <div class="row mt-2">      
+       <div class="col-6">
+           <h5 class="text-center text-success">Left Team <p-tag value="{{data2.mleft}}"></p-tag></h5>
+       </div>
+       <div class="col-6">
+           <h5 class="text-center text-danger">Right Team <p-tag value="{{data2.mright}}"></p-tag></h5>
+       </div>
+       <div class="col-4">
+           <button (click)="goBack()" class="btn btn-sm btn-primary"> <i class="pi pi-backward"></i> Back</button>
+       </div>
+       
+       <p class="text-primary p-1">Search User ID</p>  
+       <div class="flex justify-content-center">
+           <input type="text" pInputText [(ngModel)]="udata.regid" placeholder="Search Userid" class="mr-1" />
+           <button class="btn btn-sm btn-danger" (click)="mytree1()">Submit</button>
+       </div>
+   </div>
 </div>
+
+<div class="card flex justify-content-center overflow-x-auto p-2">
+
+   <div *ngIf="errorMessage" class="error-message">
+     <span class="text-danger text-center">{{ errorMessage }}</span>
+ </div>
+ <div class="container mt-2">
+   <p-organizationChart [value]="data" styleClass="responsive-org-chart">
+     <ng-template let-node pTemplate="person">
+       <div class="text-center node-container" style="cursor: pointer;">
+         <img
+           [src]="node.data.image"
+           (click)="mytree(node.data.title)"
+           class="node-image mb-2"
+           [pTooltip]="node.data.tooltip"
+           tooltipPosition="top"
+           tooltipStyleClass="custom-tooltip"
+         />
+         <div class="font-bold node-name" (click)="showDialog(node.data)">
+           <span class="text-success">{{ node.data.name }}</span>
+         </div>
+         <div class="node-title"><span class="text-primary">{{ node.data.title }}</span></div>
+       </div>
+     </ng-template>
+   </p-organizationChart>
+ </div>
+ 
+ <div class="d-lg-block d-none">
+   <p-dialog header="" [(visible)]="visible" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+     <div class="card" *ngIf="loading">
+       <p class="text-danger">Data Loading Please Wait...</p>
+     </div>
+     <div *ngIf="!loading">
+       <div class="m-0" *ngIf="repd">
+         <h4 class="text-danger">{{repd.name}} ({{repd.title}})</h4>
+         <div class="">  
+             <!-- <div class="col-md-6 text-left"><h4>{{repd.title}}</h4></div> -->
+             <div class="m-0">
+                 <!-- {{tdata | json}} -->
+                 <div class="table-responsive">
+                     <table class="table table-bordered">
+                       <thead>
+                         <!-- <tr><th colspan="2" class="text-success">Team</th></tr> -->
+                         <tr>
+                           <th scope="col">Pckage</th>
+                           <th scope="col">Left</th>
+                           <th scope="col">Right</th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                         <!-- <tr>
+                           <th>Total Active</th>
+                           <th>{{ tdata.mleft }} </th>
+                           <td>{{ tdata.mright }}</td>
+                         </tr> -->
+                         <tr>
+                           <th class="text-secondary">Inactive Users</th>
+                           <th>{{ tdata.mfreeleft }}</th>
+                           <td>{{ tdata.mfreeright }}</td>
+                         </tr>
+                         <tr>
+                           <th class="text-success">Silver Members</th>
+                           <th>{{ tdata.msilverleft }} </th>
+                           <td>{{ tdata.msilverright }}</td>
+                         </tr>
+                         <tr>
+                           <th class="text-warning">Gold Members</th>
+                           <th>{{ tdata.mgoldleft }} </th>
+                           <td>{{ tdata.mgoldright }}</td>
+                         </tr>
+                         <tr>
+                           <th class="text-danger">Diamond Members</th>
+                           <th>{{ tdata.mdiamondleft }} </th>
+                           <td>{{ tdata.mdiamondright }}</td>
+                         </tr>
+                       </tbody>
+                       
+                     </table>
+                 </div>
+             </div> 
+         </div>
+      </div>
+     </div>
+   </p-dialog>
+ </div>
+ 
+ <div class="d-lg-none d-block">
+   <p-dialog header="" [(visible)]="visible" [modal]="true" [style]="{ width: '100vw' }" [draggable]="false" [resizable]="false">
+     <div class="card" *ngIf="loading">
+       <p class="text-danger">Data Loading Please Wait...</p>
+     </div>
+     <div *ngIf="!loading">
+       <div class="m-0" *ngIf="repd">
+         <h4 class="text-danger">{{repd.name}} ({{repd.title}})</h4>
+         <div class="">  
+             <!-- <div class="col-md-6 text-left"><h4>{{repd.title}}</h4></div> -->
+             <div class="m-0">
+                 <!-- {{tdata | json}} -->
+                 <div class="table-responsive">
+                     <table class="table table-bordered">
+                       <thead>
+                         <!-- <tr><th colspan="2" class="text-success">Team</th></tr> -->
+                         <tr>
+                           <th scope="col">Pckage</th>
+                           <th scope="col">Left</th>
+                           <th scope="col">Right</th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                         <tr>
+                           <th class="text-secondary">Inactive Users</th>
+                           <th>{{ tdata.mfreeleft }}</th>
+                           <td>{{ tdata.mfreeright }}</td>
+                         </tr>
+                         <tr>
+                           <th class="text-success">Silver Members</th>
+                           <th>{{ tdata.msilverleft }} </th>
+                           <td>{{ tdata.msilverright }}</td>
+                         </tr>
+                         <tr>
+                           <th class="text-warning">Gold Members</th>
+                           <th>{{ tdata.mgoldleft }} </th>
+                           <td>{{ tdata.mgoldright }}</td>
+                         </tr>
+                         <tr>
+                           <th class="text-danger">Diamond Members</th>
+                           <th>{{ tdata.mdiamondleft }} </th>
+                           <td>{{ tdata.mdiamondright }}</td>
+                         </tr>
+                       </tbody>
+                     </table>
+                 </div>
+             </div> 
+         </div>
+      </div>
+     </div>
+   </p-dialog>
+ </div>
+ 
+   
+ </div>

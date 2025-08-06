@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
+import { OrganizationChartModule } from 'primeng/organizationchart';
 // Component imports
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -27,6 +27,14 @@ import { DepositComponent } from './deposit/deposit.component';
 import { TransferComponent } from './transfer/transfer.component';
 import { ReceivedComponent } from './received/received.component';
 import { DirectTeamComponent } from './direct-team/direct-team.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ColorPickerModule } from 'primeng/colorpicker';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { DataViewModule } from 'primeng/dataview';
+import { DialogModule } from 'primeng/dialog';
+import { TagModule } from 'primeng/tag';
+import { AuthReferShareComponent } from './auth-refer-share/auth-refer-share.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +56,8 @@ import { DirectTeamComponent } from './direct-team/direct-team.component';
     DepositComponent,
     TransferComponent,
     ReceivedComponent,
-    DirectTeamComponent
+    DirectTeamComponent,
+    AuthReferShareComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +65,13 @@ import { DirectTeamComponent } from './direct-team/direct-team.component';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule, OrganizationChartModule,
+      ConfirmDialogModule,
+        ConfirmPopupModule,
+        ColorPickerModule,
+        ContextMenuModule, TagModule,
+        DataViewModule,
+        DialogModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-top-right',

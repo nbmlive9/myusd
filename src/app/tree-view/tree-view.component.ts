@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { UserService } from '../service/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { TreeNode } from 'primeng/api';
 
 @Component({
   selector: 'app-tree-view',
@@ -14,8 +15,8 @@ export class TreeViewComponent {
   udata = { regid: '' };
   udata1:any;
   data2:any;
-  data: any[] = [];
-  selectedNodes: any[] = [];
+  data: TreeNode[] = [];
+  selectedNodes: TreeNode[] = [];
   data1:any;
   errorMessage='';
   tdata:any;
@@ -53,7 +54,10 @@ export class TreeViewComponent {
   mytree1() {
     if (this.data1.regid) {
       console.log('trreid',this.data1.regid)
-        this.router.navigateByUrl(`/treeview/${this.data1.regid}`);
+        this.router.navigateByUrl("/treeview/${this.data1.regid}");
+
+     
+      
     } else {
         // Handle case when registration ID is not provided
         console.log('Please provide a registration ID');
@@ -85,10 +89,6 @@ loadUserTreeData() {
       }
   );
 }
-
-
-
-
 
   buildTree() {
   if (this.data2) {
@@ -188,7 +188,7 @@ getImageByBoardStatus(boardstatus: string): string {
 gettreeviewdata(id: string) {
   this.loading = true; 
   this.uapi.UserTreeViewDataById(id).subscribe((res: any) => {
-    // console.log('Response data:', res.data);
+    console.log('Response data:', res.data);
     this.tdata = res.data;
     this.loading = false; 
   });

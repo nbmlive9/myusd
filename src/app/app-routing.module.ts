@@ -19,11 +19,12 @@ import { SponsorIncomeComponent } from './sponsor-income/sponsor-income.componen
 import { MatchingIncomeComponent } from './matching-income/matching-income.component';
 import { DirectTeamComponent } from './direct-team/direct-team.component';
 import { authGuard } from './service/auth.guard';
+import { AuthReferShareComponent } from './auth-refer-share/auth-refer-share.component';
 const routes: Routes = [
   // Login route - does NOT use layout
   { path: 'login', component: LoginComponent },
-    { path: '', component: LoginComponent },
   { path: 'sign-in', component: SignInComponent },
+  { path: 'authshare/:regid', component: AuthReferShareComponent },
   // Layout routes (shown after login)
   // 
   {
@@ -37,9 +38,10 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent ,canActivate: [authGuard] , data: { usertype: ['user'] }},
       {path:"leftteam",component:TeamLeftComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       {path:"rightteam",component:TeamRightComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
-      {path:"treeview/:regid",component:TreeViewComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
+      {path:"treeview",component:TreeViewComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       {path:"report",component:ReportsComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       {path:"deposit",component:DepositComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
+      {path:"treeview/:regid",component:TreeViewComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       {path:"withdraw",component:WithdrawComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       {path:"transfer",component:TransferComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       {path:"recieved",component:ReceivedComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
