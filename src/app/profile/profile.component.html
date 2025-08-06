@@ -19,17 +19,29 @@
     <div class="summary-card p-4">
       <!-- Profile Section -->
       <div *ngIf="currentTab === 'profile'">
+<<<<<<< HEAD
         <form [formGroup]="form">
+=======
+        <form >
+>>>>>>> balu
           <div class="form-card" *ngIf="pffdata">
             <h5>Sponsor Details</h5>
             <div class="row mb-3">
               <div class="col-md-6">
                 <label>Sponsor ID</label>
+<<<<<<< HEAD
                 <input type="text" class="form-control" [value]="pffdata.refid" readonly>
               </div>
               <div class="col-md-6">
                 <label>Sponsor Name</label>
                 <input type="text" class="form-control" [value]="pffdata.name" readonly>
+=======
+                <input type="text" class="form-control" [value]="pffdata.refid" >
+              </div>
+              <div class="col-md-6">
+                <label>Sponsor Name</label>
+                <input type="text" class="form-control" [(ngModel)]="pffdata.name" name="name">
+>>>>>>> balu
               </div>
             </div>
         
@@ -37,6 +49,7 @@
             <div class="row mb-3">
               <div class="col-md-6">
                 <label>Name</label>
+<<<<<<< HEAD
                 <input *ngIf="isEdit" type="text" class="form-control" formControlName="name">
                 <input *ngIf="!isEdit" type="text" class="form-control" [value]="pffdata.name" readonly>
               </div>
@@ -72,17 +85,47 @@
                 <label>New Password</label>
                 <input *ngIf="isEdit" type="password" class="form-control" formControlName="password">
                 <input *ngIf="!isEdit" type="password" class="form-control" [value]="pffdata.password" readonly>
+=======
+                <input type="text" class="form-control" [(ngModel)]="pffdata.name" name="name" >
+              </div>
+              <div class="col-md-6">
+                <label>Email</label>
+                <input type="email" class="form-control" [value]="pffdata.email" >
+              </div>
+            </div>
+        
+            <h5 class="mt-4">Contact Details</h5>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label>Country</label>
+                <select class="form-control" [(ngModel)]="pffdata.country" name="country" >
+                  <option value="India">India</option>
+                  <option value="USA">USA</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label>Phone</label>
+                <input type="text" class="form-control" [(ngModel)]="pffdata.phone" name="phone" >
+>>>>>>> balu
               </div>
             </div>
         
             <div class="text-end">
+<<<<<<< HEAD
               <button class="btn btn-danger me-2" type="button" (click)="edit()" *ngIf="!isEdit">Edit</button>
               <button class="btn btn-success me-2" type="button" (click)="save()" *ngIf="isEdit">Save</button>
+=======
+              <button  class="btn btn-danger me-2" type="button" (click)="edit()">Edit</button>
+              <button  class="btn btn-success me-2" type="button" (click)="save()">Save</button>
+>>>>>>> balu
             </div>
           </div>
         </form>
         
+<<<<<<< HEAD
         
+=======
+>>>>>>> balu
       </div>
 
       <!-- Password Section -->

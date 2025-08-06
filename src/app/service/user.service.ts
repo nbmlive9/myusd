@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { TokenService } from './token.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -76,26 +77,6 @@ export class UserService {
     );
   }
 
-  Activate(value: {
-    regid: string;
-  }) {
-    const token = this.token.getToken(); // ⛳ Optional: If token is required
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        ...(token && { Authorization: `Bearer ${token}` }) // Use token only if exists
-      }),
-    };
-
-    return this.http.post(
-      this.AUTH_API + 'Activateid',
-      {
-        regid: value.regid,
-      },
-      httpOptions
-    );
-  }
-
   subscription(value: { regid: string }) {
     const token = this.token.getToken(); 
     const httpOptions = {
@@ -124,7 +105,25 @@ export class UserService {
       return this.http.get(this.AUTH_API + 'Activation_data', httpOptions);
   }
 
-
+  updateProfile(value: {
+    name: string;
+    phone: string;
+    country: string;
+  }) {
+    const token = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token && { Authorization: `Bearer ${token}` })
+      }),
+    };
+  
+    return this.http.post(
+      this.AUTH_API + 'Profileiupdate', 
+      value,
+      httpOptions
+    );
+  }
   
   selfTransfer(value: { 
     amount:string,
@@ -225,91 +224,56 @@ export class UserService {
     };
       return this.http.get(this.AUTH_API + 'Get_Userdatabyregid/'+id, httpOptions);
   }
-receivedWallet() {
-  const token = this.token.getToken(); 
+
+    getleftTeam() {
+    const token = this.token.getToken(); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      }),
+    };
+      return this.http.get(this.AUTH_API + 'Left_members', httpOptions);
+  }
+
+    getrightTeam() {
+    const token = this.token.getToken(); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      }),
+    };
+      return this.http.get(this.AUTH_API + 'Right_members', httpOptions);
+  }
+
+  UserTreeView(id:any): Observable<any>{
+  const token1 = this.token.getToken();
   const httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {})
-    }),
-  };
-    return this.http.get(this.AUTH_API + 'Wallet_Receivereport', httpOptions);
-}
-
-
-
-totalReport() {
-  const token = this.token.getToken(); 
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {})
-    }),
-  };
-    return this.http.get(this.AUTH_API + 'Wallet_Report', httpOptions);
-}
-todayReport() {
-  const token = this.token.getToken(); 
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {})
-    }),
-  };
-    return this.http.get(this.AUTH_API + 'Wallet_TodayReport', httpOptions);
-}
-
-
-sponsorIncome() {
-  const token = this.token.getToken(); 
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {})
-    }),
-  };
-    return this.http.get(this.AUTH_API + 'Wallet_Sponsor', httpOptions);
-
-
-}
-matchIncome() {
-  const token = this.token.getToken(); 
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {})
-    }),
-  };
-    return this.http.get(this.AUTH_API + 'Wallet_Matching', httpOptions);
-}
-
-updateProfile(value: {
-  name: string;
-  country: string;
-  password:string;
-  email:string;
-  regid:string;
-}) {
-  const token = this.token.getToken();
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      ...(token && { Authorization: `Bearer ${token}` })
-    }),
-  };
-
-  return this.http.post(
-    this.AUTH_API + 'Profileiupdate', 
-
-   {
-         regid:value.regid,
-        name: value.name,
-        email:value.email,
-        password:value.password,
-        country:value.country,
-
-      },
+      'Authorization': 'Bearer ' + token1
+    })
+  }
+  return this.http.get(
+    this.AUTH_API + `Tree_view/${id}`,
     httpOptions
   );
 }
+
+UserTreeViewDataById(id:any): Observable<any>{
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  }
+  return this.http.get(
+    this.AUTH_API + `Treedata/`+id,
+    httpOptions
+  );
 }
+
+}
+

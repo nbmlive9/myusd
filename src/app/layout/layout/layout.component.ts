@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenService } from 'src/app/service/token.service';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-layout',
@@ -9,10 +10,26 @@ import { TokenService } from 'src/app/service/token.service';
 })
 export class LayoutComponent {
   isCollapsed = false;
-  constructor(private router:Router,private token:TokenService){}
+  udata:any;
+  constructor(private router:Router,private token:TokenService, private api:UserService){}
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
   }
+
+  ngOnInit(){
+      this.api.home().subscribe((res: any) => {
+            console.log('utree', res);
+            this.udata = res.data.profiledata;
+        });
+  }
+
+   mytree(regid: string) {
+        this.router.navigateByUrl(`/treeview/${regid}`);
+      }
+
+       getRegId(): string {
+        return this.udata.regid;  
+      }
 
   activeLink: string = 'dashboard'; 
 

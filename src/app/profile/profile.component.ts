@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { UserService } from '../service/user.service';
+<<<<<<< HEAD
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TokenService } from '../service/token.service';
+=======
+>>>>>>> balu
 
 @Component({
   selector: 'app-profile',
@@ -10,6 +13,7 @@ import { TokenService } from '../service/token.service';
 })
 export class ProfileComponent {
   dashboarddata: any;
+<<<<<<< HEAD
   homedata: any;
   pffdata: any;
   form: FormGroup;
@@ -25,10 +29,19 @@ export class ProfileComponent {
       regid: ['']
     });
   }
+=======
+  homedata:any;
+  pffdata: any;
+  currentTab: 'profile' | 'password' = 'profile';
+
+  constructor(private api:UserService){}
+
+>>>>>>> balu
 
   ngOnInit() {
     this.getdata();
   }
+<<<<<<< HEAD
 
   switchTab(tab: 'profile' | 'password') {
     this.currentTab = tab;
@@ -66,7 +79,29 @@ export class ProfileComponent {
           this.getdata(); 
         }
       });
+=======
+  
+  
+    switchTab(tab: 'profile' | 'password') {
+      this.currentTab = tab;
+>>>>>>> balu
     }
+    
+
+    getdata(){
+      this.api.getProfiledata().subscribe((res:any)=>{
+          console.log("profiledata:",res);
+          this.pffdata=res.data[0];
+          console.log("pffdata:",this.pffdata);
+      })
+    }
+
+    save(){
+    }
+    edit(){
+    }
+   
+
   }
 
   logout() {

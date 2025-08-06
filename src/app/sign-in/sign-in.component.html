@@ -68,7 +68,7 @@
                   </div>
             </div>
       
-            <div class="card col-lg-4 mt-5 mb-3">
+            <div class="col-lg-4 mt-5 ">
                 <div class="d-flex justify-content-center pt-5" style="background-color: #FFFFFF; min-height: 100vh;">
                     <div class="register-container" style="width: 100%; max-width: 400px;">
                         <h1 style="color: rgb(8, 5, 5); text-align: center; font-size: 2rem; margin-bottom: 2rem;">REGISTER</h1>
@@ -76,7 +76,7 @@
 
 
                             <div class="row mb-3">
-                                <div class="col-md-6">
+                                <div class="col-6">
                                     
                                     <label class="form-label">First Name</label>
                                     <div class="input-wrapper" style="position: relative;">
@@ -84,7 +84,7 @@
                                         <i class="fas fa-user" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-6">
                                     <label class="form-label">Phone</label>
                                     <div class="input-wrapper" style="position: relative;">
                                         <input type="text" formControlName="phone" autocomplete="off" placeholder=" phone number" style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;" required />
@@ -94,14 +94,14 @@
                             </div>
                 
                             <div class="row mb-3">
-                                <div class="col-md-6">
+                                <div class="col-6">
                                     <label class="form-label">Email</label>
                                     <div class="input-wrapper" style="position: relative;">
                                         <input type="email" formControlName="email" autocomplete="off" placeholder="example@domain.com" style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;" required />
                                         <i class="fas fa-envelope" style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-6">
                                     <label class="form-label">Country</label>
                                     <div class="input-wrapper" style="position: relative;">
                                         <select formControlName="country" style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box; appearance: none;" required>
@@ -117,7 +117,7 @@
                             </div>
                 
                             <div class="row mb-3">
-                                <div class="col-md-6">
+                                <div class="col-6">
                                     <label class="form-label">Password</label>
                                     <div class="input-wrapper" style="position: relative;">
                                         <input type="password" formControlName="password" autocomplete="new-password" placeholder="********" style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;" required />
@@ -131,24 +131,13 @@
                                         <i class="fas fa-lock" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
                                     </div>
                                 </div> -->
-                                <div class="col-md-6">
-                                    <label class="form-label">Position</label>
-                                    <div class="input-wrapper" style="position: relative;">
-                                        <select formControlName="country" style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box; appearance: none;" required>
-                                            <option value=""  selected>Select Position</option>
-                                            <option value="left">Left</option>
-                                            <option value="right">Right</option>
-                                        </select>
-                                        <i class="fas fa-user" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
-                                    </div>
-                                </div>
-                                <!-- <div class="col-6">
+                                <div class="col-6">
                                     <label class="form-label">Position</label>
                                     <div class="input-wrapper" style="position: relative;">
                                         <input type="text" formControlName="position" autocomplete="off" placeholder=" phone number" style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;" required />
                                         <i class="fa-solid fa-phone" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
                                     </div>
-                                </div> -->
+                                </div>
                                 
                             </div>
                 
@@ -167,7 +156,7 @@
                             </div>
                 
                             <button type="submit" class="btn btn-signup" style="background-color: #0a0909; border: none; border-radius: 20px; color: white; padding: 10px 30px; width: 100%; font-size: 1.2rem;" (click)="sign()" >Sign Up</button>
-                            <div style="text-align: center; margin-top: 1rem; margin-bottom: 2rem;">
+                            <div style="text-align: center; margin-top: 1rem; ">
                                 Already have an account? <a routerLink="/login" style="color: blue; text-decoration: none;"  >Log In</a>
                             </div>
                         </form>

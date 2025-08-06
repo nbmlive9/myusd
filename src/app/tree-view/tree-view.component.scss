@@ -1,0 +1,54 @@
+.node-circle {
+  width: 70px;
+  height: 70px;
+  padding: 8px;
+  border: 2px solid #0d6efd;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s;
+}
+.node-circle:hover {
+  transform: scale(1.1);
+}
+.main-node {
+  width: 80px;
+  height: 80px;
+}
+.small-node {
+  width: 60px;
+  height: 60px;
+}
+
+.tree-line-vertical {
+  width: 2px;
+  height: 20px;
+ // background-color: #000;
+  margin: 0 auto;
+}
+.tree-line-horizontal {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  right: 0;
+  height: 2px;
+ // background-color: #000;
+  z-index: -1;
+}
+.child-line {
+  top: 25px;
+}
+
+.gap-custom {
+  gap: 6rem;
+}
+
+@media (max-width: 768px) {
+  .overflow-auto {
+    overflow-x: auto !important;
+    white-space: nowrap;
+  }
+  .gap-custom {
+    gap: 3rem;
+  }
+}
