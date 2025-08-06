@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="container-fluid text-center py-4 bg-light position-relative">
   <div class="text-center mb-4">
     <h3 class="fw-bold text-primary">My Network Tree</h3>
@@ -89,3 +90,170 @@
     </div>
   </div>
 </div>
+=======
+<div class="card p-3 m-2">
+    <div class="row">
+       <div class="col-md-5">
+           <p-tag icon="pi pi-sitemap" severity="success" value="My Genealogy" [rounded]="true"></p-tag>
+       </div>
+     </div>
+    <div class="row mt-2">      
+       <div class="col-6">
+           <h5 class="text-center text-success">Left Team <p-tag value="{{data2.mleft}}"></p-tag></h5>
+       </div>
+       <div class="col-6">
+           <h5 class="text-center text-danger">Right Team <p-tag value="{{data2.mright}}"></p-tag></h5>
+       </div>
+       <div class="col-4">
+           <button (click)="goBack()" class="btn btn-sm btn-primary"> <i class="pi pi-backward"></i> Back</button>
+       </div>
+       
+       <p class="text-primary p-1">Search User ID</p>  
+       <div class="flex justify-content-center">
+           <input type="text" pInputText [(ngModel)]="udata.regid" placeholder="Search Userid" class="mr-1" />
+           <button class="btn btn-sm btn-danger" (click)="mytree1()">Submit</button>
+       </div>
+   </div>
+</div>
+
+<div class="card flex justify-content-center overflow-x-auto p-2">
+
+   <div *ngIf="errorMessage" class="error-message">
+     <span class="text-danger text-center">{{ errorMessage }}</span>
+ </div>
+ <div class="container mt-2">
+   <p-organizationChart [value]="data" styleClass="responsive-org-chart">
+     <ng-template let-node pTemplate="person">
+       <div class="text-center node-container" style="cursor: pointer;">
+         <img
+           [src]="node.data.image"
+           (click)="mytree(node.data.title)"
+           class="node-image mb-2"
+           [pTooltip]="node.data.tooltip"
+           tooltipPosition="top"
+           tooltipStyleClass="custom-tooltip"
+         />
+         <div class="font-bold node-name" (click)="showDialog(node.data)">
+           <span class="text-success">{{ node.data.name }}</span>
+         </div>
+         <div class="node-title"><span class="text-primary">{{ node.data.title }}</span></div>
+       </div>
+     </ng-template>
+   </p-organizationChart>
+ </div>
+ 
+ <div class="d-lg-block d-none">
+   <p-dialog header="" [(visible)]="visible" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+     <div class="card" *ngIf="loading">
+       <p class="text-danger">Data Loading Please Wait...</p>
+     </div>
+     <div *ngIf="!loading">
+       <div class="m-0" *ngIf="repd">
+         <h4 class="text-danger">{{repd.name}} ({{repd.title}})</h4>
+         <div class="">  
+             <!-- <div class="col-md-6 text-left"><h4>{{repd.title}}</h4></div> -->
+             <div class="m-0">
+                 <!-- {{tdata | json}} -->
+                 <div class="table-responsive">
+                     <table class="table table-bordered">
+                       <thead>
+                         <!-- <tr><th colspan="2" class="text-success">Team</th></tr> -->
+                         <tr>
+                           <th scope="col">Pckage</th>
+                           <th scope="col">Left</th>
+                           <th scope="col">Right</th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                         <!-- <tr>
+                           <th>Total Active</th>
+                           <th>{{ tdata.mleft }} </th>
+                           <td>{{ tdata.mright }}</td>
+                         </tr> -->
+                         <tr>
+                           <th class="text-secondary">Inactive Users</th>
+                           <th>{{ tdata.mfreeleft }}</th>
+                           <td>{{ tdata.mfreeright }}</td>
+                         </tr>
+                         <tr>
+                           <th class="text-success">Silver Members</th>
+                           <th>{{ tdata.msilverleft }} </th>
+                           <td>{{ tdata.msilverright }}</td>
+                         </tr>
+                         <tr>
+                           <th class="text-warning">Gold Members</th>
+                           <th>{{ tdata.mgoldleft }} </th>
+                           <td>{{ tdata.mgoldright }}</td>
+                         </tr>
+                         <tr>
+                           <th class="text-danger">Diamond Members</th>
+                           <th>{{ tdata.mdiamondleft }} </th>
+                           <td>{{ tdata.mdiamondright }}</td>
+                         </tr>
+                       </tbody>
+                       
+                     </table>
+                 </div>
+             </div> 
+         </div>
+      </div>
+     </div>
+   </p-dialog>
+ </div>
+ 
+ <div class="d-lg-none d-block">
+   <p-dialog header="" [(visible)]="visible" [modal]="true" [style]="{ width: '100vw' }" [draggable]="false" [resizable]="false">
+     <div class="card" *ngIf="loading">
+       <p class="text-danger">Data Loading Please Wait...</p>
+     </div>
+     <div *ngIf="!loading">
+       <div class="m-0" *ngIf="repd">
+         <h4 class="text-danger">{{repd.name}} ({{repd.title}})</h4>
+         <div class="">  
+             <!-- <div class="col-md-6 text-left"><h4>{{repd.title}}</h4></div> -->
+             <div class="m-0">
+                 <!-- {{tdata | json}} -->
+                 <div class="table-responsive">
+                     <table class="table table-bordered">
+                       <thead>
+                         <!-- <tr><th colspan="2" class="text-success">Team</th></tr> -->
+                         <tr>
+                           <th scope="col">Pckage</th>
+                           <th scope="col">Left</th>
+                           <th scope="col">Right</th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                         <tr>
+                           <th class="text-secondary">Inactive Users</th>
+                           <th>{{ tdata.mfreeleft }}</th>
+                           <td>{{ tdata.mfreeright }}</td>
+                         </tr>
+                         <tr>
+                           <th class="text-success">Silver Members</th>
+                           <th>{{ tdata.msilverleft }} </th>
+                           <td>{{ tdata.msilverright }}</td>
+                         </tr>
+                         <tr>
+                           <th class="text-warning">Gold Members</th>
+                           <th>{{ tdata.mgoldleft }} </th>
+                           <td>{{ tdata.mgoldright }}</td>
+                         </tr>
+                         <tr>
+                           <th class="text-danger">Diamond Members</th>
+                           <th>{{ tdata.mdiamondleft }} </th>
+                           <td>{{ tdata.mdiamondright }}</td>
+                         </tr>
+                       </tbody>
+                     </table>
+                 </div>
+             </div> 
+         </div>
+      </div>
+     </div>
+   </p-dialog>
+ </div>
+ 
+   
+ </div>
+>>>>>>> f81e8bc1abc2ab6fb36e077a7970753ff7b6ae94

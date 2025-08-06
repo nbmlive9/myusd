@@ -40,6 +40,7 @@ const routes: Routes = [
       {path:"treeview/:regid",component:TreeViewComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       {path:"report",component:ReportsComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       {path:"deposit",component:DepositComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
+      {path:"treeview/:regid",component:TreeViewComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       {path:"withdraw",component:WithdrawComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       {path:"transfer",component:TransferComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       {path:"recieved",component:ReceivedComponent , canActivate: [authGuard], data: { usertype: ['user'] }},

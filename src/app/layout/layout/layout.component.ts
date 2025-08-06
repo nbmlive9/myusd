@@ -10,10 +10,21 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class LayoutComponent {
   isCollapsed = false;
+<<<<<<< HEAD
   udata:any;
   constructor(private router:Router,private token:TokenService, private api:UserService){}
+=======
+  udata: any;
+  constructor(private router:Router,private token:TokenService,private api:UserService){}
+>>>>>>> f81e8bc1abc2ab6fb36e077a7970753ff7b6ae94
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
+  }
+  ngOnInit(){
+    this.api.home().subscribe((res: any) => {
+      console.log('utree', res);
+      this.udata = res.data.profiledata;
+  });
   }
 
   ngOnInit(){
@@ -44,5 +55,10 @@ export class LayoutComponent {
   logout() {
     this.token.signOut();
   }
+
+  mytree(regid: string) {
+    this.router.navigateByUrl(`/treeview/${regid}`);
+  } 
+
 
 }
