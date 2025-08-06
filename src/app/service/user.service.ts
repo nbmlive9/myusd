@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { TokenService } from './token.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -292,4 +293,57 @@ updateProfile(value: {
     httpOptions
   );
 }
+
+
+getleftTeam() {
+  const token = this.token.getToken(); 
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }),
+  };
+    return this.http.get(this.AUTH_API + 'Left_members', httpOptions);
+}
+
+  getrightTeam() {
+  const token = this.token.getToken(); 
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }),
+  };
+    return this.http.get(this.AUTH_API + 'Right_members', httpOptions);
+}
+
+UserTreeView(id:any): Observable<any>{
+const token1 = this.token.getToken();
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + token1
+  })
+}
+return this.http.get(
+  this.AUTH_API +`Tree_view/${id}` ,
+  httpOptions
+);
+}
+
+UserTreeViewDataById(id:any): Observable<any>{
+const token1 = this.token.getToken();
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + token1
+  })
+}
+return this.http.get(
+  this.AUTH_API + `Treedata/+id`,
+  httpOptions
+);
+}
+
+
 }

@@ -37,23 +37,16 @@
             <tr>
                 <th>S.No</th>
                 <th>Date</th>
-
                 <th>User Id</th>
-                <th>Name</th>
-                <th>Subcription</th>
                 <th>Status</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>DD</td>
-                <td>0x37e9</td>
-                <td>ss</td>
-                <td>56062311</td>
-                <td>2 minutes ago</td>
-                <td>56062311</td>
-
+            <tr *ngFor="let row of data1; let i='index'">
+                <td>{{i+1}}</td>
+                <td>{{row.cdate}}</td>
+                <td>{{row.forid}}</td>
+                <td class="text-success">Active</td>
             </tr>
-        
         </tbody>
     </table>
