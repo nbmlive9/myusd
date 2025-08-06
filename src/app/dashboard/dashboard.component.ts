@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../service/user.service';
 import { FormBuilder, Validators,FormGroup } from '@angular/forms';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -133,20 +134,27 @@ export class DashboardComponent implements AfterViewInit {
   }
   Home() {
     this.api.home().subscribe({
-      next: (res) => {
+      next: (res:any) => {
         console.log('Home API response:', res);
-        this.dashboarddata=res;
-        this.homedata=this.dashboarddata.data;
-        this.pfdata=this.dashboarddata.data.profiledata;
-
-        console.log("home:",this.homedata);
-
+  
+        if (res && res.data) {
+          this.dashboarddata = res;
+          this.homedata = res.data;
+          this.pfdata = res.data.profiledata
+          ;
+          console.log("home:", this.pfdata);
+        } else {
+          console.warn('Unexpected API response structure:', res);
+          this.homedata = null;
+          this.pfdata = null;
+        }
       },
       error: (err) => {
         console.error('Home API error:', err);
       }
     });
   }
+  
 
   Subscription() {
     const payload = {
@@ -162,11 +170,12 @@ export class DashboardComponent implements AfterViewInit {
       }
     });
   }
+  
   activationData(): void {
     this.api.ActivationData().subscribe({
-      next: (res) => {
+      next: (res:any) => {
         console.log('Activation data:', res);
-        this.activationDetails = res;
+        this.activationDetails = res.data;
       },
       error: (err) => {
         console.error('Failed to fetch activation data:', err);
@@ -175,6 +184,33 @@ export class DashboardComponent implements AfterViewInit {
   }
   
 
+ 
+  
+    enteredAmount: any | null = null;
+    receivableAmount: number = 0;
+  
+    onAmountChange() {
+      if (this.enteredAmount && this.enteredAmount >= 10) {
+        const fee = (this.enteredAmount * 10) / 100;
+        this.receivableAmount = this.enteredAmount - fee;
+      } else {
+        this.receivableAmount = 0;
+      }
+    }
+
+      sharwahtsapp(regid:any){
+    const textToShare = `Welcome to MYUSD Family! Please click the link below to join our team for SignUp:  https://myusd.co.in/authshare/${regid}`;
+    const encodedText = encodeURIComponent(textToShare);
+    const whatsappUrl = `https://api.whatsapp.com/send?text=${encodedText}`;
+    window.open(whatsappUrl, '_blank');
+  }
+
+  //  copyValue(value: string): void {
+  //   this.clipboard.copy(value);
+  // }
+  
+  
+  }
+  
 
 
-}

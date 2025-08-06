@@ -3,9 +3,13 @@ import { UserService } from '../service/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { TreeNode } from 'primeng/api';
 >>>>>>> f81e8bc1abc2ab6fb36e077a7970753ff7b6ae94
+=======
+import { TreeNode } from 'primeng/api';
+>>>>>>> balu
 
 @Component({
   selector: 'app-tree-view',
@@ -19,12 +23,17 @@ export class TreeViewComponent {
   udata1:any;
   data2:any;
 <<<<<<< HEAD
+<<<<<<< HEAD
   data: any[] = [];
   selectedNodes: any[] = [];
 =======
   data: TreeNode[] = [];
   selectedNodes: TreeNode[] = [];
 >>>>>>> f81e8bc1abc2ab6fb36e077a7970753ff7b6ae94
+=======
+  data: TreeNode[] = [];
+  selectedNodes: TreeNode[] = [];
+>>>>>>> balu
   data1:any;
   errorMessage='';
   tdata:any;
@@ -63,13 +72,19 @@ export class TreeViewComponent {
     if (this.data1.regid) {
       console.log('trreid',this.data1.regid)
 <<<<<<< HEAD
+<<<<<<< HEAD
         this.router.navigateByUrl(`/treeview/${this.data1.regid}`);
 =======
+=======
+>>>>>>> balu
         this.router.navigateByUrl("/treeview/${this.data1.regid}");
 
      
       
+<<<<<<< HEAD
 >>>>>>> f81e8bc1abc2ab6fb36e077a7970753ff7b6ae94
+=======
+>>>>>>> balu
     } else {
         // Handle case when registration ID is not provided
         console.log('Please provide a registration ID');
@@ -103,10 +118,6 @@ loadUserTreeData() {
   );
 }
 
-
-
-
-
   buildTree() {
   if (this.data2) {
     this.data = [
@@ -205,7 +216,7 @@ getImageByBoardStatus(boardstatus: string): string {
 gettreeviewdata(id: string) {
   this.loading = true; 
   this.uapi.UserTreeViewDataById(id).subscribe((res: any) => {
-    // console.log('Response data:', res.data);
+    console.log('Response data:', res.data);
     this.tdata = res.data;
     this.loading = false; 
   });
@@ -227,6 +238,7 @@ goBack() {
 }
 
 
+<<<<<<< HEAD
 =======
 >>>>>>> f81e8bc1abc2ab6fb36e077a7970753ff7b6ae94
 }
@@ -377,4 +389,6 @@ goBack() {
 }
 
 
+=======
+>>>>>>> balu
 }

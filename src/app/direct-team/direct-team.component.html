@@ -1,65 +1,45 @@
 <div class="mb-3">
-    <label for="teamSelect" class="form-label ">Select Team</label>
-    <select id="teamSelect" class="form-select">
-      <option value=""> Select packages</option>
-      <option value="left">Sliver</option>
-      <option value="right">Gold</option>
-      <option value="tree">Diamond</option>
-    </select>
+    <label for="teamSelect" class="form-label">Select Team</label>
+    <select class="form-select" [(ngModel)]="selectedFilter" (change)="filterTeam()">
+        <option value="">All Packages</option>
+        <option value="0"> Not Subscribed</option>    
+        <option value="1">  Subscribed</option>
+        <option value="2">Silver</option>
+        <option value="3">Gold</option>
+        <option value="4">Diamond</option>
+      </select>
   </div>
+  <h2 class="fw-bold">MY Direct Team</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Date</th>
+        <th>User Id</th>
+        <th>Name</th>
+        <th>Subscription</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of filteredData; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ row.cdate }}</td>
+        <td>{{ row.regid }}</td>
+        <td>{{ row.name }}</td>
+        <td>
+          <span *ngIf="row.boardstatus == '0'" class="text-danger">Not Subscribe</span>
+          <span *ngIf="row.boardstatus == '1'" class="text-success">Subscribed</span>
+          <span *ngIf="row.boardstatus == '2'" class="text-primary">Silver Upgrade</span>
+          <span *ngIf="row.boardstatus == '3'" class="text-warning">Gold Upgrade</span>
+          <span *ngIf="row.boardstatus == '4'" class="text-info">Diamond Upgrade</span>
+        </td>
+        <td>
+          <span *ngIf="row.topupstatus == '0'" class="text-danger">Not Active</span>
+          <span *ngIf="row.boardstatus == '1'" class="text-success">Active</span>
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
   
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: #f8f9fa;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #dee2e6;
-        }
-        th {
-            background-color: #e9ecef;
-        }
-        .transaction {
-            color: #007bff;
-        }
-        .value {
-            color: #007bff;
-            font-weight: bold;
-        }
-    </style>
-
-    <h2 class="fw-bold"> MY Direct Team</h2>
-     <!-- <pre>{{data1 | json}}</pre> -->
-    <table>
-        <thead>
-            <tr>
-                <th>S.No</th>
-                <th>Date</th>
-                <th>User Id</th>
-                <th>Name</th>
-                <th>Subcription</th>
-                <!-- <th>Status</th> -->
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let row of data1; let i='index'">
-                <td>{{i+1}}</td>
-                <td>{{row.cdate}}</td>
-                <td>{{row.regid}}</td>
-                <td>{{row.name}}</td>
-                <td>
-                    <span *ngIf="row.boardstatus=='0'" class="text-danger">Not Active</span>
-                    <span *ngIf="row.boardstatus=='1'" class="text-success">Active</span>
-                    <span *ngIf="row.boardstatus=='2'" class="text-primary">Silver Upgrade</span>
-                    <span *ngIf="row.boardstatus=='3'" class="text-warning">Gold Upgrade</span>
-                    <span *ngIf="row.boardstatus=='4'" class="text-info">Diamond Upgrade</span>
-                </td>
-                <!-- <td>2 minutes ago</td> -->
-
-            </tr>
-        
-        </tbody>
-    </table>
