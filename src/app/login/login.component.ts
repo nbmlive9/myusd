@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
         error: (err) => {
           this.isLoading = false;
           this.errorMessage = 'Enter valid Credentials';
-          alert(` ${this.errorMessage}`);
+          //alert(` ${this.errorMessage}`);
         }
       });
     } else {
