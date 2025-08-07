@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
             this.token.saveToken(res.token);
             this.token.saveUser({ role: res.usertype });
   
-            alert('✅ Login successful!');
+           // alert('✅ Login successful!');
             this.router.navigate(['/dashboard']);
           } else {
             this.errorMessage = res.message || 'Login failed';
