@@ -29,9 +29,5 @@ export class MatchingIncomeComponent {
   
   
 }
-<<<<<<< HEAD
-// 
-=======
   
 
->>>>>>> balu

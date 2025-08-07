@@ -59,6 +59,7 @@ export class UserService {
   
     return this.http.get(this.AUTH_API + 'Home', httpOptions);
   }
+  
   forgotPassword(value: { regid: string; email: string }) {
     const token = this.token.getToken(); // optional if required
     const httpOptions = {
@@ -341,7 +342,7 @@ const httpOptions = {
   })
 }
 return this.http.get(
-  this.AUTH_API + `Treedata/+id`,
+  this.AUTH_API + 'Treedata/'+id,
   httpOptions
 );
 }
@@ -369,7 +370,6 @@ forgotpassword(value: {
   );
 }
 
-// hh
 
 private apiUrl = 'https://restcountries.com/v3.1/all?fields=name,cca2'; // ✅ specify fields
 getCountries() {

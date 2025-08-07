@@ -22,7 +22,8 @@ import { authGuard } from './service/auth.guard';
 import { AuthReferShareComponent } from './auth-refer-share/auth-refer-share.component';
 const routes: Routes = [
   // Login route - does NOT use layout
-  { path: 'login', component: LoginComponent },
+  { path: '', component: LoginComponent },
+    { path: 'login', component: LoginComponent },
   { path: 'sign-in', component: SignInComponent },
   { path: 'authshare/:regid', component: AuthReferShareComponent },
   // Layout routes (shown after login)

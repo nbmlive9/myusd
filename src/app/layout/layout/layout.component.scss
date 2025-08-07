@@ -36,7 +36,9 @@
   display: none;
   transition: opacity 0.3s ease;
 
-
+  // &.show {
+  //   display: block;
+  // }
 }
 
 .main-content {
@@ -81,5 +83,3 @@
     margin-left: 0;
   }
 }
-
-// test

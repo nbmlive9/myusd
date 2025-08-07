@@ -1,6 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs';
+import { Router } from '@angular/router';
 import { TokenService } from 'src/app/service/token.service';
 import { UserService } from 'src/app/service/user.service';
 
@@ -20,10 +19,28 @@ export class LayoutComponent implements OnInit {
   ngOnInit() {
     this.api.home().subscribe((res: any) => {
       this.udata = res.data.profiledata;
-  });
+    });
+
+    this.checkScreenSize();
   }
 
+  
 
+  @HostListener('window:resize')
+  onResize() {
+    this.checkScreenSize();
+  }
+
+  checkScreenSize() {
+    this.isMobile = window.innerWidth <= 768;
+    if (!this.isMobile) {
+      this.isCollapsed = true; // Show sidebar on desktop
+    }
+  }
+
+  toggleSidebar() {
+    this.isCollapsed = !this.isCollapsed;
+  }
 
   setActive(link: string) {
     this.activeLink = link;
@@ -35,9 +52,5 @@ export class LayoutComponent implements OnInit {
 
   mytree(regid: string) {
     this.router.navigateByUrl(`/treeview/${regid}`);
-  } 
-
-
-
-
+  }
 }

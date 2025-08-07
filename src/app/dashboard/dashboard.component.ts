@@ -16,10 +16,13 @@ export class DashboardComponent implements AfterViewInit {
   chart: any;
   showShareIcons = false;
   dashboarddata: any;
-  homedata: any;
+  // homedata: any;
   form: FormGroup;
   activationDetails: any;
-  pfdata: any;
+  // pfdata: any;
+  homedata: any = {};
+pfdata: any = {};
+profiledata: any = {};
   constructor(private api:UserService,private router:Router,private fb:FormBuilder) {
     Chart.register(...registerables);
 
@@ -133,26 +136,11 @@ export class DashboardComponent implements AfterViewInit {
     this.showShareIcons = !this.showShareIcons;
   }
   Home() {
-    this.api.home().subscribe({
-      next: (res:any) => {
-        console.log('Home API response:', res);
-  
-        if (res && res.data) {
-          this.dashboarddata = res;
-          this.homedata = res.data;
-          this.pfdata = res.data.profiledata
-          ;
-          console.log("home:", this.pfdata);
-        } else {
-          console.warn('Unexpected API response structure:', res);
-          this.homedata = null;
-          this.pfdata = null;
-        }
-      },
-      error: (err) => {
-        console.error('Home API error:', err);
-      }
-    });
+ this.api.home().subscribe((res:any)=>{
+  console.log('pfdata',res);
+  this.homedata=res.data;
+  this.pfdata=res.data.profiledata;
+ })
   }
   
 

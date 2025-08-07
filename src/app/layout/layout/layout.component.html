@@ -8,10 +8,10 @@
 
 <!-- Sidebar -->
 <div class="sidebar" [class.collapsed]="isMobile && !isCollapsed">
-  <div class="card bg-white p-3">
-      <p class="text-center"> <img src="assets/usd.jpeg" class="img img-fluid" alt="" style="width: 50px;" srcset=""> </p>
-      <h4 class="text-primary text-center"> {{udata.name}} </h4>
-      <h6 class="text-success text-center"> {{udata.regid}} </h6>
+  <div class="card bg-white p-3 text-center">
+      <p class="text-center"><img src="assets/usd.jpeg" class="img-fluid" style="width: 50px;" alt="" srcset=""></p> 
+      <h4 class="text-primary"><i class="fas fa-tachometer-alt me-2"></i> {{udata.regid}} </h4>
+      <h6 class="text-success"><i class="fas fa-user-alt me-2"></i> {{udata.name}} </h6>
   </div>
   <a routerLink="/dashboard"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a>
   <a routerLink="/profile"><i class="fas fa-user me-2"></i> Profile</a>
@@ -38,7 +38,6 @@
       aria-controls="incomeMenu">
       <i class="fas fa-money-bill me-2"></i> Incomes <i class="fas fa-caret-down float-end"></i>
     </a>
-    <!-- dfghjk -->
     <div class="collapse ps-3" id="incomeMenu">
       <ul class="nav flex-column">
         <li class="nav-item"><a class="nav-link" routerLink="/sponsorincome">Sponsor Income</a></li>
@@ -87,7 +86,7 @@
           <i class="fas fa-user text-warning me-2"></i>
         </p>
         <ul class="dropdown-menu" aria-labelledby="userDropdown">
-          <li class="dropdown-header" *ngIf="udata">
+          <li class="dropdown-header" >
             <i class="fas fa-user text-warning me-2"></i> {{ udata.name }}
           </li>
           <li><a class="dropdown-item" routerLink="/profile"><i class="bi bi-person me-2"></i> My Profile</a></li>

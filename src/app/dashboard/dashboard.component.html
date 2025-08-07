@@ -3,8 +3,8 @@
     <!-- Greeting Section -->
     <div class="col-12 col-md-6 col-lg-3 mt-4" >
       <h4 class="mb-1">Hi,</h4>
-      <h4 class="mb-3">{{ homedata.profiledata?.name }}, {{ homedata.profiledata?.regid }}</h4>
-      <p *ngIf="pfdata.topupstatus!='0'" class="text-success fw-bold" style="font-size: 20px;">
+      <h4 class="mb-3">{{ pfdata.name }}, {{ pfdata.regid }}</h4>
+      <p *ngIf="pfdata?.topupstatus!='0'" class="text-success fw-bold" style="font-size: 20px;">
         Your  Subscription is completed </p>
     </div>
 
@@ -18,7 +18,7 @@
         </h5>
         <!-- Share Icons -->
         <div *ngIf="showShareIcons" class="d-flex justify-content-md-end gap-3 mt-2">
-          <a (click)="sharwahtsapp(homedata.profiledata?.regid)" target="_blank" title="WhatsApp">
+          <a (click)="sharwahtsapp(pfdata.regid)" target="_blank" title="WhatsApp">
             <i class="fab fa-whatsapp fa-lg text-success"></i>
           </a>
           <a href="https://instagram.com" target="_blank" title="Instagram">
@@ -46,7 +46,7 @@
         <div class="col-12 col-sm-6 col-lg-4">
           <div class="card h-100 text-center p-3 shadow-sm">
             <p class="mb-2">Deposit Fund</p>
-            <h3 class="mb-3">{{homedata.profiledata?.actwallet | currency:'USD':true:'1.0-1'}}</h3>
+            <h3 class="mb-3">{{pfdata.actwallet | currency:'USD':true:'1.0-1'}}</h3>
             <a href="#" class="btn btn-custom btn-deposit" data-bs-toggle="modal" data-bs-target="#addFundModal">DEPOSIT</a>
           </div>
         </div>
@@ -54,7 +54,7 @@
         <div class="col-12 col-sm-6 col-lg-4">
           <div class="card h-100 text-center p-3 shadow-sm">
             <p class="mb-2">Withdraw Fund</p>
-            <h3 class="mb-3">{{homedata.profiledata?.walletamount | currency:'USD':true:'1.0-1'}}</h3>
+            <h3 class="mb-3">{{pfdata.walletamount | currency:'USD':true:'1.0-1'}}</h3>
             <a href="javascript:void(0)" class="btn btn-success rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#withdrawModal">WITHDRAW</a>
           </div>
         </div>
@@ -64,62 +64,9 @@
 </div>
 <!-- lll -->
 
-<!-- hhhhh. -->
-
-<<<<<<< HEAD
-<div class="row">
-=======
-<!-- <div class="row">
->>>>>>> balu
-  <div class="col-12 col-sm-6 col-lg-4 ">
-    <div class="container py-4">
-      <div class="summary-card">
-        <p class="d-flex justify-content-start">Earning Meter
-        </p>
-        <div class="wrapper ">
-          <h1 class="text-center">{{gaugeValue}}%</h1>
-          <canvas id="foo"></canvas>
-          <h3 class="text-center">{{gaugeValue}}% of {{gaugeValue}} </h3>
-          <p class="text-center">Earning Meter
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-8">
-    <div class="container py-4">
-      <div class="summary-card">
-        <div class="row">
-          <div class="col-md-4">
-            <h5 class="mb-3">Summary</h5>
-            <div class="bonus-box active">
-              <div>Daily Bonus</div>
-              <div class="bonus-value">$0.00</div>
-            </div>
-
-            <div class="bonus-box inactive">
-              <div>Level Bonus</div>
-              <div class="bonus-value">$0.00</div>
-            </div>
-
-            <div class="bonus-box inactive">
-              <div>Reward Bonus</div>
-              <div class="bonus-value">$0.00</div>
-            </div>
-          </div>
-          <div class="col-md-8">
-            <div class="chart-box bg-white p-3">
-              <canvas id="summaryChart"></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
 <div class="card p-4 mb-4" style="background-color: #fff; border-radius: 20px;">
   <h2 class="card-title">Income </h2>
-  <div class="row" *ngIf="homedata">
+  <div class="row">
     <div class="col-md-12">
       <div class="row mt-5">
         <div class="col-sm-4 mb-2">
@@ -155,86 +102,21 @@
             <h3>${{homedata.diamondincome}}</h3>
           </div>
         </div>
-        <!-- <div class="col-sm-4" *ngIf="homedata?.profiledata">
-          <div class="card" style="background-color: #08A046; color: white; padding: 20px;">
-            <h5> Holding Wallet</h5>
-            <h3>${{profiledata.upgrade}}</h3>
-          </div>
-        </div> -->
-        <div class="col-sm-4 mb-3" *ngIf="homedata.profiledata">
+        <div class="col-sm-4 mb-3" >
           <div class="card text-white" style="background-color: #08A046; padding: 20px;">
             <h5 class="mb-2">Holding Wallet</h5>
             <h3 class="mb-0">
-              ${{ homedata.profiledata.upgrade}}
+              {{ pfdata?.upgrade | currency:'USD':true:'1.0-1'}}
             </h3>
           </div>
         </div>
         
       </div>
     </div>
-    <!-- <div class="col-md-4">
-      <div class="card p-3" style="   background-color: #fff;
-        border-radius: 10px;">
-        <h6 class="card-subtitle mb-2 text-muted">Transaction/Sec</h6>
-        <canvas id="transactionChart" width="100" height="50"></canvas>
-        <p class="text-muted mt-2">Measure of system throughput, indicating transactions processed every second.</p>
-      </div>
-    </div> -->
   </div>
 </div>
 
 
-<!-- hjsduasduh -->
-<!-- <div class="card p-4 mb-4" style="background-color: #fff; border-radius: 20px;">
-  <h2 class="card-title">My Users </h2>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="row mt-5">
-            <div class="col-sm-4">
-              <div class="card text-start p-3">
-                <h5>My Referrals</h5>
-                <h3>$800</h3>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="card text-start p-3">
-                <h5>Silver</h5>
-                <h3>$800</h3>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="card text-start p-3">
-                <h5>Gold Incoming</h5>
-                <h3>$800</h3>
-              </div>
-            </div>
-          </div>
-          <div class="row mt-5">
-            <div class="col-sm-4">
-              <div class="card text-start p-3">
-                <h5>Diamond Incoming</h5>
-                <h3>$800</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="row mt-5">
-        <div class="col-sm-4">
-          <div class="card">
-            <h5> Diamond Incoming</h5>
-            <h3>$800</h3>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-  </div>
- 
-</div> -->
 <style>
   .card-custom {
     margin: 10px;
@@ -275,7 +157,7 @@
 </style>
 <div class="card p-4 mb-4" style="background-color: #fff; border-radius: 20px;">
   <h2 class="card-title">My Users </h2>
-  <div class="container" *ngIf="homedata">
+  <div class="container" >
     <div class="row">
       <div class="col-md-3">
         <div class="card card-custom purple">
@@ -316,34 +198,6 @@
 </div>
 
 
-
-
-<!-- teams section -->
-<!-- <div class="container-fluid stats-container my-3">
-  <div class="stats-title">Team Stats</div>
-  <div class="row g-3 stats-grid">
-    <div class="col-12 col-sm-6 col-lg-3">
-      <div class="stat-card total-team text-center">
-        <span>0</span>Total Team
-      </div>
-    </div>
-    <div class="col-12 col-sm-6 col-lg-3">
-      <div class="stat-card direct text-center">
-        <span>0</span>Direct
-      </div>
-    </div>
-    <div class="col-12 col-sm-6 col-lg-3">
-      <div class="stat-card active-direct text-center">
-        <span>0</span>Active Direct
-      </div>
-    </div>
-    <div class="col-12 col-sm-6 col-lg-3">
-      <div class="stat-card total-active text-center">
-        <span>0</span>Total Active
-      </div>
-    </div>
-  </div>
-</div> -->
 
 <!-- end -->
 <!-- subcrition -->

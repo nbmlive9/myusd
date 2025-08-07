@@ -1,73 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-.node-circle {
-  width: 70px;
-  height: 70px;
-  padding: 8px;
-  border: 2px solid #0d6efd;
-  border-radius: 50%;
-  background-color: white;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
-  transition: transform 0.2s;
-}
-.node-circle:hover {
-  transform: scale(1.1);
-}
-.main-node {
-  width: 80px;
-  height: 80px;
-}
-.small-node {
-  width: 60px;
-  height: 60px;
-}
-
-.tree-line-vertical {
-  width: 2px;
-  height: 20px;
- // background-color: #000;
-  margin: 0 auto;
-}
-.tree-line-horizontal {
-  position: absolute;
-  top: 100px;
-  left: 0;
-  right: 0;
-  height: 2px;
- // background-color: #000;
-  z-index: -1;
-}
-.child-line {
-  top: 25px;
-}
-
-.gap-custom {
-  gap: 6rem;
-}
-
-@media (max-width: 768px) {
-  .overflow-auto {
-    overflow-x: auto !important;
-    white-space: nowrap;
-=======
-.responsive-org-chart {
-    overflow-x: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0px;
->>>>>>> balu
-  }
-  
-  .node-container {
-    display: inline-block;
-    text-align: center;
-    width: auto;
-    padding: 5px;
-  }
-<<<<<<< HEAD
-}
-=======
 .responsive-org-chart {
     overflow-x: auto;
     display: flex;
@@ -82,8 +12,6 @@
     width: auto;
     padding: 5px;
   }
-=======
->>>>>>> balu
   
   .node-image {
     width: 2.5rem;
@@ -141,9 +69,4 @@
     .node-title {
       font-size: 9px;
     }
-<<<<<<< HEAD
   }
->>>>>>> f81e8bc1abc2ab6fb36e077a7970753ff7b6ae94
-=======
-  }
->>>>>>> balu
