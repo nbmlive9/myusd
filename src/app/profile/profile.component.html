@@ -56,9 +56,12 @@
                 </select>
                 <input *ngIf="!isEdit" type="text" class="form-control" [value]="pffdata.country" readonly>
               </div>
-              <div class="col-md-6" *ngIf="pffdata.wallet1 == 1">
-                <label>Wallet1</label>
-                <p class="fw-bold">USDT BEP20</p>
+              <div class="col-md-6" >
+                <label>Wallet Address (USDT BEP20 ) </label>
+                <input *ngIf="isEdit" type="text" formControlName="wallet1" class="form-control"  >
+                <input *ngIf="!isEdit" type="text"  class="form-control" [value]="pffdata.wallet1" readonly >
+
+
               </div>
             </div>
         

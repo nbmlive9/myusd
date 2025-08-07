@@ -75,6 +75,8 @@ export class TransferComponent {
         amount: this.form.value.amount,
         remark: this.form.value.remark
       };
+      console.log("payload:",payload);
+      
   
       this.api.selfTransfer(payload).subscribe({
         next: (res: any) => {
@@ -171,14 +173,24 @@ export class TransferComponent {
       });
     }
   
-    onRegIdKeyup() {
-      const regid = this.form1.get('regid')?.value;
-      if (regid && regid.length >= 4) {
-        this.GetregistredData(regid);
-      } else {
-        this.idData = null;
-        this.errorMessage = null;
-      }
-    }
+ onRegIdKeyup() {
+  const regid = this.form1.get('regid')?.value;
+  
+  // Clear existing data
+  this.idData = null;
+  this.errorMessage = null;
+
+  // Check if regid matches self
+  if (regid === this.pffdata?.regid) {
+    this.errorMessage = 'You cannot transfer to your own ID.';
+    return;
+  }
+
+  if (regid && regid.length >= 4) {
+    this.GetregistredData(regid);
+  }
+}
+
+
   }
   

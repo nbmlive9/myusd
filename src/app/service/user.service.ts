@@ -269,7 +269,7 @@ updateProfile(value: {
   country: string;
   password:string;
   email:string;
-  regid:string;
+  wallet1:string;
 }) {
   const token = this.token.getToken();
   const httpOptions = {
@@ -283,11 +283,12 @@ updateProfile(value: {
     this.AUTH_API + 'Profileiupdate', 
 
    {
-         regid:value.regid,
+    wallet1:value.wallet1,
         name: value.name,
         email:value.email,
         password:value.password,
         country:value.country,
+
 
       },
     httpOptions
@@ -345,5 +346,54 @@ return this.http.get(
 );
 }
 
+
+forgotpassword(value: {
+  regid: string;
+  email:string;
+}) {
+  const token = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` })
+    }),
+  };
+
+  return this.http.post(
+    this.AUTH_API + 'Forget_password', 
+   {
+        regid: value.regid,
+        email:value.email,
+      },
+    httpOptions
+  );
+}
+
+
+private apiUrl = 'https://restcountries.com/v3.1/all?fields=name,cca2'; // ✅ specify fields
+getCountries() {
+  return this.http.get(this.apiUrl);
+}
+
+
+
+
+
+
+  private baseApiUrl = 'https://api.apiverve.com/v1/callingcode';
+  private apiKey = 'f83453ba-3d3d-4ec3-a87d-664f1b51bf82';
+  
+  getCallingCode(countryCode: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'x-api-key': this.apiKey,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+  
+    const apiUrl = `${this.baseApiUrl}?country=${countryCode}`;
+  
+    return this.http.get(apiUrl, { headers });
+  }
+  
 
 }

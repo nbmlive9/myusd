@@ -8,7 +8,10 @@ declare var $: any;
   styleUrls: ['./reports.component.scss']
 })
 export class ReportsComponent {
-  treport: any;
+ startDate: string = '';
+endDate: string = '';
+treport: any[] = [];
+filteredReport: any[] = [];
   dreport: any;
   constructor(private api:UserService){
   }
@@ -36,8 +39,37 @@ export class ReportsComponent {
         console.log("total:",res);
         this.treport=res.data
         console.log("pffdata:",this.treport);
+        this.filteredReport = [...this.treport];
     })
   }
+
+  filterByDate() {
+  if (!this.startDate && !this.endDate) {
+    this.filteredReport = [...this.treport];
+    return;
+  }
+
+  const start = this.startDate ? new Date(this.startDate) : null;
+  const end = this.endDate ? new Date(this.endDate) : null;
+
+  this.filteredReport = this.treport.filter(item => {
+    const itemDate = new Date(item.cdate);
+    if (start && end) {
+      return itemDate >= start && itemDate <= end;
+    } else if (start) {
+      return itemDate >= start;
+    } else if (end) {
+      return itemDate <= end;
+    }
+    return true;
+  });
+}
+
+resetFilter() {
+  this.startDate = '';
+  this.endDate = '';
+  this.filteredReport = [...this.treport];
+}
 
   getTodayReport(){
     this.api.todayReport().subscribe((res:any)=>{

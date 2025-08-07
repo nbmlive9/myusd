@@ -50,7 +50,6 @@
               <th>Date</th>
               <th>Registration ID</th>
               <th>Name</th>
-              <th>Phone</th>
               <th> Amount</th>
               <th>WalletType</th>
             </tr>
@@ -61,7 +60,6 @@
               <td>{{ item.cdate }}</td>
               <td>{{ item.userid }}</td>
               <td>{{ item.rname }}</td>
-              <td>{{ item.rphone }}</td>
               <td>${{ item.amount }}</td>
               <td>{{ item.waltype }}</td>
             </tr>
@@ -135,18 +133,8 @@
       </div>
       <form [formGroup]="form1">
         <div class="modal-body text-center">
-          <!-- <input type="text" class="form-control mb-2" placeholder="Enter Registered Id " formControlName="regid" style="border-radius: 16px; font-size: 25px;" onkeyup="GetregistredData()"  />
-          
-          <input type="text" class="form-control mb-2" placeholder="Enter Registered Id" formControlName="regid"
-            (keyup)="GetregistredData(form1.value.regid)" style="border-radius: 16px; font-size: 25px;" /> -->
-            <input 
-  type="text" 
-  class="form-control mb-2" 
-  placeholder="Enter Registered Id" 
-  formControlName="regid" 
-  (keyup)="onRegIdKeyup()" 
+            <input type="text" class="form-control mb-2" placeholder="Enter Registered Id" formControlName="regid"  (keyup)="onRegIdKeyup()" 
   style="border-radius: 16px; font-size: 25px;" />
-
 
           <!-- Display username if fetched -->
           <div *ngIf="idData" class="text-primary mt-2 fs-5">
@@ -169,8 +157,9 @@
               currency:'USD':true:'1.0-1'}}</span></p>
         </div>
         <div class="modal-footer d-flex justify-content-between">
-          <button type="button" class="btn btn-primary" style="border-radius: 16px;"  data-bs-dismiss="modal" (click)="WalletTransfer()">Transfer
-            Amount</button>
+        <button type="button" class="btn btn-primary"  [disabled]="errorMessage" style="border-radius: 16px;" data-bs-dismiss="modal"
+  (click)="WalletTransfer()"> Transfer Amount </button>
+
           <button type="button" class="btn btn-danger" style="border-radius: 16px;"
             data-bs-dismiss="modal">CLOSE</button>
         </div>

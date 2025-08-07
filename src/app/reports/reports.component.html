@@ -1,9 +1,12 @@
 <div class="container-fluid mt-5" style="background-color: #fff; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
     <div class="row d-flex justify-content-center">
-      <div class="col-lg-6 d-flex">
-        <input type="text" class="form-control date-picker me-2" id="startDate" placeholder="Start Date">
-        <input type="text" class="form-control date-picker" id="endDate" placeholder="End Date">
-      </div>
+     <div class="col-lg-6 d-flex mb-3">
+      <input type="date" class="form-control me-2" [(ngModel)]="startDate" placeholder="Start Date">
+      <input type="date" class="form-control me-2" [(ngModel)]="endDate" placeholder="End Date">
+      <button class="btn btn-primary" (click)="filterByDate()">Filter</button>
+      <button class="btn btn-secondary ms-2" (click)="resetFilter()">Reset</button>
+  </div>
+
     </div>
   
     <table class="table mt-3">
@@ -18,7 +21,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let items of treport let i='index' ">
+        <tr *ngFor="let items of filteredReport; let i='index' ">
           <td>{{i+1}}</td>
           <td>{{items.cdate}}</td>
           <td>${{items.amount}}</td>

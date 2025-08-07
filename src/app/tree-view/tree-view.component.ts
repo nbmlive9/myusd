@@ -188,7 +188,7 @@ getImageByBoardStatus(boardstatus: string): string {
 gettreeviewdata(id: string) {
   this.loading = true; 
   this.uapi.UserTreeViewDataById(id).subscribe((res: any) => {
-    // console.log('Response data:', res.data);
+    console.log('Response data:', res.data);
     this.tdata = res.data;
     this.loading = false; 
   });

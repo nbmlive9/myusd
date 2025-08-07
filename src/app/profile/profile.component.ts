@@ -22,7 +22,7 @@ export class ProfileComponent {
       country: [''],
       password: [''],
       email: [''],
-      regid: ['']
+      wallet1:['']
     });
   }
 
@@ -47,11 +47,11 @@ export class ProfileComponent {
 
     // Patch the form with existing profile data
     this.form.patchValue({
-      regid: this.pffdata.regid,
       name: this.pffdata.name,
       country: this.pffdata.country,
       email: this.pffdata.email,
-      password: this.pffdata.password
+      password: this.pffdata.password,
+      wallet1:this.pffdata.wallet1
     });
   }
 

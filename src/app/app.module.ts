@@ -34,6 +34,7 @@ import { ContextMenuModule } from 'primeng/contextmenu';
 import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
 import { TagModule } from 'primeng/tag';
+import { AuthReferShareComponent } from './auth-refer-share/auth-refer-share.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { TagModule } from 'primeng/tag';
     DepositComponent,
     TransferComponent,
     ReceivedComponent,
-    DirectTeamComponent
+    DirectTeamComponent,
+    AuthReferShareComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +69,7 @@ import { TagModule } from 'primeng/tag';
       ConfirmDialogModule,
         ConfirmPopupModule,
         ColorPickerModule,
-        ContextMenuModule,   TagModule,
+        ContextMenuModule, TagModule,
         DataViewModule,
         DialogModule,
     ToastrModule.forRoot({
