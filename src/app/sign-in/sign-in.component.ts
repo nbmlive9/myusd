@@ -125,7 +125,7 @@ export class SignInComponent implements OnInit {
       this.pffdata = res.data[0];
     });
   }
-
+// lll
   GetregistredData(id: any) {
     this.errorMessage = null;
     this.api.getregiddata(id).subscribe({
