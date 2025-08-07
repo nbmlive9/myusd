@@ -341,7 +341,7 @@ const httpOptions = {
   })
 }
 return this.http.get(
-  this.AUTH_API + `Treedata/+id`,
+  this.AUTH_API + 'Treedata/'+id,
   httpOptions
 );
 }
@@ -374,11 +374,6 @@ private apiUrl = 'https://restcountries.com/v3.1/all?fields=name,cca2'; // ✅ s
 getCountries() {
   return this.http.get(this.apiUrl);
 }
-
-
-
-
-
 
   private baseApiUrl = 'https://api.apiverve.com/v1/callingcode';
   private apiKey = 'f83453ba-3d3d-4ec3-a87d-664f1b51bf82';

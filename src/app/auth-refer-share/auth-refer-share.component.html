@@ -71,21 +71,50 @@
                         style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
                     </div>
                   </div>
-                  <div class="col-6">
-                      <label class="form-label">Country</label>
-                      <div class="input-wrapper" style="position: relative;">
-                        <select formControlName="country"
-                          style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box; appearance: none;"
-                          required>
-                          <option value="" disabled selected>Select your country</option>
-                          <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
-                        </select>
-                        <i class="fas fa-globe"
-                          style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
-                      </div>
-                    </div>
+                  
 
                 </div>
+
+                 <div class="row mb-3">
+                <div class="col-sm-6">
+                  <label class="form-label">Country</label>
+                  <div class="input-wrapper" style="position: relative;">
+                    <select formControlName="country"
+                      style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box; appearance: none;"
+                      required>
+                      <option value="" disabled>Select your country</option>
+                      <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+                    </select>
+                    <i class="fas fa-globe"
+                      style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <label class="form-label">Phone</label>
+                  <div class="input-wrapper" style="position: relative;">
+
+                    <!-- Show numbercode if available -->
+                    <span *ngIf="numbercode; else phoneIcon"
+                      style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;">
+                      {{ numbercode }}
+                    </span>
+
+                    <!-- Else show phone icon -->
+                    <ng-template #phoneIcon>
+                      <i class="fa-solid fa-phone"
+                        style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 2;"></i>
+                    </ng-template>
+
+                    <!-- Phone input field -->
+                    <input type="number" formControlName="phone" autocomplete="off" placeholder="phone number" style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212;
+                        padding: 10px 10px 10px 50px; width: 100%; box-sizing: border-box;" required />
+                  </div>
+                </div>
+
+
+
+              </div>
   
                 <div class="row mb-3">
                   <div class="col-6">
@@ -130,7 +159,6 @@
                     <input
                       type="text"
                       formControlName="sponcerid"
-                      (keyup)="onRegIdKeyup()"
                       autocomplete="off"
                       [(ngModel)]="pffdata.regid"
                       style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;" readonly/>

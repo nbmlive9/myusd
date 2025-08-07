@@ -1,18 +1,18 @@
 <div class="container-fluid wrapper ">
-  <div class="row">
+  <div class="row ">
     <!-- Greeting Section -->
-    <div class="col-12 col-md-6 col-lg-3 mt-4" *ngIf="homedata?.profiledata && pfdata">
+    <div class="card col-12 col-md-6 col-lg-3 mt-2 p-2" *ngIf="homedata?.profiledata && pfdata">
       <h4 class="mb-1">Hi,</h4>
-      <h4 class="mb-3">
+      <h4 class="mb-0">
         {{ homedata.profiledata.name }}, {{ homedata.profiledata.regid }}
       </h4>
-      <p *ngIf="pfdata.topupstatus !== '0'" class="text-success fw-bold" style="font-size: 20px;">
+      <p *ngIf="pfdata.topupstatus !== '0'" class="text-success fw-bold" style="font-size: 15px;">
         Your Subscription is completed
       </p>
-    </div>
-    
-
-    <!-- Share Link Section -->
+       <button *ngIf="pfdata.topupstatus !== '1'" class="btn btn-sm btn-danger mt-2" style="font-size: 15px;" data-bs-toggle="modal" data-bs-target="#subscriptionModal">
+        Buy Subscription
+       </button>
+         <!-- Share Link Section -->
     <div class="col-12 col-md-6 col-lg-3 mt-4 text-md-end">
       <div class="d-inline-block">
         <h5 class="d-inline-block p-1" style="cursor: pointer;" (click)="toggleShare()">
@@ -20,20 +20,24 @@
             Share Link <i class="fa fa-share-alt-square" aria-hidden="true"></i>
           </span>
         </h5>
-        <!-- Share Icons -->
-        <div *ngIf="showShareIcons" class="d-flex justify-content-md-end gap-3 mt-2">
-          <a (click)="sharwahtsapp(homedata.profiledata?.regid)" target="_blank" title="WhatsApp">
-            <i class="fab fa-whatsapp fa-lg text-success"></i>
-          </a>
-          <a href="https://instagram.com" target="_blank" title="Instagram">
-            <i class="fab fa-instagram fa-lg text-danger"></i>
-          </a>
-          <a href="https://facebook.com" target="_blank" title="Facebook">
-            <i class="fab fa-facebook fa-lg text-primary"></i>
-          </a>
+
+            <!-- Share Icons -->
+            <div *ngIf="showShareIcons" class="d-flex justify-content-md-end gap-3 mt-2">
+              <a (click)="sharwahtsapp(homedata.profiledata?.regid)" target="_blank" title="WhatsApp">
+                <i class="fab fa-whatsapp fa-lg text-success"></i>
+              </a>
+              <a href="https://instagram.com" target="_blank" title="Instagram">
+                <i class="fab fa-instagram fa-lg text-danger"></i>
+              </a>
+              <a href="https://facebook.com" target="_blank" title="Facebook">
+                <i class="fab fa-facebook fa-lg text-primary"></i>
+              </a>
+            </div>
+          </div>
         </div>
-      </div>
+
     </div>
+    
 
     <!-- Cards Section -->
     <div class="col-12 col-lg-6 mt-4">
@@ -47,7 +51,7 @@
           </div>
         </div>
         <!-- Deposit Card -->
-        <div class="col-12 col-sm-6 col-lg-4">
+        <div class="col-md-12 col-sm-6 col-lg-4">
           <div class="card h-100 text-center p-3 shadow-sm">
             <p class="mb-2">Deposit Fund</p>
             <h3 class="mb-3">{{homedata.profiledata?.actwallet | currency:'USD':true:'1.0-1'}}</h3>
@@ -59,7 +63,7 @@
           <div class="card h-100 text-center p-3 shadow-sm">
             <p class="mb-2">Withdraw Fund</p>
             <h3 class="mb-3">{{homedata.profiledata?.walletamount | currency:'USD':true:'1.0-1'}}</h3>
-            <a href="javascript:void(0)" class="btn btn-success rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#withdrawModal">WITHDRAW</a>
+            <a href="javascript:void(0)" class="btn btn-danger btn-sm rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#withdrawModal">WITHDRAW</a>
           </div>
         </div>
       </div>
@@ -72,34 +76,34 @@
   <div class="row" *ngIf="homedata">
     <div class="col-md-12">
       <div class="row mt-5">
-        <div class="col-sm-4 ">
+        <div class="col-sm-4 mb-2">
           <div class="card" style="background-color: #17A2B8; color: white; padding: 20px;">
             <h5> Sponsor Income</h5>
             <h3>${{homedata.sponcerincome}}</h3>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-4 mb-2">
           <div class="card" style="background-color: #30B32D; color: white; padding: 20px;">
             <h5> Level Binary Income</h5>
 
             <h3>${{homedata.levelbinary}}</h3>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-4 mb-2">
           <div class="card" style="background-color: #DC3545; color: white ; padding: 20px;">
             <h5> Sliver Income</h5>
             <h3>${{homedata.silverincome}}</h3>
           </div>
         </div>
       </div>
-      <div class="row mt-5">
-        <div class="col-sm-4"> 
+      <div class="row mt-2">
+        <div class="col-sm-4 mb-2"> 
           <div class="card" style="background-color: #F2873C; color: white;padding: 20px;">
             <h5> Gold Incoming</h5>
             <h3>${{homedata.goldincome}}</h3>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-4 mb-2">
           <div class="card" style="background-color: #FF0000; color: white; padding: 20px;">
             <h5> Diamond Incoming</h5>
             <h3>${{homedata.diamondincome}}</h3>

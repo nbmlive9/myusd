@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { TokenService } from '../service/token.service';
 import { UserService } from '../service/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
     private api: AuthService,
     private router: Router,
     private token:TokenService,
-    private user:UserService
+    private user:UserService, private toastr:ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -54,18 +55,18 @@ export class LoginComponent implements OnInit {
           if (res.status === 1) {
             this.token.saveToken(res.token);
             this.token.saveUser({ role: res.usertype });
-  
+           this.toastr.success('Login Successful!', 'Success');
            // alert('✅ Login successful!');
             this.router.navigate(['/dashboard']);
           } else {
             this.errorMessage = res.message || 'Login failed';
-            alert(` ${this.errorMessage}`);
+             this.toastr.error('Enter Valid Login Details!', 'Error');
           }
         },
         error: (err) => {
           this.isLoading = false;
           this.errorMessage = 'Enter valid Credentials';
-          //alert(` ${this.errorMessage}`);
+           this.toastr.error('Enter Valid Login Details!', 'Error');
         }
       });
     } else {

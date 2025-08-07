@@ -30,11 +30,6 @@ export class SignInComponent implements OnInit {
       position: ['', Validators.required],
     });
 
-    this.form1 = this.fb.group({
-      regid: ['', Validators.required],
-      amount: ['', Validators.required],
-      remark: ['transfer to other user']
-    });
   }
 
   ngOnInit(): void {
@@ -100,7 +95,7 @@ export class SignInComponent implements OnInit {
         password: form.password,
         position: form.position,
         country: form.country,
-        cca2: this.CountryCode  // You can include this if needed
+    
       };
 
       this.api.register(payload).subscribe({
