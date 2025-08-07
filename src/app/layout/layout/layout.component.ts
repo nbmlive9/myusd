@@ -22,9 +22,24 @@ export class LayoutComponent implements OnInit {
     });
 
     this.checkScreenSize();
+      this.updateMobileState();
+  window.addEventListener('resize', this.updateMobileState.bind(this));
   }
 
-  
+  updateMobileState() {
+  this.isMobile = window.innerWidth <= 768;
+  if (!this.isMobile) {
+    this.isCollapsed = true; // keep sidebar open on desktop
+  }
+}
+
+handleNavigation() {
+  if (this.isMobile) {
+    this.toggleSidebar();
+  }
+}
+
+
 
   @HostListener('window:resize')
   onResize() {

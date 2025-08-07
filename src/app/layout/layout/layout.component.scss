@@ -1,4 +1,5 @@
-.sidebar {
+
+ .sidebar {
   width: 250px;
   background-color: #1f2a40;
   color: #fff;
@@ -9,9 +10,17 @@
   z-index: 1001;
   transition: transform 0.3s ease;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
 
   &.collapsed {
     transform: translateX(-100%);
+  }
+
+  .sidebar-content {
+    // overflow-y: auto;
+    padding-bottom: 2rem;
+    flex: 1;
   }
 
   a {

@@ -10,36 +10,39 @@
       </select>
   </div>
   <h2 class="fw-bold">MY Direct Team</h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>S.No</th>
-        <th>Date</th>
-        <th>User Id</th>
-        <th>Name</th>
-        <th>Subscription</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let row of filteredData; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ row.cdate }}</td>
-        <td>{{ row.regid }}</td>
-        <td>{{ row.name }}</td>
-        <td>
-          <span *ngIf="row.boardstatus == '0'" class="text-danger">Not Subscribe</span>
-          <span *ngIf="row.boardstatus == '1'" class="text-success">Subscribed</span>
-          <span *ngIf="row.boardstatus == '2'" class="text-primary">Silver Upgrade</span>
-          <span *ngIf="row.boardstatus == '3'" class="text-warning">Gold Upgrade</span>
-          <span *ngIf="row.boardstatus == '4'" class="text-info">Diamond Upgrade</span>
-        </td>
-        <td>
-          <span *ngIf="row.topupstatus == '0'" class="text-danger">Not Active</span>
-          <span *ngIf="row.boardstatus == '1'" class="text-success">Active</span>
-          
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Date</th>
+            <th>User Id</th>
+            <th>Name</th>
+            <th>Subscription</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of filteredData; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ row.cdate }}</td>
+            <td>{{ row.regid }}</td>
+            <td>{{ row.name }}</td>
+            <td>
+              <span *ngIf="row.boardstatus == '0'" class="text-danger">Not Subscribe</span>
+              <span *ngIf="row.boardstatus == '1'" class="text-success">Subscribed</span>
+              <span *ngIf="row.boardstatus == '2'" class="text-primary">Silver Upgrade</span>
+              <span *ngIf="row.boardstatus == '3'" class="text-warning">Gold Upgrade</span>
+              <span *ngIf="row.boardstatus == '4'" class="text-info">Diamond Upgrade</span>
+            </td>
+            <td>
+              <span *ngIf="row.topupstatus == '0'" class="text-danger">Not Active</span>
+              <span *ngIf="row.boardstatus == '1'" class="text-success">Active</span>
+              
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+
   
