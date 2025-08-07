@@ -1,6 +1,4 @@
 <section>
-
-
   <div class="container-fluid">
     <div class="row ">
       <div class="col-lg-8">
@@ -34,12 +32,10 @@
           <div class="register-container" style="width: 100%; max-width: 400px;">
             <h1 style="color: rgb(8, 5, 5); text-align: center; font-size: 2rem; margin-bottom: 2rem;">REGISTER</h1>
             <form [formGroup]="registerForm" (ngSubmit)="sign()">
-
-
               <div class="row mb-3">
-                <div class="col-6">
+                <div class="col-sm-6">
 
-                  <label class="form-label">First Name</label>
+                  <label class="form-label">Full Name</label>
                   <div class="input-wrapper" style="position: relative;">
                     <input type="text" formControlName="name" autocomplete="off" placeholder="Adam"
                       style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;"
@@ -48,20 +44,8 @@
                       style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
                   </div>
                 </div>
-                <div class="col-6">
-                  <label class="form-label">Phone</label>
-                  <div class="input-wrapper" style="position: relative;">
-                    <input type="text" formControlName="phone" autocomplete="off" placeholder=" phone number"
-                      style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;"
-                      required />
-                    <i class="fa-solid fa-phone"
-                      style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
-                  </div>
-                </div>
-              </div>
 
-              <div class="row mb-3">
-                <div class="col-6">
+                <div class="col-sm-6">
                   <label class="form-label">Email</label>
                   <div class="input-wrapper" style="position: relative;">
                     <input type="email" formControlName="email" autocomplete="off" placeholder="example@domain.com"
@@ -71,24 +55,56 @@
                       style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
                   </div>
                 </div>
-                <div class="col-6">
-                    <label class="form-label">Country</label>
-                    <div class="input-wrapper" style="position: relative;">
-                      <select formControlName="country"
-                        style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box; appearance: none;"
-                        required>
-                        <option value="" disabled selected>Select your country</option>
-                        <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
-                      </select>
-                      <i class="fas fa-globe"
-                        style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
-                    </div>
-                  </div>
 
               </div>
 
               <div class="row mb-3">
-                <div class="col-6">
+                <div class="col-sm-6">
+                  <label class="form-label">Country</label>
+                  <div class="input-wrapper" style="position: relative;">
+                    <select formControlName="country"
+                      style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box; appearance: none;"
+                      required>
+                      <option value="" disabled>Select your country</option>
+                      <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+                    </select>
+                    <i class="fas fa-globe"
+                      style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
+                  </div>
+                </div>
+
+
+
+
+
+                <div class="col-sm-6">
+                  <label class="form-label">Phone</label>
+                  <div class="input-wrapper" style="position: relative;">
+
+                    <!-- Show numbercode if available -->
+                    <span *ngIf="numbercode; else phoneIcon"
+                      style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;">
+                      {{ numbercode }}
+                    </span>
+
+                    <!-- Else show phone icon -->
+                    <ng-template #phoneIcon>
+                      <i class="fa-solid fa-phone"
+                        style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 2;"></i>
+                    </ng-template>
+
+                    <!-- Phone input field -->
+                    <input type="text" formControlName="phone" autocomplete="off" placeholder="phone number" style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212;
+                        padding: 10px 10px 10px 50px; width: 100%; box-sizing: border-box;" required />
+                  </div>
+                </div>
+
+
+
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-sm-6">
                   <label class="form-label">Password</label>
                   <div class="input-wrapper" style="position: relative;">
                     <input type="password" formControlName="password" autocomplete="new-password" placeholder="********"
@@ -105,57 +121,70 @@
                                         <i class="fas fa-lock" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
                                     </div>
                                 </div> -->
-             
-                <div class="col-6">
+
+
+                <div class="col-sm-6">
+                <!-- Referral ID Input with Live Sponsor Lookup -->
+<div class="mb-3">
+  <label for="sponcerid" class="form-label">Referral ID</label>
+  <div class="input-wrapper" style="position: relative;">
+    <input
+      id="sponcerid"
+      type="text"
+      name="sponcerid"
+      formControlName="sponcerid"
+      (keyup)="onRegIdKeyup()"
+      autocomplete="off"
+      placeholder="Enter referral ID"
+      style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;"
+    />
+    <i
+      class="fas fa-key"
+      style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"
+    ></i>
+  </div>
+
+  <!-- ✅ Sponsor Name if Found -->
+  <div *ngIf="idData" class="text-success mt-1">
+    Sponsor Name: {{ idData.name }}
+  </div>
+
+  <!-- ❌ Error if Sponsor Not Found -->
+  <div *ngIf="errorMessage" class="text-danger mt-1">
+    {{ errorMessage }}
+  </div>
+</div>
+
+
+                </div>
+                <!-- <div class="col-sm-6">
+                  <label class="form-label">Placement ID</label>
+                  <div class="input-wrapper" style="position: relative;">
+                    <input type="text" formControlName="placementid" autocomplete="off" placeholder="Adam"
+                      style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;"
+                      required />
+                    <i class="fas fa-user"
+                      style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
+                  </div>
+                </div> -->
+<!--  -->
+<!--  -->
+                <div class="col-sm-6">
                   <label class="form-label">Position</label>
                   <div class="input-wrapper" style="position: relative;">
                     <select formControlName="position"
                       style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box; appearance: none;"
                       required>
-                      <option value="" selected>Select Position</option>
+                      <option value="" selected>Select Position left</option>
                       <option value="Right">Right</option>
                       <option value="Left">Left</option>
                       <!-- Add more countries as needed -->
                     </select>
-                     <i class="fa-solid fa-left-right"
+                    <i class="fa-solid fa-left-right"
                       style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
                   </div>
                 </div>
-
               </div>
-
-              <div class="mb-3">
-                <label class="form-label">Referral ID</label>
-                <div class="input-wrapper" style="position: relative;">
-                  <input
-                    type="text"
-                    formControlName="sponcerid"
-                    (keyup)="onRegIdKeyup()"
-                    autocomplete="off"
-                    placeholder="Enter referral ID"
-                    style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;" />
-                  <i class="fas fa-key"
-                    style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
-                </div>
-              
-                <!-- Show referral name -->
-                <div *ngIf="idData">
-                  <small class="text-success">Referral Name: {{ idData.name }}</small>
-                </div>
-              
-                <!-- Show error -->
-                <div *ngIf="errorMessage">
-                  <small class="text-danger">{{ errorMessage }}</small>
-                </div>
-              </div>
-              
-
-
-
-
-
-
-
               <div class="mb-3">
                 <label style="color: #131212;">
                   <input type="checkbox" formControlName="terms" required /> I have read and agree to MYUSD <a

@@ -35,7 +35,6 @@ import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
 import { TagModule } from 'primeng/tag';
 import { AuthReferShareComponent } from './auth-refer-share/auth-refer-share.component';
-import { PanelMenuModule } from 'primeng/panelmenu';
 
 @NgModule({
   declarations: [
@@ -70,7 +69,7 @@ import { PanelMenuModule } from 'primeng/panelmenu';
       ConfirmDialogModule,
         ConfirmPopupModule,
         ColorPickerModule,
-        ContextMenuModule, TagModule, PanelMenuModule,
+        ContextMenuModule, TagModule,
         DataViewModule,
         DialogModule,
     ToastrModule.forRoot({
