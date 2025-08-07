@@ -123,55 +123,66 @@
                                 </div> -->
 
 
-                                <div class="col-sm-6">
-                                  <div class="mb-3">
-                    <label class="form-label">Sponsor ID</label>
-                    <div class="input-wrapper" style="position: relative;">
-                      <input type="text" formControlName="sponcerid" (keyup)="onRegIdKeyup()" autocomplete="off"
-                        placeholder="Enter referral ID"
-                        style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;" />
-                      <i class="fas fa-key"
-                        style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
-                    </div>
+                <div class="col-sm-6">
+                <!-- Referral ID Input with Live Sponsor Lookup -->
+<div class="mb-3">
+  <label for="sponcerid" class="form-label">Referral ID</label>
+  <div class="input-wrapper" style="position: relative;">
+    <input
+      id="sponcerid"
+      type="text"
+      name="sponcerid"
+      formControlName="sponcerid"
+      (keyup)="onRegIdKeyup()"
+      autocomplete="off"
+      placeholder="Enter referral ID"
+      style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;"
+    />
+    <i
+      class="fas fa-key"
+      style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"
+    ></i>
+  </div>
 
-                    <!-- Show referral name -->
-                    <div *ngIf="idData">
-                      <small class="text-success">Referral Name: {{ idData.name }}</small>
-                    </div>
+  <!-- ✅ Sponsor Name if Found -->
+  <div *ngIf="idData" class="text-success mt-1">
+    Sponsor Name: {{ idData.name }}
+  </div>
 
-                    <!-- Show error -->
-                    <div *ngIf="errorMessage">
-                      <small class="text-danger">{{ errorMessage }}</small>
-                    </div>
-                  </div>
+  <!-- ❌ Error if Sponsor Not Found -->
+  <div *ngIf="errorMessage" class="text-danger mt-1">
+    {{ errorMessage }}
+  </div>
+</div>
+
 
                 </div>
-                <div class="col-sm-6">
+                <!-- <div class="col-sm-6">
                   <label class="form-label">Placement ID</label>
-                    <div class="input-wrapper" style="position: relative;">
-                      <input type="text" formControlName="placementid" autocomplete="off" placeholder="Adam"
-                        style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;"
-                        required />
-                      <i class="fas fa-user"
-                        style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
-                    </div>
+                  <div class="input-wrapper" style="position: relative;">
+                    <input type="text" formControlName="placementid" autocomplete="off" placeholder="Adam"
+                      style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;"
+                      required />
+                    <i class="fas fa-user"
+                      style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
                   </div>
+                </div> -->
 
-                  <div class="col-sm-6">
-                    <label class="form-label">Position</label>
-                    <div class="input-wrapper" style="position: relative;">
-                      <select formControlName="position"
-                        style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box; appearance: none;"
-                        required>
-                        <option value="" selected>Select Position left</option>
-                        <option value="Right">Right</option>
-                        <option value="Left">Left</option>
-                        <!-- Add more countries as needed -->
-                      </select>
-                      <i class="fa-solid fa-left-right"
-                        style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
-                    </div>
+                <div class="col-sm-6">
+                  <label class="form-label">Position</label>
+                  <div class="input-wrapper" style="position: relative;">
+                    <select formControlName="position"
+                      style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box; appearance: none;"
+                      required>
+                      <option value="" selected>Select Position left</option>
+                      <option value="Right">Right</option>
+                      <option value="Left">Left</option>
+                      <!-- Add more countries as needed -->
+                    </select>
+                    <i class="fa-solid fa-left-right"
+                      style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
                   </div>
+                </div>
               </div>
               <div class="mb-3">
                 <label style="color: #131212;">
