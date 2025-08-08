@@ -15,6 +15,8 @@ export class AuthReferShareComponent {
     pffdata: any;
     errorMessage: any;
     idData: any;
+        errorMessage1: any;
+    idData1: any;
     form1!:FormGroup
   id:any;
    numbercode:any;
@@ -30,6 +32,7 @@ export class AuthReferShareComponent {
       password: ['', Validators.required],
       sponcerid: [this.id],
       position: ['', Validators.required],
+      placementid: ['', Validators.required],
     });
     }
   
@@ -77,7 +80,8 @@ export class AuthReferShareComponent {
           email: form.email,
           password: form.password,
           position: form.position,
-          country: form.country
+          country: form.country,
+           placementid: form.placementid
         };
     
         this.api.register(payload).subscribe({
@@ -122,6 +126,25 @@ export class AuthReferShareComponent {
         }
       });
     }
+
+      GetregistredData1(id: any) {
+      this.errorMessage1 = null;
+      this.api.getregiddata(id).subscribe({
+        next: (res: any) => {
+          if (res?.data?.length > 0) {
+            this.idData1 = res.data[0];
+            this.errorMessage = null;
+          } else {
+            this.idData1 = null;
+            this.errorMessage = 'User not found.';
+          }
+        },
+        error: (err) => {
+          this.idData1 = null;
+          this.errorMessage1 = err?.error?.message || 'Something went wrong.';
+        }
+      });
+    }
   
 
       getCountries() {
@@ -154,6 +177,16 @@ export class AuthReferShareComponent {
         console.error('API Error:', err);
       }
     });
+  }
+
+    onRegIdKeyup() {
+    const regid = this.registerForm.get('sponcerid')?.value;
+    if (regid && regid.length >= 4) {
+      this.GetregistredData(regid);
+    } else {
+      this.idData = null;
+      this.errorMessage = null;
+    }
   }
     
     

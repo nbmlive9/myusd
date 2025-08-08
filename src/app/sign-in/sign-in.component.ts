@@ -18,7 +18,8 @@ export class SignInComponent implements OnInit {
   pffdata: any;
   errorMessage: any;
   idData: any;
-
+ errorMessage1: any;
+    idData1: any;
   constructor(private fb: FormBuilder, private api: UserService) {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
@@ -28,6 +29,7 @@ export class SignInComponent implements OnInit {
       password: ['', Validators.required],
       sponcerid: ['', Validators.required],
       position: ['', Validators.required],
+        placementid: ['', Validators.required],
     });
 
   }
@@ -95,7 +97,7 @@ export class SignInComponent implements OnInit {
         password: form.password,
         position: form.position,
         country: form.country,
-    
+            placementid: form.placementid
       };
 
       this.api.register(payload).subscribe({
@@ -140,6 +142,25 @@ export class SignInComponent implements OnInit {
     });
   }
 
+     GetregistredData1(id: any) {
+      this.errorMessage1 = null;
+      this.api.getregiddata(id).subscribe({
+        next: (res: any) => {
+          if (res?.data?.length > 0) {
+            this.idData1 = res.data[0];
+            this.errorMessage = null;
+          } else {
+            this.idData1 = null;
+            this.errorMessage = 'User not found.';
+          }
+        },
+        error: (err) => {
+          this.idData1 = null;
+          this.errorMessage1 = err?.error?.message || 'Something went wrong.';
+        }
+      });
+    }
+
   onRegIdKeyup() {
     const regid = this.registerForm.get('sponcerid')?.value;
     if (regid && regid.length >= 4) {
@@ -149,4 +170,15 @@ export class SignInComponent implements OnInit {
       this.errorMessage = null;
     }
   }
+
+    onRegIdKeyup1() {
+    const regid = this.registerForm.get('placementid')?.value;
+    if (regid && regid.length >= 4) {
+      this.GetregistredData(regid);
+    } else {
+      this.idData1 = null;
+      this.errorMessage1 = null;
+    }
+  }
+
 }

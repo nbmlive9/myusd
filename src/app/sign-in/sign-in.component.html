@@ -151,18 +151,29 @@
   </div>
 </div>
 
-
                 </div>
-                <!-- <div class="col-sm-6">
-                  <label class="form-label">Placement ID</label>
-                  <div class="input-wrapper" style="position: relative;">
-                    <input type="text" formControlName="placementid" autocomplete="off" placeholder="Adam"
-                      style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;"
-                      required />
-                    <i class="fas fa-user"
-                      style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
-                  </div>
-                </div> -->
+              <!-- ✅ Placement ID -->
+<div class="mb-3">
+  <label for="placementid" class="form-label">Placement ID</label>
+  <div class="input-wrapper" style="position: relative;">
+    <input
+      id="placementid"
+      type="text"
+      formControlName="placementid"
+      (keyup)="onRegIdKeyup1()"
+      autocomplete="off"
+      placeholder="Enter placementid ID"
+      style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;"
+    />
+    <i
+      class="fas fa-key"
+      style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;">
+    </i>
+  </div>
+  <div *ngIf="idData" class="text-success mt-1">
+    Placement Name: {{ idData1.name }}
+  </div>
+</div>
 <!--  -->
 <!--  -->
                 <div class="col-sm-6">

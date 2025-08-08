@@ -26,6 +26,7 @@ export class UserService {
     password: string;
     position: string;
     country: string;
+        placementid: string;
   }) {
     const token = this.token.getToken(); // ⛳ Optional: If token is required
     const httpOptions = {
@@ -45,6 +46,7 @@ export class UserService {
         password: value.password,
         position: value.position,
         country: value.country,
+        placementid: value.placementid
       },
       httpOptions
     );

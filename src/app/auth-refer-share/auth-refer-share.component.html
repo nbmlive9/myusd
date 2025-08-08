@@ -153,50 +153,67 @@
   
                 </div>
   
-                <div class="mb-3">
-                  <label class="form-label">Referral ID</label>
-                  <div class="input-wrapper" style="position: relative;">
-                    <input
-                      type="text"
-                      formControlName="sponcerid"
-                      autocomplete="off"
-                      [(ngModel)]="pffdata.regid"
-                      style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;" readonly/>
-                    <i class="fas fa-key"
-                      style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
-                  </div>
-                
-                  <!-- Show referral name -->
-                  <div >
-                    <small class="text-success">Referral Name: {{ pffdata.name }}</small>
-                  </div>
-                
-                  <!-- Show error -->
-                  <div *ngIf="errorMessage">
-                    <small class="text-danger">{{ errorMessage }}</small>
-                  </div>
-                </div>
-                
-  
-  
-  
-  
-  
-  
-  
-                <div class="mb-3">
-                  <label style="color: #131212;">
-                    <input type="checkbox" formControlName="terms" required /> I have read and agree to MYUSD <a
-                      href="">Terms and Conditions</a>
-                  </label>
-                </div>
-  
-                <button type="submit" class="btn btn-signup"
-                  style="background-color: #0a0909; border: none; border-radius: 20px; color: white; padding: 10px 30px; width: 100%; font-size: 1.2rem;"
-                  (click)="sign()">Sign Up</button>
-                <div style="text-align: center; margin-top: 1rem; ">
-                  Already have an account? <a routerLink="/login" style="color: blue; text-decoration: none;">Log In</a>
-                </div>
+                <!-- ✅ Referral ID -->
+<div class="mb-3">
+  <label class="form-label">Referral ID</label>
+  <div class="input-wrapper" style="position: relative;">
+    <input
+      type="text"
+      formControlName="sponcerid"
+      autocomplete="off"
+      [(ngModel)]="pffdata.regid"
+      style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;"
+      readonly
+    />
+    <i class="fas fa-key"
+      style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;">
+    </i>
+  </div>
+  <small class="text-success">Referral Name: {{ pffdata.name }}</small>
+</div>
+
+<!-- ✅ Placement ID -->
+<div class="mb-3">
+  <label for="placementid" class="form-label">Placement ID</label>
+  <div class="input-wrapper" style="position: relative;">
+    <input
+      id="placementid"
+      type="text"
+      formControlName="placementid"
+      (keyup)="onRegIdKeyup()"
+      autocomplete="off"
+      placeholder="Enter placementid ID"
+      style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;"
+    />
+    <i
+      class="fas fa-key"
+      style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;">
+    </i>
+  </div>
+  <div *ngIf="idData" class="text-success mt-1">
+    Placement Name: {{ idData.name }}
+  </div>
+</div>
+
+<!-- ✅ Terms -->
+<div class="mb-3">
+  <label style="color: #131212;">
+    <input type="checkbox" formControlName="terms" required />
+    I have read and agree to MYUSD <a href="">Terms and Conditions</a>
+  </label>
+</div>
+
+<!-- ✅ Submit -->
+<button type="submit" class="btn btn-signup"
+  style="background-color: #0a0909; border: none; border-radius: 20px; color: white; padding: 10px 30px; width: 100%; font-size: 1.2rem;"
+  (click)="sign()">
+  Sign Up
+</button>
+
+<div style="text-align: center; margin-top: 1rem;">
+  Already have an account? <a routerLink="/login" style="color: blue; text-decoration: none;">Log In</a>
+</div>
+
               </form>
             </div>
           </div>
