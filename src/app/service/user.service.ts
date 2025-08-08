@@ -9,7 +9,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  private readonly AUTH_API = 'https://crypturegrid.com/MYUSD/MYUSD/User/';
+ // private readonly AUTH_API = 'https://crypturegrid.com/MYUSD/MYUSD/User/';
+    private readonly AUTH_API = 'https://myusd.co/MYUSD/MYUSD//User/';
   constructor(
     private http: HttpClient,
     private route: Router,
@@ -25,6 +26,7 @@ export class UserService {
     password: string;
     position: string;
     country: string;
+        placementid: string;
   }) {
     const token = this.token.getToken(); // ⛳ Optional: If token is required
     const httpOptions = {
@@ -44,6 +46,7 @@ export class UserService {
         password: value.password,
         position: value.position,
         country: value.country,
+        placementid: value.placementid
       },
       httpOptions
     );
@@ -341,7 +344,7 @@ const httpOptions = {
   })
 }
 return this.http.get(
-  this.AUTH_API + `Treedata/+id`,
+  this.AUTH_API + 'Treedata/'+id,
   httpOptions
 );
 }
@@ -374,11 +377,6 @@ private apiUrl = 'https://restcountries.com/v3.1/all?fields=name,cca2'; // ✅ s
 getCountries() {
   return this.http.get(this.apiUrl);
 }
-
-
-
-
-
 
   private baseApiUrl = 'https://api.apiverve.com/v1/callingcode';
   private apiKey = 'f83453ba-3d3d-4ec3-a87d-664f1b51bf82';

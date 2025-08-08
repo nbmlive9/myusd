@@ -1,6 +1,8 @@
-<!-- Toggle Button (Visible only on Mobile) -->
-<div class="toggle-btn" (click)="toggleSidebar()">
+<div class="container-fluid">
+  <!-- Toggle Button (Visible only on Mobile) -->
+<div class="toggle-btn" style="margin-left: 20px; margin-top: 10px;" (click)="toggleSidebar()">
   <i class="fas fa-bars"></i>
+</div>
 </div>
 
 <!-- Sidebar Overlay for Mobile -->
@@ -8,66 +10,108 @@
 
 <!-- Sidebar -->
 <div class="sidebar" [class.collapsed]="isMobile && !isCollapsed">
-  <div class="card bg-white p-3 text-center">
-      <p class="text-center"><img src="assets/usd.jpeg" class="img-fluid" style="width: 50px;" alt="" srcset=""></p> 
-      <h4 class="text-primary"><i class="fas fa-tachometer-alt me-2"></i> {{udata.regid}} </h4>
-      <h6 class="text-success"><i class="fas fa-user-alt me-2"></i> {{udata.name}} </h6>
-  </div>
-  <a routerLink="/dashboard"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a>
-  <a routerLink="/profile"><i class="fas fa-user me-2"></i> Profile</a>
+  <div class="sidebar-content">
 
-  <!-- Team Menu -->
-  <div class="nav-item">
-    <a class="nav-link" data-bs-toggle="collapse" href="#teamMenu" role="button" aria-expanded="false"
-      aria-controls="teamMenu">
-      <i class="fa-solid fa-people-group me-2"></i> Team <i class="fas fa-caret-down float-end"></i>
-    </a>
-    <div class="collapse ps-3" id="teamMenu">
-      <ul class="nav flex-column">
-        <li class="nav-item"><a class="nav-link" routerLink="/direct-team">Direct Team</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/leftteam">Left Team</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/rightteam">Right Team</a></li>
-        <li class="nav-item"><a class="nav-link" (click)="mytree(udata.regid)">Tree View</a></li>
-      </ul>
+    <!-- User Info -->
+    <div class="card bg-white p-3 text-center">
+      <p class="text-center" routerLink="/dashboard" (click)="handleNavigation()">
+        <img src="assets/usd.jpeg" class="img-fluid" style="width: 50px;" alt="">
+      </p> 
+      <h4 class="text-primary">
+        <i class="fas fa-tachometer-alt me-2"></i> {{ udata?.regid }}
+      </h4>
+      <h6 class="text-success">
+        <i class="fas fa-user-alt me-2"></i> {{ udata?.name }}
+      </h6>
     </div>
-  </div>
 
-  <!-- Incomes Menu -->
-  <div class="nav-item">
-    <a class="nav-link" data-bs-toggle="collapse" href="#incomeMenu" role="button" aria-expanded="false"
-      aria-controls="incomeMenu">
-      <i class="fas fa-money-bill me-2"></i> Incomes <i class="fas fa-caret-down float-end"></i>
-    </a>
-    <div class="collapse ps-3" id="incomeMenu">
-      <ul class="nav flex-column">
-        <li class="nav-item"><a class="nav-link" routerLink="/sponsorincome">Sponsor Income</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/matchingincome">Matching Income</a></li>
-      </ul>
+    <!-- Menu Items -->
+    <a routerLink="/dashboard" (click)="handleNavigation()"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a>
+    <a routerLink="/profile" (click)="handleNavigation()"><i class="fas fa-user me-2"></i> Profile</a>
+
+    <!-- Team Menu -->
+    <div class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#teamMenu" role="button" aria-expanded="false"
+        aria-controls="teamMenu">
+        <i class="fa-solid fa-people-group me-2"></i> Team <i class="fas fa-caret-down float-end"></i>
+      </a>
+      <div class="collapse ps-3" id="teamMenu">
+        <ul class="nav flex-column">
+          <li class="nav-item"><a class="nav-link" routerLink="/direct-team" (click)="handleNavigation()">Direct Team</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/leftteam" (click)="handleNavigation()">Left Team</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/rightteam" (click)="handleNavigation()">Right Team</a></li>
+          <li class="nav-item"><a class="nav-link" (click)="mytree(udata?.regid)" (click)="handleNavigation()">Tree View</a></li>
+        </ul>
+      </div>
     </div>
-  </div>
 
-  <!-- Funds Menu -->
-  <div class="nav-item">
-    <a class="nav-link" data-bs-toggle="collapse" href="#fundsMenu" role="button" aria-expanded="false"
-      aria-controls="fundsMenu">
-      <i class="fas fa-wallet me-2"></i> Funds <i class="fas fa-caret-down float-end"></i>
-    </a>
-    <div class="collapse ps-3" id="fundsMenu">
-      <ul class="nav flex-column">
-        <li class="nav-item"><a class="nav-link" routerLink="/deposit">Deposit Funds</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/withdraw">Withdraw Funds</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/transfer">Transfer Funds</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/recieved">Received Funds</a></li>
-      </ul>
+    <!-- Incomes Menu -->
+    <div class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#incomeMenu" role="button" aria-expanded="false"
+        aria-controls="incomeMenu">
+        <i class="fas fa-money-bill me-2"></i> Incomes <i class="fas fa-caret-down float-end"></i>
+      </a>
+      <div class="collapse ps-3" id="incomeMenu">
+        <ul class="nav flex-column">
+          <li class="nav-item"><a class="nav-link" routerLink="/sponsorincome" (click)="handleNavigation()">Sponsor Income</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/matchingincome" (click)="handleNavigation()">Matching Income</a></li>
+        </ul>
+      </div>
     </div>
-  </div>
 
-  <a routerLink="/report"><i class="fas fa-chart-bar me-2"></i> Report</a>
-  <a (click)="logout()"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>
+    <!-- Funds Menu -->
+    <div class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#fundsMenu" role="button" aria-expanded="false"
+        aria-controls="fundsMenu">
+        <i class="fas fa-wallet me-2"></i> Funds <i class="fas fa-caret-down float-end"></i>
+      </a>
+      <div class="collapse ps-3" id="fundsMenu">
+        <ul class="nav flex-column">
+          <li class="nav-item"><a class="nav-link" routerLink="/deposit" (click)="handleNavigation()">Deposit Funds</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/withdraw" (click)="handleNavigation()">Withdraw Funds</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/transfer" (click)="handleNavigation()">Transfer Funds</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/recieved" (click)="handleNavigation()">Received Funds</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <a routerLink="/report" (click)="handleNavigation()"><i class="fas fa-chart-bar me-2"></i> Report</a>
+    <a (click)="logout()"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>
+
+  </div>
 </div>
 
 <!-- Main Content Area -->
 <div class="main-content" [class.full-width]="isMobile && !isCollapsed">
+  <div class="card mb-2">
+    <div class="row">
+      <div class="col-4">
+
+      </div>
+      <div class="col-4">
+          <div class="text-center p-3 ">
+                <img src="assets/usd.jpeg" class="img img-fluid" width="40px" alt="">
+            </div>
+      </div>
+      <div class="col-4 mt-4 ">
+          <!-- User Dropdown -->
+          <div class="dropdown text-right">
+            <p id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" class="m-0 cursor-pointer">
+              <i class="fas fa-user text-warning me-2"></i>
+            </p>
+            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+              <li class="dropdown-header">
+                <i class="fas fa-user text-warning me-2"></i> {{ udata?.name }}
+              </li>
+              <li><a class="dropdown-item" routerLink="/profile" (click)="handleNavigation()"><i class="bi bi-person me-2"></i> My Profile</a></li>
+              <li><a class="dropdown-item" routerLink="/dashboard" (click)="handleNavigation()"><i class="bi bi-speedometer2 me-2"></i> My Dashboard</a></li>
+              <li><a class="dropdown-item logout" href="javascript:void(0)" (click)="logout()"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
+            </ul>
+          </div>
+      </div>
+    </div>
+  
+  </div>
   <!-- Top Header -->
   <div class="container-fluid bg-white py-2 px-3 shadow-sm rounded mb-3">
     <div class="d-flex justify-content-between align-items-center">
@@ -80,20 +124,7 @@
         </nav>
       </div>
 
-      <!-- User Dropdown -->
-      <div class="dropdown">
-        <p id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" class="m-0 cursor-pointer">
-          <i class="fas fa-user text-warning me-2"></i>
-        </p>
-        <ul class="dropdown-menu" aria-labelledby="userDropdown">
-          <li class="dropdown-header" *ngIf="udata">
-            <i class="fas fa-user text-warning me-2"></i> {{ udata.name }}
-          </li>
-          <li><a class="dropdown-item" routerLink="/profile"><i class="bi bi-person me-2"></i> My Profile</a></li>
-          <li><a class="dropdown-item" routerLink="/dashboard"><i class="bi bi-speedometer2 me-2"></i> My Dashboard</a></li>
-          <li><a class="dropdown-item logout" href="javascript:void(0)" (click)="logout()"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
-        </ul>
-      </div>
+    
     </div>
   </div>
 

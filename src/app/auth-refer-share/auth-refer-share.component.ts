@@ -15,32 +15,59 @@ export class AuthReferShareComponent {
     pffdata: any;
     errorMessage: any;
     idData: any;
+        errorMessage1: any;
+    idData1: any;
     form1!:FormGroup
   id:any;
-  countries: any;
-    constructor(private fb: FormBuilder, private api: UserService, private activeroute:ActivatedRoute) {}
+   numbercode:any;
+  countries: string[] = [];
+  codes: any[] = [];
+  CountryCode: string = '';
+    constructor(private fb: FormBuilder, private api: UserService, private activeroute:ActivatedRoute) {
+        this.registerForm = this.fb.group({
+      name: ['', Validators.required],
+      phone: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      country: ['', Validators.required],
+      password: ['', Validators.required],
+      sponcerid: [this.id],
+      position: ['', Validators.required],
+      placementid: ['', Validators.required],
+    });
+    }
   
     ngOnInit(): void {
        this.id = this.activeroute.snapshot.params['regid'];
          this.Country();
+         this.getCountries();
       this.getProfileData();
   
-      this.registerForm = this.fb.group({
-        name: ['', Validators.required],
-        phone: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
-        country: ['', Validators.required],
-        password: ['', Validators.required],
-        sponcerid: [this.id],
-        position: ['', Validators.required],
-   
-      });
-  
-      this.form1 = this.fb.group({
-        regid: ['', Validators.required],
-        amount: ['', Validators.required],
-        remark: ['transfer to other user']
-      });
+         this.registerForm.get('country')?.valueChanges.subscribe((selectedCountry: string) => {
+      const selected = this.codes.find(
+        (country: any) => country.name?.common === selectedCountry
+      );
+    
+      if (selected) {
+        const cca2 = selected.cca2;
+        this.CountryCode = cca2;
+        console.log("Selected Country:", selected.name.common);
+        console.log("Selected Country Code (cca2):", cca2);
+    
+        // 🔔 Call the API to get the calling code
+        this.api.getCallingCode(cca2).subscribe({
+          next: (res: any) => {
+            console.log("📞 Calling Code Response:", res.data);
+            this.numbercode=res.data.callingcodes[0]
+            console.log("numbercode:",this.numbercode);
+            
+          },
+          error: (err) => {
+            console.error("❌ Error fetching calling code:", err);
+          }
+        });
+      }
+    });
+     
     }
   
     sign(): void {
@@ -53,7 +80,8 @@ export class AuthReferShareComponent {
           email: form.email,
           password: form.password,
           position: form.position,
-          country: form.country
+          country: form.country,
+           placementid: form.placementid
         };
     
         this.api.register(payload).subscribe({
@@ -75,7 +103,7 @@ export class AuthReferShareComponent {
     
   
     getProfileData() {
-      this.api.getProfiledata().subscribe((res: any) => {
+      this.api.getregiddata(this.id).subscribe((res: any) => {
         this.pffdata = res.data[0];
       });
     }
@@ -98,17 +126,46 @@ export class AuthReferShareComponent {
         }
       });
     }
-  
-    onRegIdKeyup() {
-      const regid = this.registerForm.get('sponcerid')?.value;
-      if (regid && regid.length >= 4) {
-        this.GetregistredData(regid);
-        console.log(regid);
-      } else {
-        this.idData = null;
-        this.errorMessage = null;
-      }
+
+      GetregistredData1(id: any) {
+      this.errorMessage1 = null;
+      this.api.getregiddata(id).subscribe({
+        next: (res: any) => {
+          if (res?.data?.length > 0) {
+            this.idData1 = res.data[0];
+            this.errorMessage = null;
+          } else {
+            this.idData1 = null;
+            this.errorMessage = 'User not found.';
+          }
+        },
+        error: (err) => {
+          this.idData1 = null;
+          this.errorMessage1 = err?.error?.message || 'Something went wrong.';
+        }
+      });
     }
+  
+
+      getCountries() {
+    this.api.getCountries().subscribe({
+      next: (res: any) => {
+        this.codes = res;
+
+        this.countries = res
+          .map((country: any) => country.name?.common)
+          .filter(Boolean)
+          .sort();
+
+        const countryCodes = res.map((c: any) => c.cca2).filter(Boolean);
+        console.log("Country List:", this.countries);
+        console.log("Country Codes (cca2):", countryCodes);
+      },
+      error: (err) => {
+        console.error('API Error:', err);
+      }
+    });
+  }
 
       Country() {
     this.api.getCountries().subscribe({
@@ -120,6 +177,16 @@ export class AuthReferShareComponent {
         console.error('API Error:', err);
       }
     });
+  }
+
+    onRegIdKeyup() {
+    const regid = this.registerForm.get('sponcerid')?.value;
+    if (regid && regid.length >= 4) {
+      this.GetregistredData(regid);
+    } else {
+      this.idData = null;
+      this.errorMessage = null;
+    }
   }
     
     

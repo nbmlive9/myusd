@@ -1,27 +1,42 @@
-<div class="card p-3 m-2">
-    <div class="row">
-       <div class="col-md-5">
-           <p-tag icon="pi pi-sitemap" severity="success" value="My Genealogy" [rounded]="true"></p-tag>
-       </div>
-     </div>
-    <div class="row mt-2">      
-       <div class="col-6">
-           <h5 class="text-center text-success">Left Team <p-tag value="{{data2.mleft}}"></p-tag></h5>
-       </div>
-       <div class="col-6">
-           <h5 class="text-center text-danger">Right Team <p-tag value="{{data2.mright}}"></p-tag></h5>
-       </div>
-       <div class="col-4">
-           <button (click)="goBack()" class="btn btn-sm btn-primary"> <i class="pi pi-backward"></i> Back</button>
-       </div>
-       
-       <p class="text-primary p-1">Search User ID</p>  
-       <div class="flex justify-content-center">
-           <input type="text" pInputText [(ngModel)]="udata.regid" placeholder="Search Userid" class="mr-1" />
-           <button class="btn btn-sm btn-danger" (click)="mytree1()">Submit</button>
-       </div>
-   </div>
+<div class="card shadow-sm border-0 p-3 m-2" style="border-radius: 12px;">
+  <!-- Header Row -->
+  <div class="row align-items-center mb-3">
+    <div class="col-md-6 col-12 text-center text-md-start mb-2 mb-md-0">
+      <p-tag icon="pi pi-sitemap" severity="success" value="My Genealogy" [rounded]="true"></p-tag>
+    </div>
+    <div class="col-md-6 col-12 text-center text-md-end">
+      <button (click)="goBack()" class="btn btn-sm btn-primary">
+        <i class="pi pi-arrow-left"></i> Back
+      </button>
+    </div>
+  </div>
+
+  <!-- Team Info -->
+  <div class="row text-center g-3">
+    <div class="col-6">
+      <h6 class="mb-1 text-success">Left Team</h6>
+      <p-tag severity="success" [value]="data2?.mleft"></p-tag>
+    </div>
+    <div class="col-6">
+      <h6 class="mb-1 text-danger">Right Team</h6>
+      <p-tag severity="danger" [value]="data2?.mright"></p-tag>
+    </div>
+  </div>
+
+  <!-- Search Section -->
+  <div class="mt-4">
+    <label class="form-label fw-bold text-primary">Search User ID</label>
+    <div class="d-flex flex-wrap gap-2">
+      <input type="text" pInputText [(ngModel)]="udata.regid" 
+             placeholder="Enter User ID" 
+             class="flex-grow-1 p-inputtext-sm form-control" />
+      <button class="btn btn-sm btn-danger" (click)="mytree1()">
+        <i class="pi pi-search"></i> Submit
+      </button>
+    </div>
+  </div>
 </div>
+
 
 <div class="card flex justify-content-center overflow-x-auto p-2">
 
@@ -72,15 +87,15 @@
                          </tr>
                        </thead>
                        <tbody>
-                         <!-- <tr>
-                           <th>Total Active</th>
-                           <th>{{ tdata.mleft }} </th>
-                           <td>{{ tdata.mright }}</td>
-                         </tr> -->
                          <tr>
-                           <th class="text-secondary">Inactive Users</th>
-                           <th>{{ tdata.mfreeleft }}</th>
-                           <td>{{ tdata.mfreeright }}</td>
+                           <th class="text-primary">Total</th>
+                           <th>{{ tdata.mleft }}</th>
+                           <td>{{ tdata.mright }}</td>
+                         </tr>
+                          <tr>
+                           <th class="text-secondary">Level Users</th>
+                           <th>{{ tdata.mlevelleft }}</th>
+                           <td>{{ tdata.mlevelright }}</td>
                          </tr>
                          <tr>
                            <th class="text-success">Silver Members</th>
@@ -132,9 +147,14 @@
                        </thead>
                        <tbody>
                          <tr>
-                           <th class="text-secondary">Inactive Users</th>
-                           <th>{{ tdata.mfreeleft }}</th>
-                           <td>{{ tdata.mfreeright }}</td>
+                           <th class="text-primary">Total</th>
+                           <th>{{ tdata.mleft }}</th>
+                           <td>{{ tdata.mright }}</td>
+                         </tr>
+                          <tr>
+                           <th class="text-secondary">Level Users</th>
+                           <th>{{ tdata.mlevelleft }}</th>
+                           <td>{{ tdata.mlevelright }}</td>
                          </tr>
                          <tr>
                            <th class="text-success">Silver Members</th>

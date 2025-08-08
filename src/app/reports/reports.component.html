@@ -1,40 +1,56 @@
-<div class="container-fluid mt-5" style="background-color: #fff; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
-    <div class="row d-flex justify-content-center">
-     <div class="col-lg-6 d-flex mb-3">
-      <input type="date" class="form-control me-2" [(ngModel)]="startDate" placeholder="Start Date">
-      <input type="date" class="form-control me-2" [(ngModel)]="endDate" placeholder="End Date">
-      <button class="btn btn-primary" (click)="filterByDate()">Filter</button>
-      <button class="btn btn-secondary ms-2" (click)="resetFilter()">Reset</button>
+<div class="container-fluid mt-5 bg-white shadow-sm p-4 rounded-4">
+  <!-- Filter Section -->
+  <div class="row justify-content-center">
+      <h4>All Reports</h4>
+    <div class="col-lg-8 col-md-10">
+      <div class="row g-2">
+        <div class="col-md-4 col-sm-6">
+          <input
+            type="date"
+            class="form-control"
+            [(ngModel)]="startDate"
+            placeholder="Start Date"
+          />
+        </div>
+        <div class="col-md-4 col-sm-6">
+          <input
+            type="date"
+            class="form-control"
+            [(ngModel)]="endDate"
+            placeholder="End Date"
+          />
+        </div>
+        <div class="col-md-2 col-sm-6 d-grid">
+          <button class="btn btn-primary" (click)="filterByDate()">Filter</button>
+        </div>
+        <div class="col-md-2 col-sm-6 d-grid">
+          <button class="btn btn-secondary" (click)="resetFilter()">Reset</button>
+        </div>
+      </div>
+    </div>
   </div>
 
-    </div>
-  
-    <table class="table mt-3">
-      <thead>
+  <!-- Table Section -->
+  <div class="table-responsive mt-4">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
         <tr>
-          <th>S.No</th>
-          <th>Date</th>
-          <th>Income</th>
-          <th>Type</th>
-          <th>Remarks</th>
-
+          <th scope="col">S.No</th>
+          <th scope="col">Date</th>
+          <th scope="col">Income</th>
+          <th scope="col">Type</th>
+          <th scope="col">Remarks</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let items of filteredReport; let i='index' ">
-          <td>{{i+1}}</td>
-          <td>{{items.cdate}}</td>
-          <td>${{items.amount}}</td>
-          <td>{{items.type}}</td>
-          <td>{{items.remark}}</td>
-        
+        <tr *ngFor="let items of filteredReport; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ items.cdate }}</td>
+          <td class="text-success fw-bold">${{ items.amount }}</td>
+          <td>{{ items.type }}</td>
+          <td>{{ items.remark }}</td>
         </tr>
       </tbody>
     </table>
   </div>
-
-
-
-
-  
-  
+</div>

@@ -1,5 +1,16 @@
 
   <h4 class="fw-bold">MY Direct Team</h4>
+  <div class="mb-3">
+    <label for="teamSelect" class="form-label ">Select Package</label>
+    <select id="teamSelect" class="form-select" [(ngModel)]="selectedFilter"  (change)="filterTeam()">
+      <option value=""> All</option>
+      <option value="0">Registred Users</option>
+      <option value="1">Subscribed</option>
+      <option value="2">Silver</option>
+        <option value="3">Gold</option>
+          <option value="4">Diamond</option>
+    </select>
+  </div>
   <table class="table">
     <thead>
       <tr>
