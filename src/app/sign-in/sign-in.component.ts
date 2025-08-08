@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../service/user.service';
+import { ToastrService } from 'ngx-toastr';
+import { ChangeDetectorRef } from '@angular/core';
+  import * as bootstrap from 'bootstrap';
+
 
 @Component({
   selector: 'app-sign-in',
@@ -20,7 +24,9 @@ export class SignInComponent implements OnInit {
   idData: any;
  errorMessage1: any;
     idData1: any;
-  constructor(private fb: FormBuilder, private api: UserService) {
+  udata: any;
+  constructor(private fb: FormBuilder, private api: UserService,private toast:ToastrService,private cdRef: ChangeDetectorRef
+    ) {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       phone: ['', Validators.required],
@@ -86,37 +92,95 @@ export class SignInComponent implements OnInit {
     });
   }
 
-  sign(): void {
-    if (this.registerForm.valid) {
-      const form = this.registerForm.value;
-      const payload = {
-        sponcerid: form.sponcerid,
-        name: form.name,
-        phone: form.phone,
-        email: form.email,
-        password: form.password,
-        position: form.position,
-        country: form.country,
-            placementid: form.placementid
-      };
+  // sign(): void {
+  //   if (this.registerForm.valid) {
+  //     const form = this.registerForm.value;
+  //     const payload = {
+  //       sponcerid: form.sponcerid,
+  //       name: form.name,
+  //       phone: form.phone,
+  //       email: form.email,
+  //       password: form.password,
+  //       position: form.position,
+  //       country: form.country,
+  //       placementid: form.placementid
+  //     };
+  
+  //     this.api.register(payload).subscribe({
+  //       next: (res: any) => {
+  //         console.log('res:', res);
+  //         this.udata = res.data;
+  
+  //         // ✅ Show backend success message
+  //         const successMsg = res?.message || 'Registration successful ✅';
+  //         this.toast.success(successMsg, 'Success');
+  
+  //         this.registerForm.reset();
+  //       },
+  //       error: (err) => {
+  //         console.error('Registration error:', err);
+  
+  //         // ✅ Show backend error message
+  //         const errorMsg = err?.error?.message || 'Registration failed. Please try again.';
+  //         this.toast.error(errorMsg, 'Error');
+  //       }
+  //     });
+  
+  //   } else {
+  //     this.toast.warning(' Please fill all fields correctly.', 'Validation Error');
+  //   }
+  // }
+  
 
-      this.api.register(payload).subscribe({
-        next: (res: any) => {
-          console.log('res:', res);
-          alert('✅ Registration successful!');
-          this.registerForm.reset();
-        },
-        error: (err) => {
-          console.error('Registration error:', err);
-          const msg = err?.error?.message || '❌ Registration failed. Please try again.';
-          alert(msg);
-        }
-      });
-    } else {
-      alert('⚠️ Please fill all fields correctly.');
+
+
+
+
+
+  
+
+
+ 
+
+  sign(): void {
+    if (!this.registerForm.valid) {
+      this.toast.warning('Please fill all fields correctly.', 'Validation Error');
+      return;
     }
+
+    const payload = { ...this.registerForm.value };
+
+    this.api.register(payload).subscribe({
+      next: (res: any) => {
+        this.udata = res.data;
+        this.toast.success(res?.message || 'Registration successful ✅', 'Success');
+        this.registerForm.reset();
+
+        // Make sure Angular renders modal content first
+        this.cdRef.detectChanges();
+
+        // Show the modal
+        const modalEl = document.getElementById('exampleModal');
+        if (modalEl) {
+          const modal = new bootstrap.Modal(modalEl, { backdrop: 'static', keyboard: true });
+          modal.show();
+        }
+      },
+      error: (err) => {
+        this.toast.error(err?.error?.message || 'Registration failed. Please try again.', 'Error');
+      }
+    });
   }
 
+
+  
+ 
+
+
+
+
+
+  
   getProfileData() {
     this.api.getProfiledata().subscribe((res: any) => {
       this.pffdata = res.data[0];
@@ -142,24 +206,7 @@ export class SignInComponent implements OnInit {
     });
   }
 
-     GetregistredData1(id: any) {
-      this.errorMessage1 = null;
-      this.api.getregiddata(id).subscribe({
-        next: (res: any) => {
-          if (res?.data?.length > 0) {
-            this.idData1 = res.data[0];
-            this.errorMessage = null;
-          } else {
-            this.idData1 = null;
-            this.errorMessage = 'User not found.';
-          }
-        },
-        error: (err) => {
-          this.idData1 = null;
-          this.errorMessage1 = err?.error?.message || 'Something went wrong.';
-        }
-      });
-    }
+   
 
   onRegIdKeyup() {
     const regid = this.registerForm.get('sponcerid')?.value;
@@ -171,14 +218,39 @@ export class SignInComponent implements OnInit {
     }
   }
 
-    onRegIdKeyup1() {
+  GetregistredData1(id: any) {
+    this.errorMessage1 = null;
+    this.api.getregiddata(id).subscribe({
+      next: (res: any) => {
+        if (res?.data?.length > 0) {
+          this.idData1 = res.data[0];
+          this.errorMessage1 = null;
+        } else {
+          this.idData1 = null;
+          this.errorMessage1 = 'User not found.';
+        }
+      },
+      error: (err) => {
+        this.idData1 = null;
+        this.errorMessage1 = err?.error?.message || 'Something went wrong.';
+      }
+    });
+  }
+  
+  onRegIdKeyup1() {
     const regid = this.registerForm.get('placementid')?.value;
     if (regid && regid.length >= 4) {
-      this.GetregistredData(regid);
+      this.GetregistredData1(regid); // ✅ fixed
     } else {
       this.idData1 = null;
       this.errorMessage1 = null;
     }
   }
+  
+
+
+
+  
+
 
 }

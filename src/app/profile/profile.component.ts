@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { UserService } from '../service/user.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TokenService } from '../service/token.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +17,7 @@ export class ProfileComponent {
   currentTab: 'profile' | 'password' = 'profile';
   isEdit: boolean = false;
 
-  constructor(private api: UserService, private fb: FormBuilder,private token:TokenService) {
+  constructor(private api: UserService, private fb: FormBuilder,private token:TokenService,private toast:ToastrService) {
     this.form = this.fb.group({
       name: [''],
       country: [''],
@@ -58,16 +59,25 @@ export class ProfileComponent {
   save() {
     if (this.form.valid) {
       const payload = this.form.value;
-      this.api.updateProfile(payload).subscribe((res: any) => {
-        console.log(res);
-        if (res.status === 1) {
-          alert("Profile Updated Successfully");
-          this.isEdit = false;
-          this.getdata(); 
+  
+      this.api.updateProfile(payload).subscribe({
+        next: (res: any) => {
+          console.log(res);
+          if (res.status === 1) {
+            this.toast.success(res?.message || 'Update successful ✅', 'Success');
+            this.isEdit = false;
+            this.getdata();
+          } else {
+            this.toast.error(res?.message || 'Update failed. Please try again.', 'Error');
+          }
+        },
+        error: (err) => {
+          this.toast.error(err?.error?.message || 'Something went wrong. Please try again.', 'Error');
         }
       });
     }
   }
+  
 
   logout() {
     this.token.signOut();

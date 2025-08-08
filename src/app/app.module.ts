@@ -36,6 +36,7 @@ import { DialogModule } from 'primeng/dialog';
 import { TagModule } from 'primeng/tag';
 import { AuthReferShareComponent } from './auth-refer-share/auth-refer-share.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

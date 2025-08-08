@@ -33,6 +33,9 @@ export class LayoutComponent implements OnInit {
   }
 }
 
+
+
+
 handleNavigation() {
   if (this.isMobile) {
     this.toggleSidebar();

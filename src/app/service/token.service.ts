@@ -12,6 +12,8 @@ export class TokenService {
   private companyLoginFlag = false;
   private user: any | null = null;
   private token: string | null = null;
+  success: any;
+  error: any;
 
   constructor(private router: Router) {
     this.getUser(); // Load user if stored (optional)
