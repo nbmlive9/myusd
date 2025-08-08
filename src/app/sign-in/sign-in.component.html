@@ -120,62 +120,65 @@
 
 
                 <div class="col-sm-6">
-                <!-- Referral ID Input with Live Sponsor Lookup -->
-<div class="mb-3">
-  <label for="sponcerid" class="form-label">Referral ID</label>
-  <div class="input-wrapper" style="position: relative;">
-    <input
-      id="sponcerid"
-      type="text"
-      name="sponcerid"
-      formControlName="sponcerid"
-      (keyup)="onRegIdKeyup()"
-      autocomplete="off"
-      placeholder="Enter referral ID"
-      style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;"
-    />
-    <i
-      class="fas fa-key"
-      style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"
-    ></i>
-  </div>
-
-  <!-- ✅ Sponsor Name if Found -->
-  <div *ngIf="idData" class="text-success mt-1">
-    Sponsor Name: {{ idData.name }}
-  </div>
-
-  <!-- ❌ Error if Sponsor Not Found -->
-  <div *ngIf="errorMessage" class="text-danger mt-1">
-    {{ errorMessage }}
-  </div>
-</div>
-
+                  <div class="mb-3">
+                    <label for="sponcerid" class="form-label">Referral ID</label>
+                    <div class="input-wrapper" style="position: relative;">
+                      <input
+                        id="sponcerid"
+                        type="text"
+                        name="sponcerid"
+                        formControlName="sponcerid"
+                        (keyup)="onRegIdKeyup()"
+                        autocomplete="off"
+                        placeholder="Enter referral ID"
+                        style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;"
+                      />
+                      <i
+                        class="fas fa-key"
+                        style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"
+                      ></i>
+                    </div>
+                  
+                    <!-- ✅ Sponsor Name if Found -->
+                    <div *ngIf="idData" class="text-success mt-1">
+                      Sponsor Name: {{ idData.name }}
+                    </div>
+                  
+                    <!-- ❌ Error if Sponsor Not Found -->
+                    <div *ngIf="errorMessage" class="text-danger mt-1">
+                      {{ errorMessage }}
+                    </div>
+                  </div>
                 </div>
-              <!-- ✅ Placement ID -->
-<div class="mb-3">
-  <label for="placementid" class="form-label">Placement ID</label>
-  <div class="input-wrapper" style="position: relative;">
-    <input
-      id="placementid"
-      type="text"
-      formControlName="placementid"
-      (keyup)="onRegIdKeyup1()"
-      autocomplete="off"
-      placeholder="Enter placementid ID"
-      style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;"
-    />
-    <i
-      class="fas fa-key"
-      style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;">
-    </i>
-  </div>
-  <div *ngIf="idData" class="text-success mt-1">
-    Placement Name: {{ idData1.name }}
-  </div>
-</div>
-<!--  -->
-<!--  -->
+                  <div class="mb-3">
+                    <label for="placementid" class="form-label">Placement ID</label>
+                    <div class="input-wrapper" style="position: relative;">
+                      <input
+                        id="placementid"
+                        type="text"
+                        formControlName="placementid"
+                        (keyup)="onRegIdKeyup1()"
+                        autocomplete="off"
+                        placeholder="Enter placement ID"
+                        style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;"
+                      />
+                      <i
+                        class="fas fa-key"
+                        style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"
+                      ></i>
+                    </div>
+                  
+                    <!-- ✅ Placement Name if Found -->
+                    <div *ngIf="idData1" class="text-success mt-1">
+                      Placement Name: {{ idData1.name }}
+                    </div>
+                  
+                    <!-- ❌ Error if Placement Not Found -->
+                    <div *ngIf="errorMessage1" class="text-danger mt-1">
+                      {{ errorMessage1 }}
+                    </div>
+                  </div>
+                  
                 <div class="col-sm-6">
                   <label class="form-label">Position</label>
                   <div class="input-wrapper" style="position: relative;">
@@ -199,9 +202,14 @@
                 </label>
               </div>
 
-              <button type="submit" class="btn btn-signup"
+              <!-- <button type="submit" class="btn btn-signup"
                 style="background-color: #0a0909; border: none; border-radius: 20px; color: white; padding: 10px 30px; width: 100%; font-size: 1.2rem;"
-                (click)="sign()">Sign Up</button>
+                (click)="sign()" data-bs-toggle="modal" data-bs-target="#exampleModal">Sign Up</button> -->
+
+                <button type="submit" class="btn btn-signup"
+        style="background-color: #0a0909; border: none; border-radius: 20px; color: white; padding: 10px 30px; width: 100%; font-size: 1.2rem;"
+        (click)="sign()">Sign Up</button>
+
               <div style="text-align: center; margin-top: 1rem; ">
                 Already have an account? <a routerLink="/login" style="color: blue; text-decoration: none;">Log In</a>
               </div>
@@ -212,3 +220,29 @@
     </div>
   </div>
 </section>
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Registration Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <ng-container *ngIf="udata; else noData">
+          <h5>Registration ID: {{ udata.Registerid }}</h5>
+          <h5>Password: {{ udata.password }}</h5>
+        </ng-container>
+        <ng-template #noData>
+          <p>No registration data available.</p>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
