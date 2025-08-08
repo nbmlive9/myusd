@@ -1,10 +1,12 @@
 <div class="mb-3">
     <label for="teamSelect" class="form-label ">Select Team</label>
-    <select id="teamSelect" class="form-select">
-      <option value=""> Select packages</option>
-      <option value="left">Sliver</option>
-      <option value="right">Gold</option>
-      <option value="tree">Diamond</option>
+        <select id="teamSelect" class="form-select" [(ngModel)]="selectedFilter"  (change)="filterTeam()">
+      <option value=""> All</option>
+      <option value="0">Registred Users</option>
+      <option value="1">Subscribed</option>
+      <option value="2">Silver</option>
+        <option value="3">Gold</option>
+          <option value="4">Diamond</option>
     </select>
   </div>
   
@@ -31,22 +33,31 @@
         }
     </style>
 
-    <h2>Right Team</h2>
+    <h4>Right Team</h4>
     <table>
         <thead>
             <tr>
                 <th>S.No</th>
                 <th>Date</th>
                 <th>User Id</th>
+                <th>Subscription</th>
                 <th>Status</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let row of data1; let i='index'">
+            <tr *ngFor="let row of filteredData; let i='index'">
                 <td>{{i+1}}</td>
                 <td>{{row.cdate}}</td>
                 <td>{{row.forid}}</td>
-                <td class="text-success">Active</td>
+                 <td>
+                <span *ngIf="row.board == '0'" class="text-danger">Not Subscribe</span>
+                <span *ngIf="row.board == '1'" class="text-success">Subscribed</span>
+                <span *ngIf="row.board == '2'" class="text-primary">Silver Upgrade</span>
+                <span *ngIf="row.board == '3'" class="text-warning">Gold Upgrade</span>
+                <span *ngIf="row.board == '4'" class="text-info">Diamond Upgrade</span>
+                </td>
+                <td><span *ngIf="row.status == '1'" class="text-success">Active</span>
+                <span *ngIf="row.status == '0'" class="text-danger">InActive</span></td>
             </tr>
         
         </tbody>
