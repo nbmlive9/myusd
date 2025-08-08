@@ -103,7 +103,7 @@ export class AuthReferShareComponent {
     
   
     getProfileData() {
-      this.api.getProfiledata().subscribe((res: any) => {
+      this.api.getregiddata(this.id).subscribe((res: any) => {
         this.pffdata = res.data[0];
       });
     }
