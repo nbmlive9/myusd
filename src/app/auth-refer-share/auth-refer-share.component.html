@@ -48,7 +48,7 @@
                         style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
                     </div>
                   </div>
-                  <div class="col-6">
+                  <!-- <div class="col-6">
                     <label class="form-label">Phone</label>
                     <div class="input-wrapper" style="position: relative;">
                       <input type="text" formControlName="phone" autocomplete="off" placeholder=" phone number"
@@ -56,6 +56,16 @@
                         required />
                       <i class="fa-solid fa-phone"
                         style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
+                    </div>
+                  </div> -->
+                  <div class="col-6">
+                    <label class="form-label">Email</label>
+                    <div class="input-wrapper" style="position: relative;">
+                      <input type="email" formControlName="email" autocomplete="off" placeholder="example@domain.com"
+                        style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;"
+                        required />
+                      <i class="fas fa-envelope"
+                        style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
                     </div>
                   </div>
                 </div>
@@ -190,9 +200,17 @@
       style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;">
     </i>
   </div>
-  <div *ngIf="idData" class="text-success mt-1">
+  <!-- <div  class="text-success mt-1">
+    Placement Name: {{ idData.name }}
+  </div> -->
+  <div *ngIf="idData; else noData" class="text-success mt-1">
     Placement Name: {{ idData.name }}
   </div>
+  <ng-template #noData>
+    <p class="text-danger">
+      {{ errorMessage || 'No registration data available.' }}
+    </p>
+  </ng-template>
 </div>
 
 <!-- ✅ Terms -->
@@ -206,7 +224,7 @@
 <!-- ✅ Submit -->
 <button type="submit" class="btn btn-signup"
   style="background-color: #0a0909; border: none; border-radius: 20px; color: white; padding: 10px 30px; width: 100%; font-size: 1.2rem;"
-  (click)="sign()">
+  >
   Sign Up
 </button>
 

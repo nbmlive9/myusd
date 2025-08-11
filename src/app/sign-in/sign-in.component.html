@@ -1,248 +1,180 @@
 <section>
   <div class="container-fluid">
-    <div class="row ">
-      <div class="col-lg-8">
+    <div class="row">
+      
+      <!-- Form Section (LEFT SIDE) -->
+      <div class="col-lg-4 col-md-8 col-sm-10 mx-auto py-5 order-1 order-lg-0">
+        <div class="register-container shadow p-4 rounded-4 bg-white">
+          <h1 class="text-center mb-4 fw-bold">REGISTER</h1>
+          <form [formGroup]="registerForm" (ngSubmit)="sign()">
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <label class="form-label">Full Name</label>
+                <div class="input-wrapper">
+                  <i class="fas fa-user input-icon"></i>
+                  <input type="text" formControlName="name" placeholder="Adam" class="form-control" required>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <label class="form-label">Email</label>
+                <div class="input-wrapper">
+                  <i class="fas fa-envelope input-icon"></i>
+                  <input type="email" formControlName="email" placeholder="example@domain.com" class="form-control" required>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <label class="form-label">Country</label>
+                <div class="input-wrapper">
+                  <i class="fas fa-globe input-icon"></i>
+                  <select formControlName="country" class="form-select" required>
+                    <option value="" disabled selected>Select your country</option>
+                    <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <label class="form-label">Phone</label>
+                <div class="input-wrapper">
+                  <span *ngIf="numbercode; else phoneIcon" class="input-icon">{{ numbercode }}</span>
+                  <ng-template #phoneIcon>
+                    <i class="fa-solid fa-phone input-icon"></i>
+                  </ng-template>
+                  <input type="number" formControlName="phone" placeholder="Phone number" class="form-control" required>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <label class="form-label">Password</label>
+                <div class="input-wrapper">
+                  <i class="fas fa-lock input-icon"></i>
+                  <input type="password" formControlName="password" placeholder="********" class="form-control" required>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <label class="form-label">Referral ID</label>
+                <div class="input-wrapper">
+                  <i class="fas fa-key input-icon"></i>
+                  <input type="text" formControlName="sponcerid" (keyup)="onRegIdKeyup()" placeholder="Enter referral ID" class="form-control">
+                </div>
+                <div *ngIf="idData" class="text-success small">Sponsor Name: {{ idData.name }}</div>
+                <div *ngIf="errorMessage" class="text-danger small">{{ errorMessage }}</div>
+              </div>
+
+              <div class="col-sm-6">
+                <label class="form-label">Placement ID</label>
+                <div class="input-wrapper">
+                  <i class="fas fa-key input-icon"></i>
+                  <input type="text" formControlName="placementid" (keyup)="onRegIdKeyup1()" placeholder="Enter placement ID" class="form-control">
+                </div>
+                <div *ngIf="idData1" class="text-success small">Placement Name: {{ idData1.name }}</div>
+                <div *ngIf="errorMessage1" class="text-danger small">{{ errorMessage1 }}</div>
+              </div>
+
+
+              <div class="col-sm-6">
+                <label class="form-label">Position</label>
+                <div class="input-wrapper">
+                  <i class="fa-solid fa-left-right input-icon"></i>
+                  <select formControlName="position" class="form-select" required>
+                    <option value="" disabled>Select Position</option>
+                    <option value="Right">Right</option>
+                    <option value="Left">Left</option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="mt-3">
+              <label>
+                <input type="checkbox" formControlName="terms" required> I agree to MYUSD 
+                <a href="">Terms and Conditions</a>
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-dark w-100 mt-3 rounded-pill">Sign Up</button>
+
+            <div class="text-center mt-3">
+              Already have an account? <a routerLink="/login" class="text-primary">Log In</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Carousel Section (RIGHT SIDE) -->
+      <div class="col-lg-8 p-0 order-0 order-lg-1">
         <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active" data-bs-interval="10000">
-              <img src="assets/illustration-3.webp" class="d-block w-100" alt="...">
+              <img src="assets/illustration-3.webp" class="d-block w-100 img-fluid" alt="carousel image">
             </div>
-            <!-- <div class="carousel-item" data-bs-interval="2000">
-              <img src="..." class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="..." class="d-block w-100" alt="...">
-            </div> -->
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
           </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
           </button>
         </div>
       </div>
 
-      <div class="col-lg-4 mt-5 ">
-        <div class="d-flex justify-content-center pt-5" style="background-color: #FFFFFF; min-height: 100vh;">
-          <div class="register-container" style="width: 100%; max-width: 400px;">
-            <h1 style="color: rgb(8, 5, 5); text-align: center; font-size: 2rem; margin-bottom: 2rem;">REGISTER</h1>
-            <form [formGroup]="registerForm" (ngSubmit)="sign()">
-              <div class="row mb-3">
-                <div class="col-sm-6">
-
-                  <label class="form-label">Full Name</label>
-                  <div class="input-wrapper" style="position: relative;">
-                    <input type="text" formControlName="name" autocomplete="off" placeholder="Adam"
-                      style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;"
-                      required />
-                    <i class="fas fa-user"
-                      style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
-                  </div>
-                </div>
-
-                <div class="col-sm-6">
-                  <label class="form-label">Email</label>
-                  <div class="input-wrapper" style="position: relative;">
-                    <input type="email" formControlName="email" autocomplete="off" placeholder="example@domain.com"
-                      style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;"
-                      required />
-                    <i class="fas fa-envelope"
-                      style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="row mb-3">
-                <div class="col-sm-6">
-                  <label class="form-label">Country</label>
-                  <div class="input-wrapper" style="position: relative;">
-                    <select formControlName="country"
-                      style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box; appearance: none;"
-                      required>
-                      <option value="" disabled>Select your country</option>
-                      <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
-                    </select>
-                    <i class="fas fa-globe"
-                      style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
-                  </div>
-                </div>
-
-                <div class="col-sm-6">
-                  <label class="form-label">Phone</label>
-                  <div class="input-wrapper" style="position: relative;">
-
-                    <!-- Show numbercode if available -->
-                    <span *ngIf="numbercode; else phoneIcon"
-                      style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;">
-                      {{ numbercode }}
-                    </span>
-
-                    <!-- Else show phone icon -->
-                    <ng-template #phoneIcon>
-                      <i class="fa-solid fa-phone"
-                        style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 2;"></i>
-                    </ng-template>
-
-                    <!-- Phone input field -->
-                    <input type="number" formControlName="phone" autocomplete="off" placeholder="phone number" style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212;
-                        padding: 10px 10px 10px 50px; width: 100%; box-sizing: border-box;" required />
-                  </div>
-                </div>
-
-
-
-              </div>
-
-              <div class="row mb-3">
-                <div class="col-sm-6">
-                  <label class="form-label">Password</label>
-                  <div class="input-wrapper" style="position: relative;">
-                    <input type="password" formControlName="password" autocomplete="new-password" placeholder="********"
-                      style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;"
-                      required />
-                    <i class="fas fa-lock"
-                      style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
-                  </div>
-                </div>
-                <!-- <div class="col-6">
-                                    <label class="form-label">Confirm Password</label>
-                                    <div class="input-wrapper" style="position: relative;">
-                                        <input type="password" formControlName="confirmPassword" autocomplete="new-password" placeholder="********" style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;" required />
-                                        <i class="fas fa-lock" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
-                                    </div>
-                                </div> -->
-
-
-                <div class="col-sm-6">
-                  <div class="mb-3">
-                    <label for="sponcerid" class="form-label">Referral ID</label>
-                    <div class="input-wrapper" style="position: relative;">
-                      <input
-                        id="sponcerid"
-                        type="text"
-                        name="sponcerid"
-                        formControlName="sponcerid"
-                        (keyup)="onRegIdKeyup()"
-                        autocomplete="off"
-                        placeholder="Enter referral ID"
-                        style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;"
-                      />
-                      <i
-                        class="fas fa-key"
-                        style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"
-                      ></i>
-                    </div>
-                  
-                    <!-- ✅ Sponsor Name if Found -->
-                    <div *ngIf="idData" class="text-success mt-1">
-                      Sponsor Name: {{ idData.name }}
-                    </div>
-                  
-                    <!-- ❌ Error if Sponsor Not Found -->
-                    <div *ngIf="errorMessage" class="text-danger mt-1">
-                      {{ errorMessage }}
-                    </div>
-                  </div>
-                </div>
-                  <div class="mb-3">
-                    <label for="placementid" class="form-label">Placement ID</label>
-                    <div class="input-wrapper" style="position: relative;">
-                      <input
-                        id="placementid"
-                        type="text"
-                        formControlName="placementid"
-                        (keyup)="onRegIdKeyup1()"
-                        autocomplete="off"
-                        placeholder="Enter placement ID"
-                        style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box;"
-                      />
-                      <i
-                        class="fas fa-key"
-                        style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"
-                      ></i>
-                    </div>
-                  
-                    <!-- ✅ Placement Name if Found -->
-                    <div *ngIf="idData1" class="text-success mt-1">
-                      Placement Name: {{ idData1.name }}
-                    </div>
-                  
-                    <!-- ❌ Error if Placement Not Found -->
-                    <div *ngIf="errorMessage1" class="text-danger mt-1">
-                      {{ errorMessage1 }}
-                    </div>
-                  </div>
-                  
-                <div class="col-sm-6">
-                  <label class="form-label">Position</label>
-                  <div class="input-wrapper" style="position: relative;">
-                    <select formControlName="position"
-                      style="background-color: #FFFFFF; border: 1px solid #181717; border-radius: 20px; color: #131212; padding: 10px 10px 10px 40px; width: 100%; box-sizing: border-box; appearance: none;"
-                      required>
-                      <option value="" selected>Select Position</option>
-                      <option value="Right">Right</option>
-                      <option value="Left">Left</option>
-                      <!-- Add more countries as needed -->
-                    </select>
-                    <i class="fa-solid fa-left-right"
-                      style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #090909; z-index: 1;"></i>
-                  </div>
-                </div>
-              </div>
-              <div class="mb-3">
-                <label style="color: #131212;">
-                  <input type="checkbox" formControlName="terms" required /> I have read and agree to MYUSD <a
-                    href="">Terms and Conditions</a>
-                </label>
-              </div>
-
-              <!-- <button type="submit" class="btn btn-signup"
-                style="background-color: #0a0909; border: none; border-radius: 20px; color: white; padding: 10px 30px; width: 100%; font-size: 1.2rem;"
-                (click)="sign()" data-bs-toggle="modal" data-bs-target="#exampleModal">Sign Up</button> -->
-
-                <button type="submit" class="btn btn-signup"
-        style="background-color: #0a0909; border: none; border-radius: 20px; color: white; padding: 10px 30px; width: 100%; font-size: 1.2rem;"
-        (click)="sign()">Sign Up</button>
-
-              <div style="text-align: center; margin-top: 1rem; ">
-                Already have an account? <a routerLink="/login" style="color: blue; text-decoration: none;">Log In</a>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
 
-
-
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Registration Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title fw-bold">Registration Details</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" >
         <ng-container *ngIf="udata; else noData">
-          <h5>Registration ID: {{ udata.Registerid }}</h5>
-          <h5>Password: {{ udata.password }}</h5>
+          <div class="text-center registration-details">
+            <p><strong>Name:</strong> {{ udata.Username }}</p>
+            <p><strong>User ID:</strong> {{ udata.Registerid }}</p>
+            <p><strong>Password:</strong> {{ udata.password }}</p>
+            <p><strong>Sponcer ID:</strong> {{ udata.Sponcerid }}</p>
+            <p><strong>Sponcer Name:</strong> {{ udata.Sponcername }}</p>
+          </div>
         </ng-container>
         <ng-template #noData>
-          <p>No registration data available.</p>
+          <p class="text-center text-muted">No registration data available.</p>
         </ng-template>
       </div>
     </div>
   </div>
 </div>
+<style>
+  .registration-details {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6;
+}
 
+.registration-details p {
+  background: #f8f9fa;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin: 6px 0;
+  box-shadow: 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+</style>
 
 
 

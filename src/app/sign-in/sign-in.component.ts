@@ -27,6 +27,8 @@ export class SignInComponent implements OnInit {
   udata: any;
   constructor(private fb: FormBuilder, private api: UserService,private toast:ToastrService,private cdRef: ChangeDetectorRef
     ) {
+   
+
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       phone: ['', Validators.required],
@@ -34,8 +36,8 @@ export class SignInComponent implements OnInit {
       country: ['', Validators.required],
       password: ['', Validators.required],
       sponcerid: ['', Validators.required],
-      position: ['', Validators.required],
-        placementid: ['', Validators.required],
+      position: ['Left', Validators.required], // Set default value to 'Left'
+      placementid: ['', Validators.required],
     });
 
   }
@@ -92,55 +94,6 @@ export class SignInComponent implements OnInit {
     });
   }
 
-  // sign(): void {
-  //   if (this.registerForm.valid) {
-  //     const form = this.registerForm.value;
-  //     const payload = {
-  //       sponcerid: form.sponcerid,
-  //       name: form.name,
-  //       phone: form.phone,
-  //       email: form.email,
-  //       password: form.password,
-  //       position: form.position,
-  //       country: form.country,
-  //       placementid: form.placementid
-  //     };
-  
-  //     this.api.register(payload).subscribe({
-  //       next: (res: any) => {
-  //         console.log('res:', res);
-  //         this.udata = res.data;
-  
-  //         // ✅ Show backend success message
-  //         const successMsg = res?.message || 'Registration successful ✅';
-  //         this.toast.success(successMsg, 'Success');
-  
-  //         this.registerForm.reset();
-  //       },
-  //       error: (err) => {
-  //         console.error('Registration error:', err);
-  
-  //         // ✅ Show backend error message
-  //         const errorMsg = err?.error?.message || 'Registration failed. Please try again.';
-  //         this.toast.error(errorMsg, 'Error');
-  //       }
-  //     });
-  
-  //   } else {
-  //     this.toast.warning(' Please fill all fields correctly.', 'Validation Error');
-  //   }
-  // }
-  
-
-
-
-
-
-
-  
-
-
- 
 
   sign(): void {
     if (!this.registerForm.valid) {
@@ -173,14 +126,6 @@ export class SignInComponent implements OnInit {
   }
 
 
-  
- 
-
-
-
-
-
-  
   getProfileData() {
     this.api.getProfiledata().subscribe((res: any) => {
       this.pffdata = res.data[0];
