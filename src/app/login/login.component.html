@@ -1,12 +1,49 @@
 
     <section>
-        <div class="container-fluid">
+        <div class="container-fluid" style="background-color: #FFFFFF;">
           <div class="row ">
+            <div class="col-lg-4 mt-5" *ngIf="!isForgotPassword">
+              <div class="login-container">
+                <div class="text-center">
+                  <img src="assets/logo/myusdicon.webp" alt="" class="img-fluid" style="height: 120px;width: 120px;">
+                </div>
+                <p>Securely log in to manage your nodes, rewards, and network activity with MYUSD.</p>
+            
+                <form [formGroup]="loginForm" (ngSubmit)="Login()">
+                  <div class="mb-3">
+                    <label class="form-label text-start w-100">UserID <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" formControlName="regid" placeholder="Enter Userid" required>
+                  </div>
+            
+                  <div class="mb-3">
+                    <label class="form-label text-start w-100" > Password <span class="text-danger">*</span></label>
+                    <input type="password" class="form-control" formControlName="password" placeholder="Password" required>
+                  </div>
+            
+                  <div class="mb-3 form-check text-start d-flex justify-content-between align-items-center">
+                    <div>
+                      <input type="checkbox" class="form-check-input" id="rememberMe">
+                      <label class="form-check-label" for="rememberMe">Remember me</label>
+                    </div>
+                    <a href="javascript:void(0)" (click)="toggleForgotPassword()" class="text-muted small">Forgot Password?</a>
+                  </div>
+            
+                  <!-- <button type="submit" class="btn btn-primary w-100">LOGIN</button> -->
+                  <button type="submit" class="btn w-100 rainbow-btn">LOGIN</button>
+
+                  
+
+                </form>
+                <p class="mt-3 text-muted">Don't have an account?
+                  <a routerLink="/sign-in" style="color: blue;">Create Account</a>
+                </p>
+              </div>
+            </div>
             <div class="col-lg-8" >
                 <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                       <div class="carousel-item active" data-bs-interval="10000">
-                        <img src="assets/illustration-3.webp"  class="d-block w-100" alt="...">
+                        <img src="assets/logo/19197542.jpg"  class="d-block w-100" alt="...">
                       </div>
                       <!-- <div class="carousel-item" data-bs-interval="2000">
                         <img src="..." class="d-block w-100" alt="...">
@@ -15,57 +52,25 @@
                         <img src="..." class="d-block w-100" alt="...">
                       </div> -->
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+                    <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
                       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                       <span class="visually-hidden">Previous</span>
                     </button>
                     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
                       <span class="carousel-control-next-icon" aria-hidden="true"></span>
                       <span class="visually-hidden">Next</span>
-                    </button>
+                    </button> -->
                   </div>
             </div>
       
        <!-- ✅ Login Form -->
-<div class="col-lg-4 mt-5" *ngIf="!isForgotPassword">
-  <div class="login-container">
-    <div class="text-center">
-      <img src="assets/muusd.jpeg" alt="" style="height: 100px;width: 100px;">
-    </div>
-    <p>Securely log in to manage your nodes, rewards, and network activity with MYUSD.</p>
 
-    <form [formGroup]="loginForm" (ngSubmit)="Login()">
-      <div class="mb-3">
-        <label class="form-label text-start w-100">UserID</label>
-        <input type="text" class="form-control" formControlName="regid" placeholder="Enter Userid" required>
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label text-start w-100">Password</label>
-        <input type="password" class="form-control" formControlName="password" placeholder="Password" required>
-      </div>
-
-      <div class="mb-3 form-check text-start d-flex justify-content-between align-items-center">
-        <div>
-          <input type="checkbox" class="form-check-input" id="rememberMe">
-          <label class="form-check-label" for="rememberMe">Remember me</label>
-        </div>
-        <a href="javascript:void(0)" (click)="toggleForgotPassword()" class="text-muted small">Forgot Password?</a>
-      </div>
-
-      <button type="submit" class="btn btn-primary w-100">LOGIN</button>
-    </form>
-    <p class="mt-3 text-muted">Don't have an account?
-      <a routerLink="/sign-in" style="color: blue;">Create Account</a>
-    </p>
-  </div>
-</div>
 
 <!-- ✅ Forgot Password Form -->
 <div class="col-lg-4 mt-5" *ngIf="isForgotPassword">
   <div class="login-container">
     <div class="text-center">
-      <img src="assets/usd.jpeg" class="img img-fluid" style="width: 80px;" alt="">
+      <img src="assets/logo/myusdicon.webp" class="img img-fluid" style="width: 80px;" alt="">
     </div>
     <p>Reset your password using registered email and user ID.</p>
 

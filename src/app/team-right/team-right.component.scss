@@ -1,0 +1,29 @@
+.table-responsive {
+    overflow-x: auto;
+  }
+  
+  table {
+    min-width: 600px; /* Ensures readable column widths on small screens */
+    background-color: #f8f9fa;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  th {
+    background-color: #e9ecef;
+  }
+  
+  .transaction {
+    color: #007bff;
+  }
+  
+  .value {
+    color: #007bff;
+    font-weight: bold;
+  }
+  

@@ -61,7 +61,13 @@
               <td>${{ item.amount }}</td>
               <td>{{ item.waltype }}</td>
             </tr>
-            
+                <!-- No data found message -->
+                <tr *ngIf="wPaginatedData.length === 0">
+                  <td colspan="6" class="text-center text-danger fw-bold">
+                    No data is available
+                  </td>
+                </tr>
+  
             
           </tbody>
         </table>

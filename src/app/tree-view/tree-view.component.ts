@@ -173,15 +173,17 @@ loadUserTreeData() {
 getImageByBoardStatus(boardstatus: string): string {
   switch (boardstatus) {
     case '0':
-      return 'assets/favi-free.png'; // Path to image for Free Package
+      return 'assets/rfree'; // Path to image for Free Package
     case '1':
-      return 'assets/silver.jpg'; // Path to image for Silver Package
+      return 'assets/rgreen'; // Path to image for subcried Package
     case '2':
-      return 'assets/gold.jpg'; // Path to image for Gold Package
+      return 'assets/rdiamond'; // Path to image for sliver Package
     case '3':
-      return 'assets/diamond.jpg'; // Path to image for Diamond Package
+      return 'assets/rgold'; // Path to image for gold Package
+      case '4':
+        return 'assets/dimaod.jpeg'; // Path to image for Diamond Package
     default:
-      return 'assets/free.jpg'; // Default image path
+      return 'assets/falur.jpeg'; // Default image path
   }
 }
 

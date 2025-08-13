@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../service/user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-auth-refer-share',
   templateUrl: './auth-refer-share.component.html',
@@ -23,7 +24,7 @@ export class AuthReferShareComponent {
   countries: string[] = [];
   codes: any[] = [];
   CountryCode: string = '';
-    constructor(private fb: FormBuilder, private api: UserService, private activeroute:ActivatedRoute) {
+    constructor(private fb: FormBuilder,private router:Router, private api: UserService, private activeroute:ActivatedRoute,private toast:ToastrService) {
         this.registerForm = this.fb.group({
       name: ['', Validators.required],
       phone: ['', Validators.required],
@@ -31,8 +32,9 @@ export class AuthReferShareComponent {
       country: ['', Validators.required],
       password: ['', Validators.required],
       sponcerid: [this.id],
-      position: ['', Validators.required],
+      position: ['Left', Validators.required], // Set default value to 'Left'
       placementid: ['', Validators.required],
+      terms:['', Validators.required],
     });
     }
   
@@ -71,35 +73,39 @@ export class AuthReferShareComponent {
     }
   
     sign(): void {
-      if (this.registerForm.valid) {
-        const form = this.registerForm.value;
-        const payload = {
-          sponcerid: form.sponcerid,
-          name: form.name,
-          phone: form.phone,
-          email: form.email,
-          password: form.password,
-          position: form.position,
-          country: form.country,
-           placementid: form.placementid
-        };
-    
-        this.api.register(payload).subscribe({
-          next: (res: any) => {
-            console.log('res:', res);
-            alert('✅ Registration successful!');
-            this.registerForm.reset(); // Optional: clear form after success
-          },
-          error: (err) => {
-            console.error('Registration error:', err);
-            const msg = err?.error?.message || '❌ Registration failed. Please try again.';
-            alert(msg);
-          }
-        });
-      } else {
-        alert('⚠️ Please fill all fields correctly.');
+      if (this.registerForm.invalid) {
+        this.toast.warning('Please fill all fields correctly.', 'Validation Error');
+        return;
       }
+    
+      const form = this.registerForm.value;
+      const payload = {
+        sponcerid: form.sponcerid,
+        name: form.name,
+        phone: form.phone,
+        email: form.email,
+        password: form.password,
+        position: form.position,
+        country: form.country,
+        placementid: form.placementid
+      };
+    
+      this.api.register(payload).subscribe({
+        next: (res: any) => {
+          console.log('Registration Response:', res);
+          this.toast.success(res?.message || 'Registration successful ✅', 'Success');
+          this.registerForm.reset();
+          // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          //   this.router.navigate(['/authshare']);
+          // });
+        },
+        error: (err) => {
+          console.error('Registration error:', err);
+          this.toast.error(err?.error?.message || 'Registration failed. Please try again.', 'Error');
+        }
+      });
     }
+    
     
   
     getProfileData() {
@@ -112,6 +118,8 @@ export class AuthReferShareComponent {
       this.errorMessage = null;
       this.api.getregiddata(id).subscribe({
         next: (res: any) => {
+          console.log("regid:",res);
+          
           if (res?.data?.length > 0) {
             this.idData = res.data[0];
             this.errorMessage = null;
@@ -127,28 +135,18 @@ export class AuthReferShareComponent {
       });
     }
 
-      GetregistredData1(id: any) {
-      this.errorMessage1 = null;
-      this.api.getregiddata(id).subscribe({
-        next: (res: any) => {
-          if (res?.data?.length > 0) {
-            this.idData1 = res.data[0];
-            this.errorMessage = null;
-          } else {
-            this.idData1 = null;
-            this.errorMessage = 'User not found.';
-          }
-        },
-        error: (err) => {
-          this.idData1 = null;
-          this.errorMessage1 = err?.error?.message || 'Something went wrong.';
-        }
-      });
+    onRegIdKeyup() {
+      const regid = this.registerForm.get('placementid')?.value;
+      if (regid && regid.length >= 4) {
+        this.GetregistredData(regid);
+      } else {
+        this.idData = null;
+        this.errorMessage = null; // No error until they try a real search
+      }
     }
-  
 
       getCountries() {
-    this.api.getCountries().subscribe({
+       this.api.getCountries().subscribe({
       next: (res: any) => {
         this.codes = res;
 
@@ -179,15 +177,7 @@ export class AuthReferShareComponent {
     });
   }
 
-    onRegIdKeyup() {
-    const regid = this.registerForm.get('sponcerid')?.value;
-    if (regid && regid.length >= 4) {
-      this.GetregistredData(regid);
-    } else {
-      this.idData = null;
-      this.errorMessage = null;
-    }
-  }
+
     
     
   }
