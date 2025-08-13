@@ -4,8 +4,7 @@ import { UserService } from '../service/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { ChangeDetectorRef } from '@angular/core';
   import * as bootstrap from 'bootstrap';
-
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -25,7 +24,7 @@ export class SignInComponent implements OnInit {
  errorMessage1: any;
     idData1: any;
   udata: any;
-  constructor(private fb: FormBuilder, private api: UserService,private toast:ToastrService,private cdRef: ChangeDetectorRef
+  constructor(private fb: FormBuilder,private router:Router, private api: UserService,private toast:ToastrService,private cdRef: ChangeDetectorRef
     ) {
    
 
@@ -38,6 +37,7 @@ export class SignInComponent implements OnInit {
       sponcerid: ['', Validators.required],
       position: ['Left', Validators.required], // Set default value to 'Left'
       placementid: ['', Validators.required],
+      terms:['', Validators.required],
     });
 
   }
@@ -111,13 +111,16 @@ export class SignInComponent implements OnInit {
 
         // Make sure Angular renders modal content first
         this.cdRef.detectChanges();
-
         // Show the modal
         const modalEl = document.getElementById('exampleModal');
         if (modalEl) {
           const modal = new bootstrap.Modal(modalEl, { backdrop: 'static', keyboard: true });
           modal.show();
         }
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/sign-in']);
+        });
+        
       },
       error: (err) => {
         this.toast.error(err?.error?.message || 'Registration failed. Please try again.', 'Error');

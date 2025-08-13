@@ -42,6 +42,12 @@
                 <td>{{items.remark}}</td>
               
               </tr>
+              <tr *ngIf="sdata.length === 0">
+                <td colspan="6" class="text-center text-danger fw-bold">
+                  No data is available
+                </td>
+              </tr>
+        
         
         </tbody>
     </table>

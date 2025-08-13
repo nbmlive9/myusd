@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../service/user.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,7 +22,8 @@ export class DashboardComponent {
   constructor(
     private api: UserService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private toast:ToastrService
   ) {
     this.form = this.fb.group({
       regid: ['', Validators.required],
@@ -56,20 +59,42 @@ export class DashboardComponent {
     });
   }
 
-  Subscription() {
-    const payload = {
-      regid: this.form.value.regid,
-    };
-    console.log('payload:', payload);
+  Subscription(): void {
+    const payload = { regid: this.form.value.regid };
+    console.log('Payload:', payload);
+  
     this.api.subscription(payload).subscribe({
-      next: (response) => {
-        console.log('Activation successful:', response);
+      next: (res: any) => {
+        console.log('Subscription successful:', res);
+        this.toast.success(res?.message || 'Subscription successful ✅', 'Success');
+  
+        // Always close modal and remove blur
+        const modalEl = document.getElementById('subscriptionModal');
+        if (modalEl) {
+          let modalInstance = bootstrap.Modal.getInstance(modalEl);
+          if (!modalInstance) {
+            modalInstance = new bootstrap.Modal(modalEl);
+          }
+          modalInstance.hide();
+        }
+  
+        // Failsafe: remove leftover backdrop if any
+        document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+        document.body.classList.remove('modal-open');
+        document.body.style.removeProperty('padding-right');
+  
+        // Refresh dashboard
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/dashboard']);
+        });
       },
-      error: (error) => {
-        console.error('Activation failed:', error);
+      error: (err) => {
+        console.error('Activation failed:', err);
+        this.toast.error(err?.message || 'Subscription failed ❌', 'Error');
       },
     });
   }
+  
 
   activationData(): void {
     this.api.ActivationData().subscribe({

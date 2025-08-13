@@ -2,21 +2,17 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../service/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-transfer',
   templateUrl: './transfer.component.html',
   styleUrls: ['./transfer.component.scss']
 })
 export class TransferComponent {
-
-
-
-  
-
     // Forms
     form: FormGroup;
     form1: FormGroup;
-  
+
     // Profile
     pffdata: any;
     idData: any;
@@ -40,7 +36,8 @@ export class TransferComponent {
     constructor(
       private api: UserService,
       private fb: FormBuilder,
-      private toastr: ToastrService
+      private toastr: ToastrService,
+      private router:Router
     ) {
       this.form = this.fb.group({
         amount: ['', Validators.required],
@@ -76,13 +73,14 @@ export class TransferComponent {
         remark: this.form.value.remark
       };
       console.log("payload:",payload);
-      
-  
       this.api.selfTransfer(payload).subscribe({
         next: (res: any) => {
           this.toastr.success('Self Transfer Successful!', 'Success');
           this.form.reset();
           this.GetselfTransfer(); // Refresh list
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/transfer']);
+          }); 
         },
         error: (err) => {
           this.toastr.error(err?.error?.message || 'Something went wrong.', 'Error');
@@ -123,6 +121,9 @@ export class TransferComponent {
           this.form1.reset();
           this.idData = null;
           this.GetWalletTransfer();
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/transfer']);
+          }); 
         },
         error: (err) => {
           this.toastr.error(err?.error?.message || 'Transfer failed.', 'Error');

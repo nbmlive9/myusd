@@ -132,44 +132,7 @@
 
 
 
-<style>
-  .card-custom {
-    margin: 10px;
-    text-align: center;
-    padding: 20px;
-    border: none;
-    border-radius: 5px;
-    color: white;
-  }
 
-  .card-custom .icon {
-    font-size: 2rem;
-  }
-
-  .purple {
-    background-color: #F2873C;
-  }
-
-  .brown {
-    background-color: #8b4513;
-  }
-
-  .silver {
-    background-color: #6a5acd;
-  }
-
-  .gold {
-    background-color: #daa520;
-  }
-
-  .orange {
-    background-color: #f0a500;
-  }
-
-  .Diamond {
-    background-color: #dc3545;
-  }
-</style>
 <div class="card p-4 mb-4" style="background-color: #fff; border-radius: 20px;">
   <h2 class="card-title">My Users </h2>
   <div class="container" *ngIf="homedata">
@@ -296,10 +259,11 @@
 
 
 <!-- subcrition  Modal -->
-<div class="modal fade" id="subscriptionModal" tabindex="-1" aria-labelledby="subscriptionModalLabel"
+<!-- <div class="modal fade" id="subscriptionModal" tabindex="-1" aria-labelledby="subscriptionModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered"> <!-- Centered modal -->
-    <div class="modal-content" style="border-radius: 20px;"> <!-- Apply radius to modal-content -->
+  <div class="modal-dialog modal-dialog-centered"> 
+    <div class="modal-content" style="border-radius: 20px;"> 
+      
       <div class="modal-header">
         <h5 class="modal-title" id="subscriptionModalLabel">Buy Subscription</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -307,18 +271,15 @@
       <form [formGroup]="form">
         <div class="modal-body text-center">
           <p>Available Deposit Balance: <span class="text-success">{{pfdata.actwallet | currency:'USD':true:'1.0-1'}}</span></p>
-      
           <input
             type="text"
             class="form-control mb-2"
             formControlName="regid"
             [ngModel]="pfdata.regid"
             style="border-radius: 16px; font-size: 25px;" readonly/>
-          <!-- <p class="text-primary fw-bold fs-4">$12.00</p> -->
 
           <div *ngIf="pfdata.topupstatus!='0'" class="text-danger">
             Your  Subscription is completed </div>
-          <!-- <p>Amount</p> -->
         </div>
       
         <div class="modal-footer d-flex justify-content-between">
@@ -329,8 +290,7 @@
             (click)="Subscription()" *ngIf="pfdata.topupstatus!='1'" >
             BUY NOW
           </button>
-          <!-- <div *ngIf="pfdata.topupstatus!='0'" class="text-danger">
-          Your  Subscription is completed </div> -->
+ 
             
           <button
             type="button"
@@ -342,6 +302,63 @@
         </div>
       </form>
       
+    </div>
+  </div>
+</div> -->
+
+<!-- Subscription Modal -->
+<div class="modal fade" id="subscriptionModal" tabindex="-1" aria-labelledby="subscriptionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius: 20px;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="subscriptionModalLabel">Buy Subscription</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Use ngSubmit instead of click -->
+      <form [formGroup]="form" >
+        <div class="modal-body text-center">
+          <p>
+            Available Deposit Balance:
+            <span class="text-success">
+              {{ pfdata.actwallet | currency:'USD':true:'1.0-1' }}
+            </span>
+          </p>
+
+          <!-- No ngModel needed for reactive forms -->
+          <input
+            type="text"
+            class="form-control mb-2"
+            formControlName="regid"
+            [ngModel]="pfdata.regid"
+            style="border-radius: 16px; font-size: 25px;"
+            readonly
+          />
+
+          <div *ngIf="pfdata.topupstatus !== '0'" class="text-danger">
+            Your Subscription is completed
+          </div>
+        </div>
+
+        <div class="modal-footer d-flex justify-content-between">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style="border-radius: 16px;"
+            *ngIf="pfdata.topupstatus !== '1'" (click)="Subscription()"> 
+            BUY NOW
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-danger"
+            style="border-radius: 16px;"
+            data-bs-dismiss="modal">
+            CLOSE
+          </button>
+        </div>
+      </form>
+
     </div>
   </div>
 </div>

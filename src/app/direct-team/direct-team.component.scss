@@ -1,21 +1,29 @@
-
-table {
-    width: 100%;
+.table-responsive {
+    overflow-x: auto;
+  }
+  
+  table {
+    min-width: 700px; /* forces scroll on smaller devices */
     border-collapse: collapse;
     background-color: #f8f9fa;
-}
-th, td {
+  }
+  
+  th, td {
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #dee2e6;
-}
-th {
+  }
+  
+  th {
     background-color: #e9ecef;
-}
-.transaction {
+  }
+  
+  .transaction {
     color: #007bff;
-}
-.value {
+  }
+  
+  .value {
     color: #007bff;
     font-weight: bold;
-}
+  }
+  

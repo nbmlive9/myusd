@@ -35,6 +35,12 @@
 .text-muted a:hover {
   text-decoration: underline;
 }
-/* .full-height {
-  max-height: 100vh;
-} */
+.rainbow-btn {
+  background: linear-gradient(90deg, #DB4493);
+  color: #fff;
+  font-weight: bold;
+  border: 2px solid transparent;
+  border-radius: 16px;
+  padding: 10px;
+  background-clip: padding-box;
+}

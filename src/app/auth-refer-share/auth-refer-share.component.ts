@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../service/user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-auth-refer-share',
@@ -24,7 +24,7 @@ export class AuthReferShareComponent {
   countries: string[] = [];
   codes: any[] = [];
   CountryCode: string = '';
-    constructor(private fb: FormBuilder, private api: UserService, private activeroute:ActivatedRoute,private toast:ToastrService) {
+    constructor(private fb: FormBuilder,private router:Router, private api: UserService, private activeroute:ActivatedRoute,private toast:ToastrService) {
         this.registerForm = this.fb.group({
       name: ['', Validators.required],
       phone: ['', Validators.required],
@@ -32,8 +32,9 @@ export class AuthReferShareComponent {
       country: ['', Validators.required],
       password: ['', Validators.required],
       sponcerid: [this.id],
-      position: ['', Validators.required],
+      position: ['Left', Validators.required], // Set default value to 'Left'
       placementid: ['', Validators.required],
+      terms:['', Validators.required],
     });
     }
   
@@ -72,35 +73,39 @@ export class AuthReferShareComponent {
     }
   
     sign(): void {
-      if (this.registerForm.valid) {
-        const form = this.registerForm.value;
-        const payload = {
-          sponcerid: form.sponcerid,
-          name: form.name,
-          phone: form.phone,
-          email: form.email,
-          password: form.password,
-          position: form.position,
-          country: form.country,
-           placementid: form.placementid
-        };
-    
-        this.api.register(payload).subscribe({
-          next: (res: any) => {
-            console.log('res:', res);
-            alert('✅ Registration successful!');
-            this.registerForm.reset(); // Optional: clear form after success
-          },
-          error: (err) => {
-            console.error('Registration error:', err);
-            const msg = err?.error?.message || '❌ Registration failed. Please try again.';
-            alert(msg);
-          }
-        });
-      } else {
-        alert('⚠️ Please fill all fields correctly.');
+      if (this.registerForm.invalid) {
+        this.toast.warning('Please fill all fields correctly.', 'Validation Error');
+        return;
       }
+    
+      const form = this.registerForm.value;
+      const payload = {
+        sponcerid: form.sponcerid,
+        name: form.name,
+        phone: form.phone,
+        email: form.email,
+        password: form.password,
+        position: form.position,
+        country: form.country,
+        placementid: form.placementid
+      };
+    
+      this.api.register(payload).subscribe({
+        next: (res: any) => {
+          console.log('Registration Response:', res);
+          this.toast.success(res?.message || 'Registration successful ✅', 'Success');
+          this.registerForm.reset();
+          // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          //   this.router.navigate(['/authshare']);
+          // });
+        },
+        error: (err) => {
+          console.error('Registration error:', err);
+          this.toast.error(err?.error?.message || 'Registration failed. Please try again.', 'Error');
+        }
+      });
     }
+    
     
   
     getProfileData() {
