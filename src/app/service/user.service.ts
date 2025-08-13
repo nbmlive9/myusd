@@ -9,8 +9,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-//  private readonly AUTH_API = 'https://crypturegrid.com/MYUSD/MYUSD/User/';
-    private readonly AUTH_API = 'https://myusd.co/MYUSD/MYUSD//User/';
+ private readonly AUTH_API = 'https://crypturegrid.com/MYUSD/MYUSD/User/';
+    // private readonly AUTH_API = 'https://myusd.co/MYUSD/MYUSD//User/';
   constructor(
     private http: HttpClient,
     private route: Router,

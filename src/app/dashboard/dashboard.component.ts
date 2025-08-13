@@ -19,6 +19,7 @@ export class DashboardComponent {
   pfdata: any;
   enteredAmount: any | null = null;
   receivableAmount: number = 0;
+  sdata: any;
   constructor(
     private api: UserService,
     private router: Router,
@@ -33,7 +34,6 @@ export class DashboardComponent {
     this.Home();
     this.activationData();
   }
-
   toggleShare() {
     this.showShareIcons = !this.showShareIcons;
   }
@@ -67,30 +67,17 @@ export class DashboardComponent {
       next: (res: any) => {
         console.log('Subscription successful:', res);
         this.toast.success(res?.message || 'Subscription successful ✅', 'Success');
-  
-        // Always close modal and remove blur
-        const modalEl = document.getElementById('subscriptionModal');
-        if (modalEl) {
-          let modalInstance = bootstrap.Modal.getInstance(modalEl);
-          if (!modalInstance) {
-            modalInstance = new bootstrap.Modal(modalEl);
-          }
-          modalInstance.hide();
-        }
-  
-        // Failsafe: remove leftover backdrop if any
-        document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
-        document.body.classList.remove('modal-open');
-        document.body.style.removeProperty('padding-right');
-  
+        this.sdata=res;
         // Refresh dashboard
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
           this.router.navigate(['/dashboard']);
         });
+        this.sdata=null
       },
       error: (err) => {
         console.error('Activation failed:', err);
-        this.toast.error(err?.message || 'Subscription failed ❌', 'Error');
+        this.toast.error(  'Subscription failed  you have low Balance ', 'Error');
+      
       },
     });
   }

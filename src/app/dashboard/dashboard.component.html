@@ -77,20 +77,20 @@
     <div class="col-md-12">
       <div class="row mt-5">
         <div class="col-sm-4 mb-2">
-          <div class="card" style="background-color: #17A2B8; color: white; padding: 20px;">
+          <div class="card" style="background-color: #FFA500; color: white; padding: 20px;">
             <h5> Sponsor Income</h5>
             <h3>${{homedata.sponcerincome}}</h3>
           </div>
         </div>
         <div class="col-sm-4 mb-2">
-          <div class="card" style="background-color: #30B32D; color: white; padding: 20px;">
+          <div class="card" style="background-color: #1275A4; color: white; padding: 20px;">
             <h5> Level Binary Income</h5>
 
             <h3>${{homedata.levelbinary}}</h3>
           </div>
         </div>
         <div class="col-sm-4 mb-2">
-          <div class="card" style="background-color: #DC3545; color: white ; padding: 20px;">
+          <div class="card" style="background-color: #D72F14; color: white ; padding: 20px;">
             <h5> Sliver Income</h5>
             <h3>${{homedata.silverincome}}</h3>
           </div>
@@ -98,13 +98,13 @@
       </div>
       <div class="row mt-2">
         <div class="col-sm-4 mb-2"> 
-          <div class="card" style="background-color: #F2873C; color: white;padding: 20px;">
+          <div class="card" style="background-color: #08A7A3; color: white;padding: 20px;">
             <h5> Gold Incoming</h5>
             <h3>${{homedata.goldincome}}</h3>
           </div>
         </div>
         <div class="col-sm-4 mb-2">
-          <div class="card" style="background-color: #FF0000; color: white; padding: 20px;">
+          <div class="card" style="background-color: #800080; color: white; padding: 20px;">
             <h5> Diamond Incoming</h5>
             <h3>${{homedata.diamondincome}}</h3>
           </div>
@@ -258,55 +258,7 @@
 </div>
 
 
-<!-- subcrition  Modal -->
-<!-- <div class="modal fade" id="subscriptionModal" tabindex="-1" aria-labelledby="subscriptionModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered"> 
-    <div class="modal-content" style="border-radius: 20px;"> 
-      
-      <div class="modal-header">
-        <h5 class="modal-title" id="subscriptionModalLabel">Buy Subscription</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form [formGroup]="form">
-        <div class="modal-body text-center">
-          <p>Available Deposit Balance: <span class="text-success">{{pfdata.actwallet | currency:'USD':true:'1.0-1'}}</span></p>
-          <input
-            type="text"
-            class="form-control mb-2"
-            formControlName="regid"
-            [ngModel]="pfdata.regid"
-            style="border-radius: 16px; font-size: 25px;" readonly/>
 
-          <div *ngIf="pfdata.topupstatus!='0'" class="text-danger">
-            Your  Subscription is completed </div>
-        </div>
-      
-        <div class="modal-footer d-flex justify-content-between">
-          <button
-            type="button"
-            class="btn btn-primary"
-            style="border-radius: 16px;"
-            (click)="Subscription()" *ngIf="pfdata.topupstatus!='1'" >
-            BUY NOW
-          </button>
- 
-            
-          <button
-            type="button"
-            class="btn btn-danger"
-            style="border-radius: 16px;"
-            data-bs-dismiss="modal">
-            CLOSE
-          </button>
-        </div>
-      </form>
-      
-    </div>
-  </div>
-</div> -->
-
-<!-- Subscription Modal -->
 <div class="modal fade" id="subscriptionModal" tabindex="-1" aria-labelledby="subscriptionModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" style="border-radius: 20px;">
@@ -341,7 +293,7 @@
         </div>
 
         <div class="modal-footer d-flex justify-content-between">
-          <button
+          <button data-bs-dismiss="modal"
             type="submit"
             class="btn btn-primary"
             style="border-radius: 16px;"
