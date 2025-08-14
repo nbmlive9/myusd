@@ -16,7 +16,7 @@
         <img src="assets/logo/myusdicon.webp" class="img-fluid" style="width: 60px;" alt="">
       </p> 
       <h4 class="text-primary">
-        <i class="fas fa-tachometer-alt me-2"></i> {{ udata?.regid }}
+        <i class="fas fa-cube me-2"></i> {{ udata?.regid }}
       </h4>
       <h6 class="text-success">
         <i class="fas fa-user-alt me-2"></i> {{ udata?.name }}
@@ -85,22 +85,24 @@
 
 <!-- Main Content Area -->
 <div class="main-content" [class.full-width]="isMobile && !isCollapsed">
-  <div class="card mb-2">
+  <div class="container-fluid mb-2">
     <div class="row">
       <div class="col-4">
 
       </div>
-      <div class="col-4">
-          <div class="text-center p-3 ">
-                <img src="assets/logo/myusdicon.webp" class="img img-fluid" width="40px" alt="">
-            </div>
-      </div>
+       <div class="card col-12">
+          <div class="text-center p-3">
+            <img src="assets/logo/myusdicon.webp" class="img img-fluid" width="80" alt="">
+          </div>
+
+        </div>
+
       <div class="col-4 mt-4 ">
           <!-- User Dropdown -->
           <div class="dropdown text-right">
-            <p id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" class="m-0 cursor-pointer">
+            <!-- <p id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" class="m-0 cursor-pointer">
               <i class="fas fa-user text-warning me-2"></i>
-            </p>
+            </p> -->
             <ul class="dropdown-menu" aria-labelledby="userDropdown">
               <li class="dropdown-header">
                 <i class="fas fa-user text-warning me-2"></i> {{ udata?.name }}
@@ -115,19 +117,7 @@
   
   </div>
   <!-- Top Header -->
-  <div class="container-fluid bg-white py-2 px-3 shadow-sm rounded mb-3">
-    <div class="d-flex justify-content-between align-items-center">
-      <!-- Navigation Bar -->
-      <div class="nav-bar d-flex">
-        <nav class="nav">
-          <a class="nav-link" [class.active]="activeLink === 'transfer'" (click)="setActive('transfer')" routerLink="/transfer">Transfer Fund</a>
-          <a class="nav-link" [class.active]="activeLink === 'deposit'" (click)="setActive('deposit')" routerLink="/deposit">Deposit</a>
-          <a class="nav-link" [class.active]="activeLink === 'withdraw'" (click)="setActive('withdraw')" routerLink="/withdraw">Withdraw</a>
-        </nav>
-      </div>
-
-    </div>
-  </div>
+ 
 
   <!-- Router View -->
   <div class="container-fluid">

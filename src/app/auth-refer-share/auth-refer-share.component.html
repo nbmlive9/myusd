@@ -3,8 +3,11 @@
 
   <div class="container-fluid" style="background-color: #fff;">
     <div class="row ">
-      <div class="col-lg-4 col-md-8 col-sm-10 mx-auto py-5 order-1 order-lg-0">
+      <div class="col-lg-6 col-md-8 col-sm-10 mx-auto py-5 order-1 order-lg-0">
         <div class="register-container shadow p-4 rounded-4 bg-white">
+             <div class="text-center">
+             <img src="assets/usd.jpeg" style="width: 80px; height: 80px;" alt="" srcset="">
+           </div>
           <h1 class="text-center mb-4 fw-bold">REGISTER</h1>
           <form [formGroup]="registerForm" (ngSubmit)="sign()">
             <div class="row g-3">
@@ -33,16 +36,21 @@
                   </select>
                 </div>
               </div>
-              <div class="col-sm-6">
+
+            <div class="col-sm-6">
                 <label class="form-label">Phone</label>
-                <div class="input-wrapper">
-                  <span *ngIf="numbercode; else phoneIcon" class="input-icon">{{ numbercode }}</span>
+                <div class="input-wrapper d-flex align-items-center"  [ngClass]="{ 'has-code': numbercode }">                  
+                  <span *ngIf="numbercode; else phoneIcon" class="input-icon">
+                    {{ numbercode }}
+                  </span>
                   <ng-template #phoneIcon>
                     <i class="fa-solid fa-phone input-icon"></i>
                   </ng-template>
-                  <input type="number" formControlName="phone" placeholder="Phone number" class="form-control" required>
+                  <input type="number" formControlName="phone"  placeholder="Phone number" 
+                    class="form-control flex-grow-1" required>
                 </div>
               </div>
+
               <div class="col-sm-6">
                 <label class="form-label">Password</label>
                 <div class="input-wrapper">
@@ -108,7 +116,7 @@
           </form>
         </div>
       </div>
-      <div class="col-lg-8 p-0 order-0 order-lg-1">
+      <div class="col-lg-6 p-0 order-0 order-lg-1">
         <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active" data-bs-interval="10000">
