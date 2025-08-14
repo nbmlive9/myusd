@@ -21,25 +21,25 @@
             font-weight: bold;
         }
     </style>
-
-    <h2 class="fw-bold">Sponsor Income</h2>
+<div class="card p-2">
+    <h2 class="fw-bold text-success">Sponsor Income</h2>
     <table>
         <thead>
             <tr>
                 <th>S.No</th>
                 <th>Date</th>
                 <th>Income</th>
-                <th>Type</th>
-                <th>Remarks</th>
+                <!-- <th>Type</th>
+                <th>Remarks</th> -->
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let items of sdata let i='index' ">
                 <td>{{i+1}}</td>
-                <td>{{items.cdate}}</td>
-                <td>${{items.amount}}</td>
-                <td>{{items.type}}</td>
-                <td>{{items.remark}}</td>
+                <td>{{items.cdate | date:'dd/MM/YYYY'}}</td>
+                <td class="text-success">{{items.amount | currency:'USD':true:'1.0-1'}}</td>
+                <!-- <td>{{items.type}}</td>
+                <td>{{items.remark}}</td> -->
               
               </tr>
               <tr *ngIf="sdata.length === 0">
@@ -47,7 +47,7 @@
                   No data is available
                 </td>
               </tr>
-        
-        
+    
         </tbody>
     </table>
+</div>

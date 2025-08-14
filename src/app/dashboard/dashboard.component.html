@@ -46,8 +46,8 @@
         <div class="col-12 col-sm-6 col-lg-4">
           <div class="card h-100 text-center p-3 shadow-sm">
             <p class="mb-2">Business</p>
-            <h3 class="mb-3">$0.00</h3>
-            <a href="#" class="btn btn-custom btn-view">VIEW</a>
+            <h3 class="mb-3">{{homedata.profiledata?.totalwallet | currency:'USD':true:'1.0-1'}}</h3>
+            <a routerLink="/report" class="btn btn-custom btn-view">VIEW</a>
           </div>
         </div>
         <!-- Deposit Card -->
@@ -79,20 +79,20 @@
         <div class="col-sm-4 mb-2">
           <div class="card" style="background-color: #FFA500; color: white; padding: 20px;">
             <h5> Sponsor Income</h5>
-            <h3>${{homedata.sponcerincome}}</h3>
+            <h3>{{homedata.sponcerincome | currency:'USD':true:'1.0-1'}}</h3>
           </div>
         </div>
         <div class="col-sm-4 mb-2">
           <div class="card" style="background-color: #1275A4; color: white; padding: 20px;">
             <h5> Level Binary Income</h5>
 
-            <h3>${{homedata.levelbinary}}</h3>
+            <h3>{{homedata.levelbinary | currency:'USD':true:'1.0-1'}}</h3>
           </div>
         </div>
         <div class="col-sm-4 mb-2">
           <div class="card" style="background-color: #D72F14; color: white ; padding: 20px;">
             <h5> Sliver Income</h5>
-            <h3>${{homedata.silverincome}}</h3>
+            <h3>{{homedata.silverincome | currency:'USD':true:'1.0-1'}}</h3>
           </div>
         </div>
       </div>
@@ -100,13 +100,13 @@
         <div class="col-sm-4 mb-2"> 
           <div class="card" style="background-color: #08A7A3; color: white;padding: 20px;">
             <h5> Gold Incoming</h5>
-            <h3>${{homedata.goldincome}}</h3>
+            <h3>{{homedata.goldincome | currency:'USD':true:'1.0-1'}}</h3>
           </div>
         </div>
         <div class="col-sm-4 mb-2">
           <div class="card" style="background-color: #800080; color: white; padding: 20px;">
             <h5> Diamond Incoming</h5>
-            <h3>${{homedata.diamondincome}}</h3>
+            <h3>{{homedata.diamondincome | currency:'USD':true:'1.0-1'}}</h3>
           </div>
         </div>
         <!--  -->
@@ -332,7 +332,6 @@
             style="border-radius: 16px; font-size: 20px; ">
             <option selected>Select Coin</option>
             <option value="USDTBEP2O">USDT BEP2O</option>
-            <option value="YOHANCOIN">YOHAN COIN</option>
             
           </select>
         </div>
@@ -374,8 +373,8 @@
         </div>
       
         <!-- Red warning if amount < 10 -->
-        <div *ngIf="enteredAmount && enteredAmount < 10" class="text-danger mb-3 fw-semibold">
-          Please enter minimum amount $10
+        <div *ngIf="enteredAmount && enteredAmount < 5" class="text-danger mb-3 fw-semibold">
+          Please enter minimum amount $5
         </div>
       
         <!-- Network Type -->
@@ -390,9 +389,9 @@
       
         <!-- Fee Details -->
         <div class="info-text mb-3">
-          <p class="mb-1 text-dark"><strong>Min Amount:</strong> <span class="text-primary">$10</span></p>
-          <p class="mb-1 text-dark"><strong>Amount:</strong> <span class="text-primary">${{ enteredAmount }}</span></p>
-          <p class="mb-1 text-dark"><strong>Fee:</strong> <span class="text-primary">10.00%</span></p>
+          <p class="mb-1 text-danger"><strong>Min Amount:</strong> <span class="text-primary">$5</span></p>
+          <!-- <p class="mb-1 text-dark"><strong>Amount:</strong> <span class="text-primary">${{ enteredAmount }}</span></p> -->
+          <!-- <p class="mb-1 text-dark"><strong>Fee:</strong> <span class="text-primary">10.00%</span></p> -->
           <p class="mb-0 text-dark"><strong>Receivable Amount:</strong>
             <span class="text-primary">${{ receivableAmount.toFixed(2) }}</span>
           </p>
