@@ -20,7 +20,6 @@
             Share Link <i class="fa fa-share-alt-square" aria-hidden="true"></i>
           </span>
         </h5>
-
             <!-- Share Icons -->
             <div *ngIf="showShareIcons" class="d-flex justify-content-md-end gap-3 mt-2">
               <a (click)="sharwahtsapp(homedata.profiledata?.regid)" target="_blank" title="WhatsApp">
@@ -35,7 +34,6 @@
             </div>
           </div>
         </div>
-
     </div>
     
 
@@ -78,35 +76,35 @@
       <div class="row mt-5">
         <div class="col-sm-4 mb-2">
           <div class="card" style="background-color: #FFA500; color: white; padding: 20px;">
-            <h5> Sponsor Income</h5>
-            <h3>{{homedata.sponcerincome | currency:'USD':true:'1.0-1'}}</h3>
+            <h5 class="text-center"> Sponsor Income</h5>
+            <h3 class="text-center">{{homedata.sponcerincome | currency:'USD':true:'1.0-1'}}</h3>
           </div>
         </div>
         <div class="col-sm-4 mb-2">
           <div class="card" style="background-color: #1275A4; color: white; padding: 20px;">
-            <h5> Level Binary Income</h5>
+            <h5 class="text-center"> Level Binary Income</h5>
 
-            <h3>{{homedata.levelbinary | currency:'USD':true:'1.0-1'}}</h3>
+            <h3 class="text-center">{{homedata.levelbinary | currency:'USD':true:'1.0-1'}}</h3>
           </div>
         </div>
         <div class="col-sm-4 mb-2">
           <div class="card" style="background-color: #D72F14; color: white ; padding: 20px;">
-            <h5> Sliver Income</h5>
-            <h3>{{homedata.silverincome | currency:'USD':true:'1.0-1'}}</h3>
+            <h5 class="text-center"> Sliver Income</h5>
+            <h3  class="text-center">{{homedata.silverincome | currency:'USD':true:'1.0-1'}}</h3>
           </div>
         </div>
       </div>
       <div class="row mt-2">
         <div class="col-sm-4 mb-2"> 
           <div class="card" style="background-color: #08A7A3; color: white;padding: 20px;">
-            <h5> Gold Incoming</h5>
-            <h3>{{homedata.goldincome | currency:'USD':true:'1.0-1'}}</h3>
+            <h5 class="text-center"> Gold Incoming</h5>
+            <h3 class="text-center">{{homedata.goldincome | currency:'USD':true:'1.0-1'}}</h3>
           </div>
         </div>
         <div class="col-sm-4 mb-2">
           <div class="card" style="background-color: #800080; color: white; padding: 20px;">
-            <h5> Diamond Incoming</h5>
-            <h3>{{homedata.diamondincome | currency:'USD':true:'1.0-1'}}</h3>
+            <h5 class="text-center"> Diamond Incoming</h5>
+            <h3 class="text-center">{{homedata.diamondincome | currency:'USD':true:'1.0-1'}}</h3>
           </div>
         </div>
         <!--  -->
@@ -118,16 +116,14 @@
         </div> -->
         <div class="col-sm-4 mb-3" *ngIf="homedata.profiledata">
           <div class="card text-white" style="background-color: #08A046; padding: 20px;">
-            <h5 class="mb-2">Holding Wallet</h5>
-            <h3 class="mb-0">
+            <h5 class="text-center">Holding Wallet</h5>
+            <h3 class="text-center">
               ${{ homedata.profiledata.upgrade}}
             </h3>
           </div>
         </div>
-        
       </div>
     </div>
-
   </div>
 </div>
 
@@ -165,7 +161,7 @@
         </div>
       </div>
       <div class="col-md-3">
-        <div class="card card-custom Diamond">
+        <div class="card card-custom Diamonds">
           <h5>Diamond</h5>
           <p>Left: {{homedata.diamondleft}} | Right: {{homedata.diamondleft}}</p>
         </div>

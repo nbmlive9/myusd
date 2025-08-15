@@ -43,39 +43,74 @@ export class LoginComponent implements OnInit {
 
   }
 
+  // Login(): void {
+  //   if (this.loginForm.valid) {
+  //     const { regid, password } = this.loginForm.value;
+  //     this.isLoading = true;
+  
+  //     this.api.login(regid, password).subscribe({
+  //       next: (res: any) => {
+  //         this.isLoading = false;
+  
+  //         if (res.status === 1) {
+  //           this.token.saveToken(res.token);
+  //           this.token.saveUser({ role: res.usertype });
+  //          this.toastr.success('Login Successful!', 'Success');
+  //          // alert('✅ Login successful!');
+  //           this.router.navigate(['/dashboard']);
+  //         } else {
+  //           this.errorMessage = res.message || 'Login failed';
+  //            this.toastr.error('Enter Valid Login Details!', 'Error');
+  //         }
+  //       },
+  //       error: (err) => {
+  //         this.isLoading = false;
+  //         this.errorMessage = 'Enter valid Credentials';
+  //          this.toastr.error('Enter Valid Login Details!', 'Error');
+  //       }
+  //     });
+  //   } else {
+  //     this.toastr.error('Please fill in all fields correctly', 'Error');
+
+  //   }
+  // }
+  
+
   Login(): void {
-    if (this.loginForm.valid) {
-      const { regid, password } = this.loginForm.value;
-      this.isLoading = true;
-  
-      this.api.login(regid, password).subscribe({
-        next: (res: any) => {
-          this.isLoading = false;
-  
-          if (res.status === 1) {
-            this.token.saveToken(res.token);
-            this.token.saveUser({ role: res.usertype });
-           this.toastr.success('Login Successful!', 'Success');
-           // alert('✅ Login successful!');
-            this.router.navigate(['/dashboard']);
-          } else {
-            this.errorMessage = res.message || 'Login failed';
-             this.toastr.error('Enter Valid Login Details!', 'Error');
-          }
-        },
-        error: (err) => {
-          this.isLoading = false;
-          this.errorMessage = 'Enter valid Credentials';
-           this.toastr.error('Enter Valid Login Details!', 'Error');
-        }
-      });
-    } else {
-      alert('⚠️ Please fill in all fields correctly.');
+    if (!this.loginForm.valid) {
+      this.toastr.error('Please fill in all fields correctly', 'Error');
+      return;
     }
+  
+    const { regid, password } = this.loginForm.value;
+    this.isLoading = true;
+    this.errorMessage = ''; // Clear any previous error
+  
+    this.api.login(regid, password).subscribe({
+      next: (res: any) => {
+        this.isLoading = false;
+  
+        if (res?.status === 1) {
+          this.token.saveToken(res.token);
+          this.token.saveUser({ role: res.usertype });
+  
+          this.toastr.success('Login Successful!', 'Success');
+          this.router.navigate(['/dashboard']);
+        } else {
+          this.errorMessage = res?.message || 'Login failed';
+          this.toastr.error(this.errorMessage, 'Error');
+        }
+      },
+      error: (err) => {
+        this.isLoading = false;
+        console.error('Login error:', err);
+  
+        this.errorMessage = 'Enter valid credentials';
+        this.toastr.error(this.errorMessage, 'Error');
+      }
+    });
   }
   
-
-
 
 
   toggleForgotPassword() {
@@ -95,7 +130,6 @@ export class LoginComponent implements OnInit {
       const formValue = this.forgotForm.value;
       console.log("payload:",formValue);
       
-  
       this.user.forgotpassword(formValue).subscribe({
         next: (res: any) => {
           console.log("sentotp:",res);

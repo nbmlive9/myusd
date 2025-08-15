@@ -78,6 +78,8 @@ export class SignInComponent implements OnInit {
     this.api.getCountries().subscribe({
       next: (res: any) => {
         this.codes = res;
+        console.log("dddddd:",res);
+        
 
         this.countries = res
           .map((country: any) => country.name?.common)

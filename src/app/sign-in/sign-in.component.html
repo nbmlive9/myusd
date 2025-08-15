@@ -128,46 +128,98 @@
     </div>
   </div>
 </section>
+
+<!-- Google Fonts -->
+
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title fw-bold">Registration Details</h5>
-        <button type="button" class="btn-close " data-bs-dismiss="modal"></button>
+    <div class="modal-content success-modal">
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-bold text-success">
+          <i class="bi bi-check-circle-fill me-2"></i> Registration Successful
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-      <div class="modal-body custom-bg">
+
+      <div class="modal-body custom-bg text-center">
         <ng-container *ngIf="udata; else noData">
-          <div class="text-center ">
+          <div class="details-card p-3">
             <p><strong>Name:</strong> {{ udata.Username }}</p>
             <p><strong>User ID:</strong> {{ udata.Registerid }}</p>
             <p><strong>Password:</strong> {{ udata.password }}</p>
-            <p><strong>Sponcer ID:</strong> {{ udata.Sponcerid }}</p>
-            <p><strong>Sponcer Name:</strong> {{ udata.Sponcername }}</p>
+            <p><strong>Sponsor ID:</strong> {{ udata.Sponcerid }}</p>
+            <p><strong>Sponsor Name:</strong> {{ udata.Sponcername }}</p>
           </div>
         </ng-container>
+
         <ng-template #noData>
-          <p class="text-center text-muted">No registration data available.</p>
+          <p class="text-muted">No registration data available.</p>
         </ng-template>
       </div>
-<style>
-  .custom-bg {
-  background: linear-gradient(
-      rgba(255, 255, 255, 0.8), /* Transparent white overlay */
-      rgba(255, 255, 255, 0.8)
-    ),
-    url('assets/Cartoon\ Style\ Robot.jpg'); /* Your background image */
-  background-size: cover;
-  background-position: center;
-  border-radius: 5px;
-}
 
-</style>      
+      <div class="modal-footer border-0 justify-content-center">
+        <button type="button" class="btn btn-success px-4" data-bs-dismiss="modal">
+          Done
+        </button>
+      </div>
     </div>
   </div>
 </div>
 
+<style>
+  /* Apply font globally to modal */
+  .success-modal {
+    font-family: 'Poppins', sans-serif;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.4s ease-in-out;
+  }
 
+  .custom-bg {
+    background: linear-gradient(
+        rgba(255, 255, 255, 0.95),
+        rgba(255, 255, 255, 0.95)
+      ),
+      url('assets/congratulations-13773_256.gif');
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+  }
 
+  .details-card p {
+    margin: 8px 0;
+    font-size: 15px;
+    color: #333;
+  }
+
+  .details-card strong {
+    color: #2c7a4b;
+  }
+
+  .btn-success {
+    background: linear-gradient(90deg, #28a745, #2ecc71);
+    border: none;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .btn-success:hover {
+    background: linear-gradient(90deg, #2ecc71, #28a745);
+    transform: scale(1.05);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
 
 
 

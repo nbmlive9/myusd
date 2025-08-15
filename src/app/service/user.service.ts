@@ -62,6 +62,7 @@ export class UserService {
   
     return this.http.get(this.AUTH_API + 'Home', httpOptions);
   }
+
   forgotPassword(value: { regid: string; email: string }) {
     const token = this.token.getToken(); // optional if required
     const httpOptions = {
@@ -71,7 +72,7 @@ export class UserService {
       }),
     };
     return this.http.post(
-      this.AUTH_API + 'Forget_password',
+      this.AUTH_API + 'Forget_Password',
       {
         regid: value.regid,
         email: value.email,
@@ -393,5 +394,9 @@ getCountries() {
     return this.http.get(apiUrl, { headers });
   }
   
+
+
+
+
 
 }
