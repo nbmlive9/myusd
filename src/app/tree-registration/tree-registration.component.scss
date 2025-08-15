@@ -1,0 +1,32 @@
+.register-container {
+  background: #fff;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #555;
+  font-size:1rem;
+  z-index: 2;
+}
+
+.form-control {
+  padding-left: 2.2rem; /* for icon */
+    border-radius: 20px;
+}
+
+/* Extra space when country code is shown */
+.input-wrapper.has-code .form-control {
+  padding-left: 4.5rem; /* adjust based on code length */
+}
+
+.form-select {
+  padding-left: 2.2rem;
+  border-radius: 20px;
+}
