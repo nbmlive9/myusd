@@ -44,7 +44,7 @@
         <div class="col-12 col-sm-6 col-lg-4">
           <div class="card h-100 text-center p-3 shadow-sm">
             <p class="mb-2">Business</p>
-            <h3 class="mb-3">{{homedata.profiledata?.totalwallet | currency:'USD':true:'1.0-1'}}</h3>
+            <h3 class="mb-3">{{homedata.profiledata?.totalwallet | currency:'USD':true:'1.0-2'}}</h3>
             <a routerLink="/report" class="btn btn-custom btn-view">VIEW</a>
           </div>
         </div>
@@ -52,7 +52,7 @@
         <div class="col-md-12 col-sm-6 col-lg-4">
           <div class="card h-100 text-center p-3 shadow-sm">
             <p class="mb-2">Deposit Fund</p>
-            <h3 class="mb-3">{{homedata.profiledata?.actwallet | currency:'USD':true:'1.0-1'}}</h3>
+            <h3 class="mb-3">{{homedata.profiledata?.actwallet | currency:'USD':true:'1.0-2'}}</h3>
             <a href="#" class="btn btn-custom btn-deposit" data-bs-toggle="modal" data-bs-target="#addFundModal">DEPOSIT</a>
           </div>
         </div>
@@ -60,7 +60,7 @@
         <div class="col-12 col-sm-6 col-lg-4">
           <div class="card h-100 text-center p-3 shadow-sm">
             <p class="mb-2">Withdraw Fund</p>
-            <h3 class="mb-3">{{homedata.profiledata?.walletamount | currency:'USD':true:'1.0-1'}}</h3>
+            <h3 class="mb-3">{{homedata.profiledata?.walletamount | currency:'USD':true:'1.0-2'}}</h3>
             <a href="javascript:void(0)" class="btn btn-danger btn-sm rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#withdrawModal">WITHDRAW</a>
           </div>
         </div>
@@ -77,20 +77,20 @@
         <div class="col-sm-4 mb-2">
           <div class="card" style="background-color: #FFA500; color: white; padding: 20px;">
             <h5 class="text-center"> Sponsor Income</h5>
-            <h3 class="text-center">{{homedata.sponcerincome | currency:'USD':true:'1.0-1'}}</h3>
+            <h3 class="text-center">{{homedata.sponcerincome | currency:'USD':true:'1.0-2'}}</h3>
           </div>
         </div>
         <div class="col-sm-4 mb-2">
           <div class="card" style="background-color: #1275A4; color: white; padding: 20px;">
             <h5 class="text-center"> Level Binary Income</h5>
 
-            <h3 class="text-center">{{homedata.levelbinary | currency:'USD':true:'1.0-1'}}</h3>
+            <h3 class="text-center">{{homedata.levelbinary | currency:'USD':true:'1.0-2'}}</h3>
           </div>
         </div>
         <div class="col-sm-4 mb-2">
           <div class="card" style="background-color: #D72F14; color: white ; padding: 20px;">
             <h5 class="text-center"> Sliver Income</h5>
-            <h3  class="text-center">{{homedata.silverincome | currency:'USD':true:'1.0-1'}}</h3>
+            <h3  class="text-center">{{homedata.silverincome | currency:'USD':true:'1.0-2'}}</h3>
           </div>
         </div>
       </div>
@@ -98,13 +98,13 @@
         <div class="col-sm-4 mb-2"> 
           <div class="card" style="background-color: #08A7A3; color: white;padding: 20px;">
             <h5 class="text-center"> Gold Incoming</h5>
-            <h3 class="text-center">{{homedata.goldincome | currency:'USD':true:'1.0-1'}}</h3>
+            <h3 class="text-center">{{homedata.goldincome | currency:'USD':true:'1.0-2'}}</h3>
           </div>
         </div>
         <div class="col-sm-4 mb-2">
           <div class="card" style="background-color: #800080; color: white; padding: 20px;">
             <h5 class="text-center"> Diamond Incoming</h5>
-            <h3 class="text-center">{{homedata.diamondincome | currency:'USD':true:'1.0-1'}}</h3>
+            <h3 class="text-center">{{homedata.diamondincome | currency:'USD':true:'1.0-2'}}</h3>
           </div>
         </div>
         <!--  -->
@@ -200,24 +200,23 @@
 </style>
 <div class="container-fluid ">
   <div class="d-flex mt-4   align-items-center mb-4 gap-1">
-    <h2 class="fw-semibold">Subscriptions</h2>
-    <button class="buy-btn" data-bs-toggle="modal" data-bs-target="#subscriptionModal">
-      <i class="bi bi-box-fill me-1"></i> BUY SUBSCRIPTION
-    </button>
+    <h2 class="fw-semibold">Subscriptions:</h2>
+
   </div>
 
   <div class="container-fluid" 
-  *ngIf="!activationDetails || activationDetails.length === 0"
+  *ngIf="pfdata.topupstatus !== '1'"
   style="background-color: white;
          border-radius: 20px;
          padding: 60px 20px;
          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
-<div class="icon-box text-center">
+<!-- <div class="icon-box text-center">
  <i class="bi bi-box"></i>
-</div>
+</div> -->
 <p class="fs-5 text-muted text-center">
- Once you purchase a subscription, it will appear here
-</p>
+  <button class="buy-btn" data-bs-toggle="modal" data-bs-target="#subscriptionModal">
+    <i class="bi bi-box-fill me-1"></i> BUY SUBSCRIPTION
+  </button></p>
 </div>
 
 
@@ -237,15 +236,21 @@
             </tr>
           </thead>
           <tbody>
-            <!-- afkjnfnusdb -->
             <tr *ngFor="let item of activationDetails; let i = index">
-              <td>{{i+1}}</td>
+              <td>{{ i + 1 }}</td>
               <td>{{ item.cdate }}</td>
               <td>{{ item.forid }}</td>
               <td>{{ item.fname }}</td>
               <td>${{ item.amount }}</td>
             </tr>
+          
+            <tr *ngIf="noData">
+              <td colspan="6" class="text-center text-danger fw-bold">
+                No data is available
+              </td>
+            </tr>
           </tbody>
+          
         </table>
       </div>
     </div>
@@ -270,7 +275,7 @@
           <p>
             Available Deposit Balance:
             <span class="text-success">
-              {{ pfdata.actwallet | currency:'USD':true:'1.0-1' }}
+              {{ pfdata.actwallet | currency:'USD':true:'1.0-2' }}
             </span>
           </p>
 
@@ -354,7 +359,7 @@
         <p class="mb-2 fw-semibold">Available Balance :
           <span class="text-success fw-bold">
             <i class="fas fa-wallet me-1"></i>
-            {{ pfdata.walletamount | currency:'USD':true:'1.0-1' }}
+            {{ pfdata.walletamount | currency:'USD':true:'1.0-2' }}
           </span>
         </p>
       

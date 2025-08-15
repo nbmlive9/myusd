@@ -83,17 +83,24 @@ export class DashboardComponent {
   }
   
 
+  noData: boolean = false;
+  
   activationData(): void {
+    this.noData = false; // reset before loading
     this.api.ActivationData().subscribe({
       next: (res: any) => {
         console.log('Activation data:', res);
-        this.activationDetails = res.data;
+        this.activationDetails = res?.data || [];
+        this.noData = this.activationDetails.length === 0;
       },
       error: (err) => {
         console.error('Failed to fetch activation data:', err);
+        this.activationDetails = [];
+        this.noData = true;
       },
     });
   }
+  
 
   onAmountChange() {
     if (this.enteredAmount && this.enteredAmount >= 5) {

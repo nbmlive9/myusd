@@ -37,9 +37,10 @@ export class WithdrawComponent {
   enteredAmount: any | null = null;
   receivableAmount: number = 0;
 
+
   onAmountChange() {
-    if (this.enteredAmount && this.enteredAmount >= 10) {
-      const fee = (this.enteredAmount * 10) / 100;
+    if (this.enteredAmount && this.enteredAmount >= 5) {
+      const fee = (this.enteredAmount * 0) / 100;
       this.receivableAmount = this.enteredAmount - fee;
     } else {
       this.receivableAmount = 0;

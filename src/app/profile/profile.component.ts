@@ -16,6 +16,10 @@ export class ProfileComponent {
   form: FormGroup;
   currentTab: 'profile' | 'password' = 'profile';
   isEdit: boolean = false;
+  CountryCode: any;
+  numbercode: any;
+  codes: any;
+  countries:any;
 
   constructor(private api: UserService, private fb: FormBuilder,private token:TokenService,private toast:ToastrService) {
     this.form = this.fb.group({
@@ -27,9 +31,7 @@ export class ProfileComponent {
     });
   }
 
-  ngOnInit() {
-    this.getdata();
-  }
+
 
   switchTab(tab: 'profile' | 'password') {
     this.currentTab = tab;
@@ -82,4 +84,31 @@ export class ProfileComponent {
   logout() {
     this.token.signOut();
   }
+
+
+  ngOnInit(): void {
+    this.getdata();
+    this.getCountries();
+  }
+  getCountries() {
+    this.api.getCountries().subscribe({
+      next: (res: any) => {
+        this.codes = res.map((c: any) => c.cca2).filter(Boolean);
+        this.countries = res
+          .map((c: any) => c.name?.common)
+          .filter(Boolean)
+          .sort();
+  
+        console.log("Country Names:", this.countries);
+        console.log("Country Codes:", this.codes);
+      },
+      error: (err) => {
+        console.error('API Error:', err);
+      }
+    });
+  }
+  
+
+  
+
 }

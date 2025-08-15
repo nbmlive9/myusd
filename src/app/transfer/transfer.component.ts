@@ -149,11 +149,7 @@ export class TransferComponent {
       return Math.ceil(this.wdata.length / this.itemsPerPage);
     }
   
-    // ------------------ Received Wallet ------------------
-  
-  
-  
-    // ------------------ RegID Lookup ------------------
+    
   
     GetregistredData(id: any) {
       this.errorMessage = null;

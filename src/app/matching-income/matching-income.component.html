@@ -34,19 +34,20 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let items of mdata let i='index' ">
-            <td>{{i+1}}</td>
-            <td>{{items.cdate}}</td>
-            <td class="text-success">{{items.amount | currency:'USD':true:'1.0-1'}}</td>
-            <td>{{items.type}}</td>
-            <td>{{items.remark}}</td>
-          
-          </tr>
-          <tr *ngIf="mdata.length === 0">
-            <td colspan="6" class="text-center text-danger fw-bold">
-              No data is available
-            </td>
-          </tr>
-    
-    </tbody>
+        <tr *ngFor="let items of mdata; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ items.cdate }}</td>
+          <td class="text-success">{{ items.amount | currency:'USD':true:'1.0-2' }}</td>
+          <td>{{ items.type }}</td>
+          <td>{{ items.remark }}</td>
+        </tr>
+      
+        <!-- Only one check needed -->
+        <tr *ngIf="noData">
+          <td colspan="6" class="text-center text-danger fw-bold">
+            No data is available
+          </td>
+        </tr>
+      </tbody>
+      
 </table>

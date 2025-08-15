@@ -114,7 +114,7 @@
               <textarea class="form-control" formControlName="remarks" id="exampleFormControlTextarea1" rows="2" style="border-radius: 16px; font-size: 25px;"></textarea>
             </div> -->
           <p class=" fw-bold " *ngIf="pffdata"> Balance: <span>{{pffdata.walletamount |
-            currency:'USD':true:'1.0-1'}}</span> </p>
+            currency:'USD':true:'1.0-2'}}</span> </p>
         </div>
         <div class="modal-footer d-flex justify-content-between">
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="border-radius: 16px;" (click)="SelfTransfer()">Transfer
@@ -169,7 +169,7 @@
               <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" style="border-radius: 16px; font-size: 25px;"></textarea>
             </div> -->
           <p class=" fw-bold "> Balance: <span >{{pffdata.actwallet |
-              currency:'USD':true:'1.0-1'}}</span></p>
+              currency:'USD':true:'1.0-2'}}</span></p>
         </div>
         <div class="modal-footer d-flex justify-content-between">
           <button type="button" class="btn btn-primary" style="border-radius: 16px;"  data-bs-dismiss="modal" (click)="WalletTransfer()">Transfer

@@ -48,14 +48,30 @@
             </div>
         
             <div class="row mb-3">
-              <div class="col-md-6">
+              <!-- <div class="col-md-6">
                 <label>Country</label>
                 <select *ngIf="isEdit" class="form-control" formControlName="country">
                   <option value="India">India</option>
                   <option value="USA">USA</option>
                 </select>
                 <input *ngIf="!isEdit" type="text" class="form-control" [value]="pffdata.country" readonly>
+              </div> -->
+
+              <div class="col-md-6">
+                <label>Country</label>
+              
+                <!-- Edit mode -->
+                <select *ngIf="isEdit" class="form-control" formControlName="country">
+                  <option value="" disabled>Select Country</option>
+                  <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+                </select>
+              
+                <!-- View mode -->
+                <input *ngIf="!isEdit" type="text" class="form-control" [value]="pffdata.country" readonly>
               </div>
+              
+
+
               <div class="col-md-6" >
                 <label>Wallet Address (USDT BEP20 ) </label>
                 <input *ngIf="isEdit" type="text" formControlName="wallet1" class="form-control"  >
@@ -84,32 +100,8 @@
             </div>
           </div>
         </form>
-        
-        
+
       </div>
-
-      <!-- Password Section -->
-      <!-- <div *ngIf="currentTab === 'password'">
-        <div class="form-card">
-          <h5 class="mb-4">Change Password</h5>
-          <div class="row mb-3">
-            <div class="form-group mb-4">
-              <input type="password" class="form-control" placeholder="Current Password">
-            </div>
-            <div class="form-group mb-4">
-              <input type="password" class="form-control" placeholder="New Password">
-            </div>
-            <div class="form-group mb-4">
-              <input type="password" class="form-control" placeholder="Confirm New Password">
-            </div>
-          </div>
-          <div class="text-end">
-            <button class="btn btn-cancel me-2"  >Cancel</button>
-            <button class="btn btn-primary">Update Password</button>
-          </div>
-        </div>
-      </div> -->
-
     </div>
   </div>
 </div>

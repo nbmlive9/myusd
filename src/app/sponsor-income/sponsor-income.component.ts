@@ -7,10 +7,6 @@ declare var $: any;
   styleUrls: ['./sponsor-income.component.scss']
 })
 export class SponsorIncomeComponent {
-
-
-
- 
   sdata:any;
  
     constructor(private api:UserService){
