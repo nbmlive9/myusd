@@ -90,8 +90,12 @@ loadUserTreeData() {
   );
 }
 
+
+
   buildTree() {
   if (this.data2) {
+    const mainId = this.data2.main?.regid || 'No User';
+
     this.data = [
       {
         expanded: true,
@@ -99,7 +103,7 @@ loadUserTreeData() {
         data: {
           image: this.getImageByBoardStatus(this.data2.main.boardstatus),
           name: this.data2.main.name,
-          title: this.data2.main.regid , 
+          title: mainId,
         },
         children: [
           {
@@ -107,18 +111,21 @@ loadUserTreeData() {
             type: 'person',
             data: {
               image: this.getImageByBoardStatus(this.data2.a.boardstatus),
-              name: this.data2.a.name || 'No User', 
-              title: this.data2.a.regid || 'No User', 
+              name: this.data2.a.name || 'No User',
+              title: this.data2.a.regid || 'No User',
+              position: 'left',
+              parentid: mainId
             },
-         
             children: [
               {
                 expanded: true,
                 type: 'person',
                 data: {
                   image: this.getImageByBoardStatus(this.data2.aleft.boardstatus),
-                  name: this.data2.aleft.name || 'No User', 
-                  title: this.data2.aleft.regid || 'No User', 
+                  name: this.data2.aleft.name || 'No User',
+                  title: this.data2.aleft.regid || 'No User',
+                  position: 'left',
+                  parentid: this.data2.a.regid || 'No User'
                 },
               },
               {
@@ -126,30 +133,34 @@ loadUserTreeData() {
                 type: 'person',
                 data: {
                   image: this.getImageByBoardStatus(this.data2.aright.boardstatus),
-                  name: this.data2.aright.name || 'No User', 
-                  title: this.data2.aright.regid || 'No User', 
+                  name: this.data2.aright.name || 'No User',
+                  title: this.data2.aright.regid || 'No User',
+                  position: 'right',
+                  parentid: this.data2.a.regid || 'No User'
                 },
               },
             ]
-          
           },
           {
             expanded: true,
             type: 'person',
             data: {
               image: this.getImageByBoardStatus(this.data2.b.boardstatus),
-              name: this.data2.b.name || 'No User', 
-              title: this.data2.b.regid || 'No User', 
+              name: this.data2.b.name || 'No User',
+              title: this.data2.b.regid || 'No User',
+              position: 'right',
+              parentid: mainId
             },
-
             children: [
               {
                 expanded: true,
                 type: 'person',
                 data: {
                   image: this.getImageByBoardStatus(this.data2.bleft.boardstatus),
-                  name: this.data2.bleft.name || 'No User', 
-                  title: this.data2.bleft.regid || 'No User', 
+                  name: this.data2.bleft.name || 'No User',
+                  title: this.data2.bleft.regid || 'No User',
+                  position: 'left',
+                  parentid: this.data2.b.regid || 'No User'
                 },
               },
               {
@@ -157,18 +168,39 @@ loadUserTreeData() {
                 type: 'person',
                 data: {
                   image: this.getImageByBoardStatus(this.data2.bright.boardstatus),
-                  name: this.data2.bright.name || 'No User', 
-                  title: this.data2.bright.regid || 'No User', 
+                  name: this.data2.bright.name || 'No User',
+                  title: this.data2.bright.regid || 'No User',
+                  position: 'right',
+                  parentid: this.data2.b.regid || 'No User'
                 },
               },
             ]
-            
           }
         ]
       }
     ];
   }
 }
+
+
+handleNodeClick(data: any) {
+  if (data.name === 'No User') {
+    // Only allow registration if parentid exists and is NOT "No User"
+    if (data.parentid && data.parentid !== 'No User' && data.position) {
+      this.router.navigate(['/treeregister', data.parentid, data.position]);
+    } else {
+      console.warn('Registration not allowed — parent is missing or is No User.');
+    }
+  } else {
+    // Existing user — go to their tree view
+    if (data.title && data.title !== 'No User') {
+      this.router.navigateByUrl(`/treeview/${data.title}`);
+    } else {
+      console.warn('Invalid regid/title for existing user.');
+    }
+  }
+}
+
 
 getImageByBoardStatus(boardstatus: string): string {
   switch (boardstatus) {

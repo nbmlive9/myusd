@@ -35,6 +35,7 @@ import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
 import { TagModule } from 'primeng/tag';
 import { AuthReferShareComponent } from './auth-refer-share/auth-refer-share.component';
+import { TreeRegistrationComponent } from './tree-registration/tree-registration.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { AuthReferShareComponent } from './auth-refer-share/auth-refer-share.com
     TransferComponent,
     ReceivedComponent,
     DirectTeamComponent,
-    AuthReferShareComponent
+    AuthReferShareComponent,
+    TreeRegistrationComponent
   ],
   imports: [
     BrowserModule,

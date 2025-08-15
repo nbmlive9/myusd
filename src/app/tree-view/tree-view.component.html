@@ -4,24 +4,12 @@
     <div class="col-md-6 col-12 text-center text-md-start mb-2 mb-md-0">
       <p-tag icon="pi pi-sitemap" severity="success" value="My Genealogy" [rounded]="true"></p-tag>
     </div>
-    <div class="col-md-6 col-12 text-center text-md-end">
-      <button (click)="goBack()" class="btn btn-sm btn-primary">
-        <i class="pi pi-arrow-left"></i> Back
-      </button>
-    </div>
+
   </div>
 
   <!-- Team Info -->
 
-<div class="row text-center g-3">
-      <!-- <div class="col-6">
-      <h6 class="mb-1 text-success">Left Team</h6>
-      <p-tag severity="success" [value]="data2?.mleft"></p-tag>
-    </div>
-    <div class="col-6">
-      <h6 class="mb-1 text-danger">Right Team</h6>
-      <p-tag severity="danger" [value]="data2?.mright"></p-tag>
-    </div> -->
+  <div class="row text-center g-3 d-none d-md-flex">
   <div class="col-6 col-sm-4 col-md-2">
     <img src="assets/rfree" alt="Free User" height="50">
     <h6 class="mt-2">Free User</h6>
@@ -48,6 +36,37 @@
   </div>
 </div>
 
+<div class="row text-center g-3 d-lg-none">
+    <!-- Sticky Icon List -->
+<div class="sticky-icons">
+  <div class="icon-item">
+    <img src="assets/rfree" alt="Free User">
+    <span>Free User</span>
+  </div>
+  <div class="icon-item">
+    <img src="assets/rgreen" alt="Subscribed">
+    <span>Subscribed</span>
+  </div>
+  <div class="icon-item">
+    <img src="assets/rdiamond" alt="Silver">
+    <span>Silver</span>
+  </div>
+  <div class="icon-item">
+    <img src="assets/rgold" alt="Gold">
+    <span>Gold</span>
+  </div>
+  <div class="icon-item">
+    <img src="assets/dimaod.jpeg" alt="Diamond">
+    <span>Diamond</span>
+  </div>
+  <div class="icon-item">
+    <img src="assets/falur.jpeg" alt="Default">
+    <span>Default</span>
+  </div>
+</div>
+
+</div>
+
 
   <!-- Search Section -->
   <div class="mt-4">
@@ -70,12 +89,17 @@
      <span class="text-danger text-center">{{ errorMessage }}</span>
  </div>
  <div class="container mt-2">
+    <div class="tree-back-btn">
+    <button (click)="goBack()" class="btn btn-sm btn-primary">
+      <i class="pi pi-arrow-left"></i> Back
+    </button>
+  </div>
    <p-organizationChart [value]="data" styleClass="responsive-org-chart">
      <ng-template let-node pTemplate="person">
        <div class="text-center node-container" style="cursor: pointer;">
          <img
            [src]="node.data.image"
-           (click)="mytree(node.data.title)"
+          (click)="handleNodeClick(node.data)"
            class="node-image mb-2"
            [pTooltip]="node.data.tooltip"
            tooltipPosition="top"

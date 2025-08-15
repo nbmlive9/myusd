@@ -20,6 +20,7 @@ import { MatchingIncomeComponent } from './matching-income/matching-income.compo
 import { DirectTeamComponent } from './direct-team/direct-team.component';
 import { authGuard } from './service/auth.guard';
 import { AuthReferShareComponent } from './auth-refer-share/auth-refer-share.component';
+import { TreeRegistrationComponent } from './tree-registration/tree-registration.component';
 const routes: Routes = [
   // Login route - does NOT use layout
   { path: 'login', component: LoginComponent },
@@ -40,7 +41,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent ,canActivate: [authGuard] , data: { usertype: ['user'] }},
       {path:"leftteam",component:TeamLeftComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       {path:"rightteam",component:TeamRightComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
-      {path:"treeview",component:TreeViewComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
+      // {path:"treeview",component:TreeViewComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       {path:"report",component:ReportsComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       {path:"deposit",component:DepositComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       {path:"treeview/:regid",component:TreeViewComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
@@ -51,6 +52,7 @@ const routes: Routes = [
       {path:"sponsorincome",component:SponsorIncomeComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       {path:"matchingincome",component:MatchingIncomeComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       {path:"direct-team",component:DirectTeamComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
+       { path: 'treeregister/:regid/:position', component: TreeRegistrationComponent, canActivate: [authGuard], data: { usertype: ['user'] } },
     ]
   },
 
