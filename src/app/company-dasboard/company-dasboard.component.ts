@@ -10,6 +10,7 @@ export class CompanyDasboardComponent {
   dashboardData: any = {};
   withdrawUsersData: any = [];
   userId: any;
+  tuser: any;
 
   constructor(private api: UserService) {}
 
@@ -38,9 +39,9 @@ export class CompanyDasboardComponent {
     this.api.withdrawUsers().subscribe({
       next: (res: any) => {
         console.log('Withdraw users:', res);
-        if (res.status === 1) {
+       
           this.withdrawUsersData = res.data; // assuming res.data is an array
-        }
+        
       },
       error: (err) => {
         console.error('Withdraw API error:', err);
@@ -64,6 +65,7 @@ export class CompanyDasboardComponent {
     this.api.totalusers().subscribe({
       next: (res: any) => {
         console.log('totalusers:', res);
+        this.tuser=res.data
      
       },
       error: (err) => {
