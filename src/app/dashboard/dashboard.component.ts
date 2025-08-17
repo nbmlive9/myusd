@@ -121,4 +121,13 @@ export class DashboardComponent {
   //  copyValue(value: string): void {
   //   this.clipboard.copy(value);
   // }
+
+
+    showDashboard = false;   // initially hidden
+   
+    // optional method if you want more control
+    openDashboard() {
+      this.showDashboard = true;
+    }
+
 }

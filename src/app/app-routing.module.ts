@@ -21,6 +21,8 @@ import { DirectTeamComponent } from './direct-team/direct-team.component';
 import { authGuard } from './service/auth.guard';
 import { AuthReferShareComponent } from './auth-refer-share/auth-refer-share.component';
 import { TreeRegistrationComponent } from './tree-registration/tree-registration.component';
+import { CompanyDasboardComponent } from './company-dasboard/company-dasboard.component';
+import { UpgradeTransferComponent } from './upgrade-transfer/upgrade-transfer.component';
 const routes: Routes = [
   // Login route - does NOT use layout
   { path: 'login', component: LoginComponent },
@@ -53,6 +55,10 @@ const routes: Routes = [
       {path:"matchingincome",component:MatchingIncomeComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       {path:"direct-team",component:DirectTeamComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
        { path: 'treeregister/:regid/:position', component: TreeRegistrationComponent, canActivate: [authGuard], data: { usertype: ['user'] } },
+       {path:"cdashboard",component:CompanyDasboardComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
+       {path:"upgradetransfer",component:UpgradeTransferComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
+
+
     ]
   },
 

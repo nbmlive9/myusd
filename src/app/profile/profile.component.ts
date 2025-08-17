@@ -32,7 +32,6 @@ export class ProfileComponent {
   }
 
 
-
   switchTab(tab: 'profile' | 'password') {
     this.currentTab = tab;
   }

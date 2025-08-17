@@ -1,0 +1,65 @@
+<div class="container mt-4">
+    <h2 class="mb-4 text-success fw-bold">📊 Company Dashboard</h2>
+  
+    <div class="row g-3">
+      <div class="col-md-3" *ngFor="let item of [
+          {title: 'Active Users', value: dashboardData.activeusers},
+          {title: 'Inactive Users', value: dashboardData.inactiveusers},
+          {title: 'Today Active', value: dashboardData.todayactiveusers},
+          {title: 'Today Inactive', value: dashboardData.todayinactiveusers},
+          {title: 'Credit', value: dashboardData.credit},
+          {title: 'Debit', value: dashboardData.debit},
+          {title: 'Diamond Binary Credit', value: dashboardData.diamondbinarycredit},
+          {title: 'Gold Binary Credit', value: dashboardData.goldbnarycredit},
+          {title: 'Silver Binary Credit', value: dashboardData.silverbinarycredit},
+          {title: 'Level Binary Credit', value: dashboardData.levelbinarycredit},
+          {title: 'Sponsor Credit', value: dashboardData.sponcercredit}
+        ]">
+        <div class="card shadow-sm border-0 h-100">
+          <div class="card-body text-center">
+            <h5 class="card-title fw-bold">{{item.title}}</h5>
+            <p class="fs-4 text-success fw-semibold">
+              {{item.value || 0}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <hr class="my-4">
+  
+    <h4 class="mb-3 text-primary">💸 Withdraw Users</h4>
+    <div class="table-responsive" *ngIf="withdrawUsersData.length > 0; else noData">
+      <table class="table table-striped table-bordered">
+        <thead class="table-success">
+          <tr>
+            <th>#</th>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of withdrawUsersData; let i = index">
+            <td>{{ i+1 }}</td>
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.amount }}</td>
+            <td>
+              <span class="badge" [ngClass]="{
+                'bg-success': user.status === 'approved',
+                'bg-warning': user.status === 'pending',
+                'bg-danger': user.status === 'rejected'
+              }">{{ user.status }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <ng-template #noData>
+      <p class="text-muted">No withdraw requests available.</p>
+    </ng-template>
+  </div>
+  

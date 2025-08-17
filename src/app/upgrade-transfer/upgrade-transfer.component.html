@@ -1,0 +1,99 @@
+<!-- Self Transfer Section -->
+<div class="card container-fluid">
+    
+  <!-- Wallet Transfer Section -->
+  <div class="card container-fluid mt-2">
+    <div class="d-flex mt-4 align-items-center mb-4 gap-1">
+      <h4 class="fw-bold">Upgrade Transfer</h4>
+      <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#walletTransferModal">
+        <i class="fa-solid fa-money-bill-transfer"></i> Upgrade Transfer
+      </button>
+    </div>
+  
+    <!-- <div class="container-fluid mt-3">
+      <div class=" shadow-sm rounded-4 p-3 border-0">
+        <div class="table-responsive">
+          <table class="table  align-middle text-nowrap">
+            <thead class="text-secondary fw-semibold" style="border-bottom: 1px solid #dee2e6;">
+              <tr>
+                <th>S.no</th>
+                <th>Date</th>
+                <th>Registration ID</th>
+                <th>Name</th>
+                <th> Amount</th>
+                <th>WalletType</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of wPaginatedData; let i = index">
+                <td>{{ (wCurrentPage - 1) * itemsPerPage + i + 1 }}</td>
+                <td>{{ item.cdate }}</td>
+                <td>{{ item.userid }}</td>
+                <td>{{ item.rname }}</td>
+                <td>${{ item.amount }}</td>
+                <td>{{ item.waltype }}</td>
+              </tr>
+                  <tr *ngIf="wPaginatedData.length === 0">
+                    <td colspan="6" class="text-center text-danger fw-bold">
+                      No data is available
+                    </td>
+                  </tr>
+    
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+  
+    </div> -->
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <!-- Modal: Wallet Transfer -->
+  <div class="modal fade" id="walletTransferModal" tabindex="-1" aria-labelledby="walletTransferModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius: 20px;">
+        <div class="modal-header">
+          <h5 class="modal-title" id="walletTransferModalLabel">Wallet Transfer</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form [formGroup]="form">
+          <div class="modal-body text-center">
+              <input type="text" class="form-control mb-2" placeholder="Enter Registered Id" formControlName="regid"  (keyup)="onRegIdKeyup()" 
+    style="border-radius: 16px; font-size: 25px;" />
+  
+            <!-- Display username if fetched -->
+            <div *ngIf="idData" class="text-primary mt-2 fs-5">
+              Username: {{ idData.name }}
+            </div>
+  
+            <!-- Show Error Message if user not found -->
+         <div *ngIf="errorMessage" class="text-danger mt-2 fs-6">
+              {{ errorMessage }}
+            </div>
+   
+            <input type="text" class="form-control mb-2" placeholder="Enter Amount" formControlName="amount"
+              style="border-radius: 16px; font-size: 25px;" />
+  
+        
+            <p class=" fw-bold "> Balance: <span >{{pffdata.upgrade |
+                currency:'USD':true:'1.0-2'}}</span></p>
+          </div>
+          <div class="modal-footer d-flex justify-content-between">
+          <button type="button" class="btn btn-primary"  [disabled]="errorMessage" style="border-radius: 16px;" data-bs-dismiss="modal"
+    (click)="UpgradeTransfer()"> UpgradeTransfer  </button>
+  
+            <button type="button" class="btn btn-danger" style="border-radius: 16px;"
+              data-bs-dismiss="modal">CLOSE</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

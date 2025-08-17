@@ -63,7 +63,22 @@
             <h3 class="mb-3">{{homedata.profiledata?.walletamount | currency:'USD':true:'1.0-2'}}</h3>
             <a href="javascript:void(0)" class="btn btn-danger btn-sm rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#withdrawModal">WITHDRAW</a>
           </div>
+
         </div>
+        
+        <button 
+        type="button"
+        class="btn btn-success" 
+        *ngIf="homedata.profiledata?.regid === '115599'"
+        (click)="showDashboard = true">
+        Company Dashboard
+      </button>
+      
+      <!-- show component only if clicked -->
+      
+      
+        
+        
       </div>
     </div>
   </div>
@@ -142,7 +157,7 @@
       </div>
 
       <div class="col-md-3">
-        <div class="card card-custom Diamond">
+        <div class="card card-custom " style="background-color: #FF0000;">
           <h5>Level Binary Users</h5>
           <p>Left: {{homedata.levelleft}} | Right: {{homedata.levelright}}</p>
         </div>
@@ -171,9 +186,8 @@
 
   </div>
 </div>
+<app-company-dasboard *ngIf="showDashboard"></app-company-dasboard>
 
-
-<!-- asbhdggit add .git add . -->
 
 
 <!-- subcrition -->

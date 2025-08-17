@@ -393,7 +393,89 @@ getCountries() {
   
     return this.http.get(apiUrl, { headers });
   }
-  
+
+// company dashboard
+withdrawUsers() {
+  const token = this.token.getToken(); 
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }),
+  };
+    return this.http.get(this.AUTH_API + 'Withdraw_users', httpOptions);
+}
+
+dashboard() {
+  const token = this.token.getToken(); 
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }),
+  };
+    return this.http.get(this.AUTH_API + 'Dashboard', httpOptions);
+}
+
+withdrawpaid() {
+  const token = this.token.getToken(); 
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }),
+  };
+    return this.http.get(this.AUTH_API + 'Withdraw_Paid', httpOptions);
+}
+
+
+totalusers() {
+  const token = this.token.getToken(); 
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }),
+  };
+    return this.http.get(this.AUTH_API + 'Total_users', httpOptions);
+}
+
+
+cupdateprofile(id: string) {
+  const token = this.token.getToken(); 
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }),
+  };
+
+  return this.http.get(`${this.AUTH_API}User/Userprofile_Update/${id}`, httpOptions);
+}
+
+
+upgradeTransfer(value: {
+  regid: string;
+  amount:string;
+}) {
+  const token = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` })
+    }),
+  };
+
+  return this.http.post(
+    this.AUTH_API + 'Upgrades_Transefer', 
+   {
+        regid: value.regid,
+        amount:value.amount,
+      },
+    httpOptions
+  );
+}
+
 
 
 
