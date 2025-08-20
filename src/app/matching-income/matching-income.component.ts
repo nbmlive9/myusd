@@ -1,45 +1,54 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../service/user.service';
-declare var $: any;
+
 @Component({
   selector: 'app-matching-income',
   templateUrl: './matching-income.component.html',
   styleUrls: ['./matching-income.component.scss']
 })
-export class MatchingIncomeComponent {
+export class MatchingIncomeComponent implements OnInit {
+  mdata: any[] = [];
+  noData: boolean = false;
 
-  mdata:any;
- 
-    constructor(private api:UserService){
+  // pagination
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+
+  constructor(private api: UserService) {}
+
+  ngOnInit() {
+    this.MatchIncome();
+  }
+
+  MatchIncome() {
+    this.api.matchIncome().subscribe({
+      next: (res: any) => {
+        this.mdata = res?.data || [];
+        this.noData = this.mdata.length === 0;
+      },
+      error: (err) => {
+        console.error("API error:", err);
+        this.mdata = [];
+        this.noData = true;
+      }
+    });
+  }
+
+  // get items for current page
+  get pagedData() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    return this.mdata.slice(start, start + this.itemsPerPage);
+  }
+
+  // total pages
+  get totalPages() {
+    return Math.ceil(this.mdata.length / this.itemsPerPage);
+  }
+
+  // change page
+  changePage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
     }
-    ngOnInit() {
-      this.MatchIncome();
-    }
-   
-    noData: boolean = false;
-    
-    MatchIncome() {
-      this.noData = false; // reset before loading
-      this.api.matchIncome().subscribe({
-        next: (res: any) => {
-          console.log("sdata:", res);
-          this.mdata = res?.data || [];
-          this.noData = this.mdata.length === 0;
-          console.log("pffdata:", this.mdata);
-        },
-        error: (err) => {
-          console.error("API error:", err);
-          this.mdata = [];
-          this.noData = true;
-        }
-      });
-    }
-    
-  
- 
-  
-  
-  
+  }
 }
-  
-

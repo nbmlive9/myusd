@@ -44,6 +44,8 @@ export class TreeRegistrationComponent {
     
       ngOnInit(): void {
           this.regid = this.activeroute.snapshot.paramMap.get('regid') || '';
+          console.log("regid:",this.regid);
+          
     this.position = this.activeroute.snapshot.paramMap.get('position') || '';
            this.Country();
            this.getCountries();
@@ -121,8 +123,9 @@ export class TreeRegistrationComponent {
       
     
       getProfileData() {
-        this.api.getregiddata(this.id).subscribe((res: any) => {
+        this.api.getregiddata(this.regid).subscribe((res: any) => {
           this.pffdata = res.data[0];
+          console.log("gfhd:",this.pffdata)
         });
       }
     

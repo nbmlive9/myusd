@@ -89,6 +89,7 @@ export class ProfileComponent {
     this.getdata();
     this.getCountries();
   }
+  
   getCountries() {
     this.api.getCountries().subscribe({
       next: (res: any) => {

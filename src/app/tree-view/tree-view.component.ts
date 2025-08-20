@@ -51,17 +51,19 @@ export class TreeViewComponent {
     });
   }
 
-  mytree1() {
-    if (this.data1.regid) {
-      console.log('trreid',this.data1.regid)
-        this.router.navigateByUrl("/treeview/${this.data1.regid}");
+//   mytree1() {
+//     if (this.id) {
+//       console.log('trreid',this.id)
+//         this.router.navigateByUrl("/treeview/${this.id}");
 
      
-      
-    } else {
-        // Handle case when registration ID is not provided
-        console.log('Please provide a registration ID');
-    }
+//     } else {
+//         // Handle case when registration ID is not provided
+//         console.log('Please provide a registration ID');
+//     }
+// }
+mytree1(regid: string) {
+  this.router.navigateByUrl(`/treeview/${regid}`);
 }
 
 

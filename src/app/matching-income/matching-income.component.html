@@ -29,18 +29,27 @@
             <th>S.No</th>
             <th>Date</th>
             <th>Income</th>
-            <th>Type</th>
             <th>Remarks</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let items of mdata; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>{{ items.cdate }}</td>
-          <td class="text-success">{{ items.amount | currency:'USD':true:'1.0-2' }}</td>
-          <td>{{ items.type }}</td>
-          <td>{{ items.remark }}</td>
-        </tr>
+            <td>{{ i + 1 }}</td>
+            <td>{{ items.cdate }}</td>
+            <td class="text-success">
+              {{ items.amount | currency:'USD':true:'1.0-2' }}
+            </td>
+            <td>
+              <ng-container [ngSwitch]="items.ttype">
+                <span *ngSwitchCase="'level'">Level Binary</span>
+                <span *ngSwitchCase="'level2'">Silver Binary</span>
+                <span *ngSwitchCase="'level3'">Gold Binary</span>
+                <span *ngSwitchCase="'level4'">Diamond Binary</span>
+                <span *ngSwitchDefault>{{ items.ttype }}</span>
+              </ng-container>
+            </td>
+          </tr>
+          
       
         <!-- Only one check needed -->
         <tr *ngIf="noData">

@@ -429,20 +429,9 @@ withdrawpaid() {
 }
 
 
-totalusers() {
-  const token = this.token.getToken(); 
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {})
-    }),
-  };
-    return this.http.get(this.AUTH_API + 'Total_users', httpOptions);
-}
 
-
-cupdateprofile(id: string) {
-  const token = this.token.getToken(); 
+totalusers(page: number = 1) {
+  const token = this.token.getToken();
   const httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -450,8 +439,14 @@ cupdateprofile(id: string) {
     }),
   };
 
-  return this.http.get(`${this.AUTH_API}User/Userprofile_Update/${id}`, httpOptions);
+  return this.http.get(`${this.AUTH_API}Total_users?page=${page}`, httpOptions);
 }
+
+
+
+
+
+
 
 
 upgradeTransfer(value: {
@@ -477,8 +472,58 @@ upgradeTransfer(value: {
 }
 
 
+cupdateprofile(id: string, value: {
+  regid: string;
+  name: string;
+  email: string;
+  country: string;
+  wallet1: string;
+}) {
+  const token = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }),
+  };
+
+  return this.http.put(
+    `${this.AUTH_API}Userprofile_Update/${id}`,  
+    {
+      regid: value.regid,
+      name: value.name,
+      email: value.email,
+      country: value.country,
+      wallet1: value.wallet1
+    },
+    httpOptions
+  );
+}
 
 
 
+
+
+
+
+totalMembers() {
+  const token = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }),
+  };
+
+  return this.http.get(
+    this.AUTH_API + "Total_Members",   // ✅ correct path
+    httpOptions
+  );
+}
 
 }
+
+
+
+
+
