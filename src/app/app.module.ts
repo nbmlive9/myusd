@@ -36,7 +36,7 @@ import { DialogModule } from 'primeng/dialog';
 import { TagModule } from 'primeng/tag';
 import { AuthReferShareComponent } from './auth-refer-share/auth-refer-share.component';
 import { TreeRegistrationComponent } from './tree-registration/tree-registration.component';
-
+import { QRCodeComponent } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -72,7 +72,7 @@ import { TreeRegistrationComponent } from './tree-registration/tree-registration
       ConfirmDialogModule,
         ConfirmPopupModule,
         ColorPickerModule,
-        ContextMenuModule, TagModule,
+        ContextMenuModule, TagModule,QRCodeComponent,
         DataViewModule,
         DialogModule,
     ToastrModule.forRoot({

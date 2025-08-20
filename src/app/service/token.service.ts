@@ -27,9 +27,10 @@ export class TokenService {
     console.log(this.token);
   }
 
-  public getToken(): string | null {
-    return localStorage.getItem(TOKEN_KEY);
-  }
+public getToken(): string {
+  return localStorage.getItem(TOKEN_KEY) ?? ''; // nullish coalescing
+}
+
 
   // ✅ Optional user storage (skip if not using)
   public saveUser(user: any): void {

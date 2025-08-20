@@ -36,58 +36,97 @@
     </table>
  </div>
 
-    <div class="modal fade" id="addFundModal" tabindex="-1" aria-labelledby="addFundModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered ">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="addFundModalLabel">Add Fund</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <div class="mb-3">
-                <label for="coinSelect" class="form-label">Select Coin</label>
-                <select class="form-select" id="coinSelect" aria-label="Select Coin"
-                  style="border-radius: 16px; font-size: 20px; ">
-                  <option selected>Select Coin</option>
-                  <option value="USDTBEP2O">USDT BEP2O</option>
-                  <!-- <option value="YOHANCOIN">YOHAN COIN</option> -->
-                </select>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" style="background-color: #4A90E2;">GET DEPOSIT ADDRESS</button>
-              <button type="button" class="btn btn-primary" style="background-color: #4A90E2;" data-bs-toggle="modal" data-bs-target="#depositFundModal" >Confirm</button>
-
-            </div>
-          </div>
-        </div>
+<div class="modal fade" id="addFundModal" tabindex="-1" aria-labelledby="addFundModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="addFundModalLabel">Add Fund</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <div class="modal-body">
+
+        <!-- Step 1: Enter Amount -->
+        <div *ngIf="!paymentInfo">
+          <form [formGroup]="form" (ngSubmit)="generatePayment()">
+            <label for="amount">Amount (USD)</label>
+            <input id="amount" class="form-control" type="number" formControlName="amount" min="1" step="0.01" />
+            <div *ngIf="form.get('amount')?.invalid && form.get('amount')?.touched" class="text-danger">
+              Amount is required and must be ≥ 1
+            </div>
+            <button type="submit" class="btn btn-sm btn-danger mt-2" [disabled]="submitting">
+              {{ submitting ? 'Generating…' : 'Confirm' }}
+            </button>
+          </form>
+        </div>
+
+        <!-- Step 2: Show pay_address and QR code -->
+  <div *ngIf="paymentInfo">
+  <!-- <p>Send {{ paymentInfo.pay_amount }} {{ paymentInfo.pay_currency }} to:</p> -->
+   <p>Send Only USDT BEP20 Above $12 Deposit to:</p>
+  <p><strong>{{ paymentInfo.pay_address }}</strong></p>
+
+  <!-- QR Code -->
+  <qrcode
+    [qrdata]="paymentInfo.pay_address"
+    [width]="200"
+    [errorCorrectionLevel]="'M'">
+  </qrcode>
+</div>
 
 
-  <div class="modal fade" id="depositFundModal" tabindex="-1" aria-labelledby="depositFundModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content p-3 rounded-4" style=" border-radius: 1rem;
-      padding: 1.5rem;">
-        <div class="modal-header border-0 pb-0" style="border-bottom: none;
-        padding-bottom: 0;">
-          <h5 class="modal-title fw-bold" id="depositFundModalLabel fw-bold ">Add Fund</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body text-center">
-          <!-- Modal content remains the same -->
-          <select class="form-select mb-3" aria-label="Select currency">
-            <option selected>BEP20_USDT</option>
-        </select>
-        <img src="https://via.placeholder.com/150" alt="QR Code" class="qr-code">
-        <p class="address">0xaF725CA07B0F1541C46BaCeD408557B3E5F41E</p>
-        <button class="copy-btn" onclick="navigator.clipboard.writeText('0xaF725CA07B0F1541C46BaCeD408557B3E5F41E')">
-            <i class="bi bi-clipboard"></i>
-        </button>
-        <p class="info-text mt-3">Great! Deposit address generated</p>
-        <p class="info-text">Minimum deposit: $20.00 BEP20_USDT</p>
-        <button type="button" class="btn btn-link text-dark mt-3" data-bs-dismiss="modal">CLOSE</button>
-        </div>
+
+
       </div>
     </div>
   </div>
+</div>
+
+
+  <div class="container mt-4">
+  <h3>📜 Payment History</h3>
+
+  <div *ngIf="loading" class="alert alert-info">Loading payments...</div>
+  <div *ngIf="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
+
+  <table class="table table-bordered table-striped mt-3" *ngIf="payments.length > 0">
+    <thead>
+      <tr>
+        <th>Payment ID</th>
+        <th>Invoice ID</th>
+        <th>Status</th>
+        <th>Amount (USD)</th>
+        <th>Paid</th>
+        <th>Currency</th>
+        <th>Created</th>
+        <th>Updated</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of payments">
+        <td>{{ p.payment_id }}</td>
+        <td>{{ p.invoice_id }}</td>
+        <td>
+          <span
+            class="badge"
+            [ngClass]="{
+              'bg-success': p.payment_status === 'finished',
+              'bg-warning': p.payment_status === 'partially_paid' || p.payment_status === 'waiting',
+              'bg-danger': p.payment_status === 'failed'
+            }"
+          >
+            {{ p.payment_status }}
+          </span>
+        </td>
+        <td>{{ p.price_amount }}</td>
+        <td>{{ p.actually_paid }}</td>
+        <td>{{ p.pay_currency }}</td>
+        <td>{{ p.created_at | date: 'short' }}</td>
+        <td>{{ p.updated_at | date: 'short' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && payments.length === 0" class="alert alert-warning">
+    No payment history found.
+  </div>
+</div>

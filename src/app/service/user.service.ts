@@ -11,12 +11,32 @@ import { Observable } from 'rxjs';
 export class UserService {
 //  private readonly AUTH_API = 'https://crypturegrid.com/MYUSD/MYUSD/User/';
     private readonly AUTH_API = 'https://myusd.co/MYUSD/MYUSD//User/';
+    private baseUrl = 'https://api.nowpayments.io/v1/payment';
+    
   constructor(
     private http: HttpClient,
     private route: Router,
     private authService: AuthService,
     private token:TokenService
   ) {}
+
+   // user.service.ts
+// user.service.ts
+getPayments(token:any): Observable<any> {
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'x-api-key': 'PN033X5-111M6Z6-MD7XF60-7Q5W7RW',
+     ...(token && { Authorization: `Bearer ${token}` })
+  }),
+};
+
+  const url = `${this.baseUrl}/?limit=10&page=0&sortBy=created_at&orderBy=asc&dateFrom=2020-01-01&dateTo=2025-12-31`;
+
+  return this.http.get(url, httpOptions);
+}
+
+
 
   register(value: {
     sponcerid: string;
@@ -98,6 +118,27 @@ export class UserService {
       httpOptions
     );
   }
+
+  DepositWallet(value: { amount: string, note:string, transno:string }) {
+    const token = this.token.getToken(); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token && { Authorization: `Bearer ${token}` })
+      }),
+    };
+  
+    return this.http.post(
+      this.AUTH_API + 'Deposite',
+      {
+        amount: value.amount,
+         note: value.note,
+          transno: value.transno,
+      },
+      httpOptions
+    );
+  }
+
   ActivationData() {
     const token = this.token.getToken(); 
     const httpOptions = {
