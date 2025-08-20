@@ -54,12 +54,53 @@
       
         <!-- Enter Amount -->
         <div class="mb-3">
-          <input
-            type="number"
-            class="form-control input-rounded"
-            placeholder="Enter Amount..."
-            [(ngModel)]="enteredAmount"
-            (ngModelChange)="onAmountChange()" />
+              <div class="container mt-4">
+  <h3>Withdraw USDT (BEP20)</h3>
+
+  <form [formGroup]="withdrawForm" (ngSubmit)="withdraw()">
+    <div class="mb-2">
+      <label for="amount">Amount (USD)</label>
+      <input
+        id="amount"
+        type="number"
+        formControlName="amount"
+        class="form-control"
+        min="5"
+        step="0.01"
+        placeholder="Enter amount (min $5)"
+      />
+    </div>
+
+    <div class="mb-2">
+      <label for="wallet">USDT BEP20 Wallet Address</label>
+      <input
+        id="wallet"
+        type="text"
+        formControlName="wallet"
+        class="form-control"
+        placeholder="Enter wallet address"
+      />
+    </div>
+
+    <button type="submit" class="btn btn-success" [disabled]="submitting">
+      {{ submitting ? 'Processing…' : 'Withdraw' }}
+    </button>
+  </form>
+
+  <div *ngIf="fee !== null" class="mt-2">
+    <p>Estimated Fee: <strong>{{ fee | number:'1.8-8' }} USDT</strong></p>
+  </div>
+
+  <div *ngIf="errorMsg" class="alert alert-danger mt-2">
+    {{ errorMsg }}
+  </div>
+
+  <div *ngIf="successMsg" class="alert alert-success mt-2">
+    {{ successMsg }}
+  </div>
+</div>
+
+
         </div>
       
         <!-- Red warning if amount < 10 -->

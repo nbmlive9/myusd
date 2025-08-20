@@ -119,7 +119,39 @@ const httpOptions = {
     );
   }
 
-  DepositWallet(value: { amount: string, note:string, transno:string }) {
+DepositWallet(value: { amount: string, note: string, transno: string }) {
+  const token = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` })
+    }),
+  };
+
+  return this.http.post(
+    this.AUTH_API + 'Deposite',
+    {
+      amount: value.amount,
+      note: value.note,
+      transno: value.transno,
+    },
+    httpOptions
+  );
+}
+
+
+   DepositeData() {
+    const token = this.token.getToken(); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      }),
+    };
+      return this.http.get(this.AUTH_API + 'User_Deposites', httpOptions);
+  }
+
+    WithdrawWallet(value: { amount: string }) {
     const token = this.token.getToken(); 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -129,11 +161,9 @@ const httpOptions = {
     };
   
     return this.http.post(
-      this.AUTH_API + 'Deposite',
+      this.AUTH_API + 'Withdrawrequest',
       {
-        amount: value.amount,
-         note: value.note,
-          transno: value.transno,
+        amount: value.amount
       },
       httpOptions
     );

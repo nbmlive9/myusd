@@ -53,7 +53,8 @@
           <div class="card h-100 text-center p-3 shadow-sm">
             <p class="mb-2">Deposit Fund</p>
             <h3 class="mb-3">{{homedata.profiledata?.actwallet | currency:'USD':true:'1.0-2'}}</h3>
-            <a href="#" class="btn btn-custom btn-deposit" data-bs-toggle="modal" data-bs-target="#addFundModal">DEPOSIT</a>
+             <a routerLink="/deposit" class="btn btn-custom btn-deposit" >DEPOSIT</a>
+            <!-- <a href="#" class="btn btn-custom btn-deposit" data-bs-toggle="modal" data-bs-target="#addFundModal">DEPOSIT</a> -->
           </div>
         </div>
         <!-- Withdraw Card -->
@@ -61,7 +62,8 @@
           <div class="card h-100 text-center p-3 shadow-sm">
             <p class="mb-2">Withdraw Fund</p>
             <h3 class="mb-3">{{homedata.profiledata?.walletamount | currency:'USD':true:'1.0-2'}}</h3>
-            <a href="javascript:void(0)" class="btn btn-danger btn-sm rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#withdrawModal">WITHDRAW</a>
+             <a routerLink="/withdraw" class="btn btn-danger btn-sm rounded-pill px-4" >WITHDRAW</a>
+            <!-- <a href="javascript:void(0)" class="btn btn-danger btn-sm rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#withdrawModal">WITHDRAW</a> -->
           </div>
 
         </div>

@@ -22,6 +22,7 @@ export class DepositComponent {
    payments: any[] = [];
   loading = false;
   errorMsg = '';
+  ddata:any;
   constructor(private api:UserService, private http:HttpClient, private token:TokenService, private router:Router,   private fb: FormBuilder, private sanitizer: DomSanitizer){
     this.form = this.fb.group({
       amount: [''],
@@ -32,6 +33,10 @@ export class DepositComponent {
 
 ngOnInit() {
  this.loadPayments();
+ this.api.DepositeData().subscribe((res:any)=>{
+    console.log('depositdata',res);
+    this.ddata=res.data;
+ })
 }
 
 loadPayments() {
@@ -64,12 +69,12 @@ loadPayments() {
 
 // Call NOWPayments API
     /** Step 1: Generate NOWPayments invoice */
-
 async generatePayment() {
   if (this.form.invalid) return;
 
   this.submitting = true;
   const amount = Number(this.form.value.amount);
+  const transno = String(this.form.value.transno);
 
   const headers = new HttpHeaders({
     'Content-Type': 'application/json',
@@ -80,50 +85,16 @@ async generatePayment() {
     price_amount: amount,
     price_currency: 'usd',
     pay_currency: 'usdtbsc',
-    ipn_callback_url: 'https://yourapp.com/payment/callback'
+    ipn_callback_url: 'https://myusd.co/payment/callback'
   }, { headers }).subscribe({
     next: (res) => {
-      console.log('payment details', res);
-      this.paymentInfo = res;  // contains payment_id, payment_status, price_amount
+      console.log('Payment details', res);
+      this.paymentInfo = res; // save payment info for QR & status check
       this.submitting = false;
     },
     error: (err) => {
       console.error(err);
       this.submitting = false;
-    }
-  });
-}
-
-/** Step 2: Check payment status */
-checkPaymentStatus() {
-  if (!this.paymentInfo?.payment_id) return;
-
-  this.checkingStatus = true;
-  const headers = new HttpHeaders({
-    'x-api-key': 'PN033X5-111M6Z6-MD7XF60-7Q5W7RW'
-  });
-
-  this.http.get<any>(
-    `https://api.nowpayments.io/v1/payment/${this.paymentInfo.payment_id}`,
-    { headers }
-  ).subscribe({
-    next: (res) => {
-      this.checkingStatus = false;
-      console.log('Payment status:', res);
-
-      if (res.payment_status === 'finished') {
-        alert('Deposit successful! ✅');
-        // After success → call your API to load funds
-        this.onSubmit(res.price_amount, res.payment_id);
-      } else if (res.payment_status === 'failed') {
-        alert('Payment failed ❌. Please try again.');
-      } else {
-        alert('Payment is still pending ⏳.');
-      }
-    },
-    error: (err) => {
-      console.error(err);
-      this.checkingStatus = false;
     }
   });
 }
@@ -133,11 +104,11 @@ onSubmit(amount: number, transno: string) {
   this.submitting = true;
 
   const payload = {
-    amount: this.form.value.amount,
-    transno: this.form.value.transno,
-    note: this.form.value.note
+    amount: amount.toString(),  // ✅ convert number to string
+    transno: transno,           // ✅ NOWPayments payment_id
+    note: this.form.value.note || 'NOWPayments deposit'
   };
-this.checkPaymentStatus();
+
   this.api.DepositWallet(payload).subscribe({
     next: (res) => {
       console.log('Wallet updated:', res);
@@ -154,6 +125,42 @@ this.checkPaymentStatus();
     }
   });
 }
+
+/** Step 2: Check payment status */
+checkPaymentStatus() {
+  if (!this.paymentInfo?.payment_id) return;
+
+  this.checkingStatus = true;
+
+  const headers = new HttpHeaders({
+    'x-api-key': 'PN033X5-111M6Z6-MD7XF60-7Q5W7RW'
+  });
+
+  this.http.get<any>(
+    `https://api.nowpayments.io/v1/payment/${this.paymentInfo.payment_id}`,
+    { headers }
+  ).subscribe({
+    next: (res) => {
+      this.checkingStatus = false;
+      console.log('Payment status:', res);
+
+      if (res.payment_status === 'finished') {
+        alert('Deposit successful! ✅');
+        // ✅ Pass actual paid amount & payment ID to backend
+        this.onSubmit(res.actually_paid, res.payment_id);
+      } else if (res.payment_status === 'failed') {
+        alert('Payment failed ❌. Please try again.');
+      } else {
+        alert('Payment is still pending ⏳.');
+      }
+    },
+    error: (err) => {
+      console.error(err);
+      this.checkingStatus = false;
+    }
+  });
+}
+
 
 
 
