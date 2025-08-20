@@ -36,8 +36,11 @@ import { DialogModule } from 'primeng/dialog';
 import { TagModule } from 'primeng/tag';
 import { AuthReferShareComponent } from './auth-refer-share/auth-refer-share.component';
 import { TreeRegistrationComponent } from './tree-registration/tree-registration.component';
-import { QRCodeComponent } from 'angularx-qrcode';import { CompanyDasboardComponent } from './company-dasboard/company-dasboard.component';
+import { QRCodeComponent } from 'angularx-qrcode';
+import { CompanyDasboardComponent } from './company-dasboard/company-dasboard.component';
 import { UpgradeTransferComponent } from './upgrade-transfer/upgrade-transfer.component';
+
+
 
 
 @NgModule({

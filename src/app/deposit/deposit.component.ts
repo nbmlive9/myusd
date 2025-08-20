@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TokenService } from '../service/token.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as QRCode from 'qrcode-generator';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
