@@ -36,7 +36,7 @@ import { DialogModule } from 'primeng/dialog';
 import { TagModule } from 'primeng/tag';
 import { AuthReferShareComponent } from './auth-refer-share/auth-refer-share.component';
 import { TreeRegistrationComponent } from './tree-registration/tree-registration.component';
-import { CompanyDasboardComponent } from './company-dasboard/company-dasboard.component';
+import { QRCodeComponent } from 'angularx-qrcode';import { CompanyDasboardComponent } from './company-dasboard/company-dasboard.component';
 import { UpgradeTransferComponent } from './upgrade-transfer/upgrade-transfer.component';
 
 
@@ -76,7 +76,7 @@ import { UpgradeTransferComponent } from './upgrade-transfer/upgrade-transfer.co
       ConfirmDialogModule,
         ConfirmPopupModule,
         ColorPickerModule,
-        ContextMenuModule, TagModule,
+        ContextMenuModule, TagModule,QRCodeComponent,
         DataViewModule,
         DialogModule,
     ToastrModule.forRoot({
