@@ -78,7 +78,7 @@
         type="text"
         formControlName="wallet"
         class="form-control"
-        placeholder="Enter wallet address"
+        [(ngModel)]="pfdata.wallet1" readonly
       />
     </div>
 
@@ -109,14 +109,12 @@
         </div>
       
         <!-- Network Type -->
-        <div class="mb-3">
-          <input type="text" class="form-control input-rounded" value="USDT BEP20" readonly />
-        </div>
+      
       
         <!-- Wallet Address -->
-        <div class="mb-3">
+        <!-- <div class="mb-3">
           <input type="text" class="form-control input-rounded" [(ngModel)]="pfdata.wallet1" readonly />
-        </div>
+        </div> -->
       
         <!-- Fee Details -->
         <div class="info-text mb-3">

@@ -126,11 +126,35 @@ onSubmit(amount: number, transno: string) {
   });
 }
 
+
+
+
+  // 📋 Copy Address
+  copyAddress() {
+    navigator.clipboard.writeText(this.paymentInfo.pay_address).then(() => {
+      alert('Address copied to clipboard!');
+    });
+  }
+
+  // 📲 Share on WhatsApp
+  shareOnWhatsApp() {
+    const message = `Send Only USDT BEP20 for $${this.paymentInfo.price_amount} Deposit\n\nWallet Address:\n${this.paymentInfo.pay_address}`;
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  }
+
 /** Step 2: Check payment status */
 checkPaymentStatus() {
+  this.checkingStatus = true;
   if (!this.paymentInfo?.payment_id) return;
 
   this.checkingStatus = true;
+      setTimeout(() => {
+      this.checkingStatus = false;
+      alert('Payment status checked (demo).');
+    }, 2000);
+  
+
 
   const headers = new HttpHeaders({
     'x-api-key': 'PN033X5-111M6Z6-MD7XF60-7Q5W7RW'
