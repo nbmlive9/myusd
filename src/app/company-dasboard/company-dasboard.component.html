@@ -80,6 +80,8 @@
               <th>Registration ID</th>
               <th>Name</th>
               <th>Position</th>
+              <th>wallet</th>
+
               <th>Edit</th>
             </tr>
           </thead>
@@ -90,6 +92,7 @@
               <td>{{ item.regid }}</td>
               <td>{{ item.name }}</td>
               <td>{{ item.position }}</td>
+            <td>{{item.walletamount}}</td>
               <td (click)="openProfile(item)" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <i class="fa fa-pencil-square-o" aria-hidden="true" style="color: #0C227D;"></i>
               </td>
