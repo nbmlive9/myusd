@@ -587,7 +587,7 @@ totalMembers() {
   };
 
   return this.http.get(
-    this.AUTH_API + "Total_Members",   // ✅ correct path
+    this.AUTH_API + "Total_Memebers",   // ✅ correct path
     httpOptions
   );
 }

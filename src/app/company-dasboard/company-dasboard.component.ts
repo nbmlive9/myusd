@@ -18,7 +18,8 @@ export class CompanyDasboardComponent {
   isEdit: boolean = false;
   countries: string[] = [];
   codes: string[] = [];
-  userid:any
+  userid:any;
+  totalmembers:any;
 
   constructor(private api: UserService, private fb: FormBuilder, private toast: ToastrService,private router:Router) {
     this.profileform = this.fb.group({
@@ -166,6 +167,7 @@ export class CompanyDasboardComponent {
   TotalMembers() {
     this.api.totalMembers().subscribe({
       next: (res: any) => {
+        this.totalmembers=res
         console.log("Total Members:", res);
       },
       error: (err) => console.error("API Error:", err)

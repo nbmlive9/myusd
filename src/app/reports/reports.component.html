@@ -42,7 +42,7 @@
           <th scope="col">Remarks</th>
         </tr>
       </thead>
-      <tbody>
+      <!-- <tbody>
         <tr *ngFor="let items of filteredReport; let i = index">
           <td>{{ i + 1 }}</td>
           <td>{{ items.cdate }}</td>
@@ -50,13 +50,49 @@
           <td>{{ items.type }}</td>
           <td>{{ items.remark }}</td>
         </tr>
-                <!-- No data found message -->
                 <tr *ngIf="filteredReport.length === 0">
                   <td colspan="6" class="text-center text-danger fw-bold">
                     No data is available
                   </td>
                 </tr>
+      </tbody> -->
+      <tbody>
+        <tr *ngFor="let items of paginatedReport; let i = index">
+          <td>{{ (page - 1) * itemsPerPage + i + 1 }}</td>
+          <td>{{ items.cdate }}</td>
+          <td class="text-success fw-bold">${{ items.amount }}</td>
+          <td>{{ items.type }}</td>
+          <td>{{ items.remark }}</td>
+        </tr>
+      
+        <tr *ngIf="paginatedReport.length === 0">
+          <td colspan="6" class="text-center text-danger fw-bold">
+            No data is available
+          </td>
+        </tr>
       </tbody>
+      
     </table>
   </div>
 </div>
+<!-- Bootstrap Pagination -->
+<nav *ngIf="totalPages > 1" class="d-flex justify-content-center mt-3">
+  <ul class="pagination">
+    <li class="page-item" [class.disabled]="page === 1">
+      <a class="page-link" (click)="setPage(page - 1)">Previous</a>
+    </li>
+
+    <li
+      class="page-item"
+      *ngFor="let p of [].constructor(totalPages); let i = index"
+      [class.active]="page === i + 1"
+    >
+      <a class="page-link" (click)="setPage(i + 1)">{{ i + 1 }}</a>
+    </li>
+
+    <li class="page-item" [class.disabled]="page === totalPages">
+      <a class="page-link" (click)="setPage(page + 1)">Next</a>
+    </li>
+  </ul>
+</nav>
+

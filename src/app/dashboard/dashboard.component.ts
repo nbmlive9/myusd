@@ -123,9 +123,7 @@ export class DashboardComponent {
   // }
 
 
-    showDashboard = false;   // initially hidden
-   
-    // optional method if you want more control
+    showDashboard = false; 
     openDashboard() {
       this.showDashboard = true;
     }
