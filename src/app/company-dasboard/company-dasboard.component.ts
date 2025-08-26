@@ -3,7 +3,7 @@ import { UserService } from '../service/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-
+// 
 @Component({
   selector: 'app-company-dasboard',
   templateUrl: './company-dasboard.component.html',
