@@ -246,4 +246,33 @@ goBack() {
 }
 
 
+printTable() {
+  const printContents = document.getElementById('orgChartToPrint')?.innerHTML;
+  if (!printContents) return;
+
+  const popupWin = window.open('', '_blank', 'width=900,height=650');
+  if (popupWin) {
+    popupWin.document.open();
+    popupWin.document.write(`
+      <html>
+        <head>
+          <title>Organization Chart</title>
+          <style>
+            body { font-family: Arial, sans-serif; padding: 20px; }
+            .node-container { text-align: center; }
+            .node-image { width: 80px; height: 80px; border-radius: 50%; }
+            .node-name { font-size: 14px; font-weight: bold; margin-top: 5px; }
+            .node-title { font-size: 12px; color: #555; }
+          </style>
+        </head>
+        <body onload="window.print(); window.close();">
+          ${printContents}
+        </body>
+      </html>
+    `);
+    popupWin.document.close();
+  }
+}
+
+
 }

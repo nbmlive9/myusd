@@ -28,18 +28,19 @@ export class SignInComponent implements OnInit {
     ) {
    
 
-    this.registerForm = this.fb.group({
-      name: ['', Validators.required],
-      phone: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      country: ['', Validators.required],
-      password: ['', Validators.required],
-      sponcerid: ['', Validators.required],
-      position: ['Left', Validators.required], // Set default value to 'Left'
-      placementid: ['', Validators.required],
-      terms:['', Validators.required],
-    });
 
+      this.registerForm = this.fb.group({
+        name: ['', [Validators.required, Validators.minLength(3)]],
+        email: ['', [Validators.required, Validators.email]],
+        country: ['', Validators.required],
+        phone: ['',Validators.required,],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        sponcerid: [''],
+        placementid: [''],
+        position: ['Left'],
+        terms: [false, Validators.requiredTrue]
+      });
+      
   }
 
   ngOnInit(): void {
@@ -97,38 +98,67 @@ export class SignInComponent implements OnInit {
   }
 // jububub
 
+  // sign(): void {
+  //   if (!this.registerForm.valid) {
+  //     this.toast.warning('Please fill all fields correctly.', 'Validation Error');
+  //     return;
+  //   }
+
+  //   const payload = { ...this.registerForm.value };
+
+  //   this.api.register(payload).subscribe({
+  //     next: (res: any) => {
+  //       this.udata = res.data;
+  //       this.toast.success(res?.message || 'Registration successful ✅', 'Success');
+  //       this.registerForm.reset();
+
+  //       // Make sure Angular renders modal content first
+  //       this.cdRef.detectChanges();
+  //       // Show the modal
+  //       const modalEl = document.getElementById('exampleModal');
+  //       if (modalEl) {
+  //         const modal = new bootstrap.Modal(modalEl, { backdrop: 'static', keyboard: true });
+  //         modal.show();
+  //       }
+  //       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+  //         this.router.navigate(['/sign-in']);
+  //       });
+        
+  //     },
+  //     error: (err) => {
+  //       this.toast.error(err?.error?.message || 'Registration failed. Please try again.', 'Error');
+  //     }
+  //   });
+  // }
+
   sign(): void {
-    if (!this.registerForm.valid) {
-      this.toast.warning('Please fill all fields correctly.', 'Validation Error');
+    if (this.registerForm.invalid) {
+      this.registerForm.markAllAsTouched(); // highlight errors
       return;
     }
-
+  
     const payload = { ...this.registerForm.value };
-
+  
     this.api.register(payload).subscribe({
       next: (res: any) => {
-        this.udata = res.data;
+                this.udata = res.data;
+
         this.toast.success(res?.message || 'Registration successful ✅', 'Success');
         this.registerForm.reset();
-
-        // Make sure Angular renders modal content first
         this.cdRef.detectChanges();
-        // Show the modal
         const modalEl = document.getElementById('exampleModal');
         if (modalEl) {
           const modal = new bootstrap.Modal(modalEl, { backdrop: 'static', keyboard: true });
           modal.show();
         }
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-          this.router.navigate(['/sign-in']);
-        });
-        
+        this.router.navigate(['/sign-in']);
       },
       error: (err) => {
         this.toast.error(err?.error?.message || 'Registration failed. Please try again.', 'Error');
       }
     });
   }
+  
 
 
   getProfileData() {
@@ -197,11 +227,5 @@ export class SignInComponent implements OnInit {
       this.errorMessage1 = null;
     }
   }
-  
-
-
-
-  
-
 
 }

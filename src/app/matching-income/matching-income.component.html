@@ -1,62 +1,65 @@
+<div class="d-flex mb-3">
+  <h4 class="fw-bold">Matching Income</h4>
+  <i class="fa-solid fa-print mx-5"  
+     style="cursor: pointer; font-size: 28px; color:#007bff" 
+     (click)="printTable()"></i>
+</div>
 
-<style>
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        background-color: #f8f9fa;
-    }
-    th, td {
-        padding: 8px;
-        text-align: left;
-        border-bottom: 1px solid #dee2e6;
-    }
-    th {
-        background-color: #e9ecef;
-    }
-    .transaction {
-        color: #007bff;
-    }
-    .value {
-        color: #007bff;
-        font-weight: bold;
-    }
-</style>
-
-<h2 class="fw-bold">Matching Income</h2>
-<table>
-    <thead>
-        <tr>
-            <th>S.No</th>
-            <th>Date</th>
-            <th>Income</th>
-            <th>Remarks</th>
-        </tr>
+<div class="table-responsive" #tableToPrint>
+  <table class="table table-bordered align-middle">
+    <thead class="table-light">
+      <tr>
+        <th>S.No</th>
+        <th>userId</th>
+        <!-- <th>Name</th> -->
+        <th>Date</th>
+        <th>Income</th>
+        <th>Remarks</th>
+      </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let items of mdata; let i = index">
-            <td>{{ i + 1 }}</td>
-            <td>{{ items.cdate }}</td>
-            <td class="text-success">
-              {{ items.amount | currency:'USD':true:'1.0-2' }}
-            </td>
-            <td>
-              <ng-container [ngSwitch]="items.ttype">
-                <span *ngSwitchCase="'level'">Level Binary</span>
-                <span *ngSwitchCase="'level2'">Silver Binary</span>
-                <span *ngSwitchCase="'level3'">Gold Binary</span>
-                <span *ngSwitchCase="'level4'">Diamond Binary</span>
-                <span *ngSwitchDefault>{{ items.ttype }}</span>
-              </ng-container>
-            </td>
-          </tr>
-          
+      <tr *ngFor="let items of pagedData; let i = index">
+        <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+        <td>{{items.userid}}</td>
+        <td>{{ items.cdate }}</td>
+        <td class="text-success">
+          {{ items.amount | currency:'USD':'symbol':'1.0-2' }}
+        </td>
+        <td>
+          <ng-container [ngSwitch]="items.ttype">
+            <span *ngSwitchCase="'level'">Level Binary</span>
+            <span *ngSwitchCase="'level2'">Silver Binary</span>
+            <span *ngSwitchCase="'level3'">Gold Binary</span>
+            <span *ngSwitchCase="'level4'">Diamond Binary</span>
+            <span *ngSwitchDefault>{{ items.ttype }}</span>
+          </ng-container>
+        </td>
+      </tr>
       
-        <!-- Only one check needed -->
-        <tr *ngIf="noData">
-          <td colspan="6" class="text-center text-danger fw-bold">
-            No data is available
-          </td>
-        </tr>
-      </tbody>
-      
-</table>
+      <tr *ngIf="noData">
+        <td colspan="4" class="text-center text-danger fw-bold">
+          No data is available
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ✅ Pagination -->
+<nav *ngIf="totalPages > 1">
+  <ul class="pagination justify-content-center">
+    <li class="page-item" [class.disabled]="currentPage === 1">
+      <a class="page-link" (click)="changePage(currentPage - 1)">Previous</a>
+    </li>
+
+    <li class="page-item" 
+        *ngFor="let page of [].constructor(totalPages); let p = index" 
+        [class.active]="currentPage === p+1">
+      <a class="page-link" (click)="changePage(p+1)">{{ p+1 }}</a>
+    </li>
+
+    <li class="page-item" [class.disabled]="currentPage === totalPages">
+      <a class="page-link" (click)="changePage(currentPage + 1)">Next</a>
+    </li>
+  </ul>
+</nav>

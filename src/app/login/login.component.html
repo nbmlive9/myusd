@@ -4,9 +4,18 @@
           <div class="row ">
             <div class="col-lg-4 mt-5" *ngIf="!isForgotPassword">
               <div class="login-container">
-                <div class="text-center">
+                <!-- <div class="text-center">
                   <img src="assets/logo/myusdicon.webp" alt="" class="img-fluid" style="height: 120px;width: 120px;">
+                </div> -->
+                <div class="text-center">
+                  <a href="https://myusd.co/" target="_blank">
+                    <img src="assets/logo/myusdicon.webp" 
+                         alt="MyUSD Logo" 
+                         class="img-fluid" 
+                         style="height: 120px; width: 120px; cursor: pointer;">
+                  </a>
                 </div>
+                
                 <p>Securely log in to manage your nodes, rewards, and network activity with MYUSD.</p>
             
                 <form [formGroup]="loginForm" (ngSubmit)="Login()">

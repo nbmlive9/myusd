@@ -1,3 +1,10 @@
+<div class="d-flex">
+  <h4>Left Team</h4>
+  <i class="fa-solid fa-print mx-5 mt-1"
+  style="cursor: pointer; font-size: 30px; color:#007bff"
+  (click)="printTable()"></i>
+</div>
+
 <div class="mb-3">
   <label for="teamSelect" class="form-label">Select Left Team</label>
   <select id="teamSelect" class="form-select" [(ngModel)]="selectedFilter" (change)="filterTeam()">
@@ -10,10 +17,8 @@
   </select>
 </div>
 
-<h4>Left Team</h4>
-
 <!-- Responsive wrapper -->
-<div class="table-responsive">
+<div class="table-responsive" #tableToPrint>
   <table class="table table-bordered align-middle">
     <thead class="table-light">
       <tr>

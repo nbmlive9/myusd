@@ -1,5 +1,9 @@
-<h4 class="fw-bold">MY Direct Team</h4>
-
+<div class="d-flex">
+  <h4 class="fw-bold">MY Direct Team</h4>
+  <i class="fa-solid fa-print mx-5 mt-1"
+  style="cursor: pointer; font-size: 30px; color:#007bff"
+  (click)="printTable()"></i>
+</div>
 <div class="mb-3">
   <label for="teamSelect" class="form-label">Select Package</label>
   <select id="teamSelect" class="form-select" [(ngModel)]="selectedFilter" (change)="filterTeam()">
@@ -11,9 +15,8 @@
     <option value="4">Diamond</option>
   </select>
 </div>
-
 <!-- Make table responsive -->
-<div class="table-responsive">
+<div class="table-responsive" id="print-section">
   <table class="table table-bordered table-striped align-middle">
     <thead class="table-light">
       <tr>
@@ -25,25 +28,7 @@
         <th>Status</th>
       </tr>
     </thead>
-    <!-- <tbody>
-      <tr *ngFor="let row of paginatedData; let i = index">
-        <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
-        <td>{{ row.cdate }}</td>
-        <td>{{ row.regid }}</td>
-        <td>{{ row.name }}</td>
-        <td>
-          <span *ngIf="row.boardstatus == '0'" class="text-danger">Not Subscribe</span>
-          <span *ngIf="row.boardstatus == '1'" class="text-success">Subscribed</span>
-          <span *ngIf="row.boardstatus == '2'" class="text-primary">Silver Upgrade</span>
-          <span *ngIf="row.boardstatus == '3'" class="text-warning">Gold Upgrade</span>
-          <span *ngIf="row.boardstatus == '4'" class="text-info">Diamond Upgrade</span>
-        </td>
-        <td>
-          <span *ngIf="row.topupstatus == '0'" class="text-danger">Not Active</span>
-          <span *ngIf="row.boardstatus == '1'" class="text-success">Active</span>
-        </td>
-      </tr>
-    </tbody> -->
+
     <tbody>
       <tr *ngFor="let row of paginatedData; let i = index">
         <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>

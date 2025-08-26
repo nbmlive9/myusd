@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef,ViewChild } from '@angular/core';
 import { UserService } from '../service/user.service';
 
 @Component({
@@ -7,9 +7,12 @@ import { UserService } from '../service/user.service';
   styleUrls: ['./team-left.component.scss']
 })
 export class TeamLeftComponent {
+  @ViewChild('tableToPrint') tableToPrint!: ElementRef;
+
   data1: any[] = [];
   filteredData: any[] = [];
   selectedFilter: string = '';
+
 
   // Pagination variables
   currentPage = 1;
@@ -52,4 +55,38 @@ export class TeamLeftComponent {
       this.currentPage = page;
     }
   }
+
+  printTable() {
+    const printContents = this.tableToPrint.nativeElement.innerHTML;
+    const popupWin = window.open('', '_blank', 'width=900,height=650');
+    popupWin!.document.open();
+    popupWin!.document.write(`
+      <html>
+        <head>
+          <title>Print Table</title>
+          <style>
+            table {
+              width: 100%;
+              border-collapse: collapse;
+            }
+            th, td {
+              border: 1px solid #333;
+              padding: 8px;
+              text-align: center;
+            }
+            th {
+              background-color: #f8f9fa;
+            }
+          </style>
+        </head>
+        <body onload="window.print();window.close()">
+          ${printContents}
+        </body>
+      </html>
+    `);
+    popupWin!.document.close();
+  }
+
+
+
 }

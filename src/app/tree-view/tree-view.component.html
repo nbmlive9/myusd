@@ -4,7 +4,6 @@
     <div class="col-md-6 col-12 text-center text-md-start mb-2 mb-md-0">
       <p-tag icon="pi pi-sitemap" severity="success" value="My Genealogy" [rounded]="true"></p-tag>
     </div>
-
   </div>
 
   <!-- Team Info -->
@@ -94,6 +93,9 @@
     <button (click)="goBack()" class="btn btn-sm btn-primary">
       <i class="pi pi-arrow-left"></i> Back
     </button>
+    <!-- <i class="fa-solid fa-print mx-5"  
+    style="cursor: pointer; font-size: 28px; color:#007bff" 
+    (click)="printTable()"></i>
   </div>
    <p-organizationChart [value]="data" styleClass="responsive-org-chart">
      <ng-template let-node pTemplate="person">
@@ -112,7 +114,41 @@
          <div class="node-title"><span class="text-primary">{{ node.data.title }}</span></div>
        </div>
      </ng-template>
-   </p-organizationChart>
+   </p-organizationChart> -->
+
+
+   <i class="fa-solid fa-print mx-5"
+   style="cursor: pointer; font-size: 28px; color:#007bff"
+   (click)="printTable()">
+</i>
+
+<!-- Organization Chart -->
+<div id="orgChartToPrint">
+  <p-organizationChart [value]="data" styleClass="responsive-org-chart">
+    <ng-template let-node pTemplate="person">
+      <div class="text-center node-container" style="cursor: pointer;">
+        <img
+          [src]="node.data.image"
+          (click)="handleNodeClick(node.data)"
+          class="node-image mb-2"
+          [pTooltip]="node.data.tooltip"
+          tooltipPosition="top"
+          tooltipStyleClass="custom-tooltip"
+        />
+        <div class="font-bold node-name" (click)="showDialog(node.data)">
+          <span class="text-success">{{ node.data.name }}</span>
+        </div>
+        <div class="node-title">
+          <span class="text-primary">{{ node.data.title }}</span>
+        </div>
+      </div>
+    </ng-template>
+  </p-organizationChart>
+</div>
+
+
+
+
  </div>
  
  <div class="d-lg-block d-none">

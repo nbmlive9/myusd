@@ -58,4 +58,24 @@ export class DirectTeamComponent implements OnInit {
       this.currentPage = page;
     }
   }
+  printTable() {
+    const printContent = document.getElementById('print-section')?.innerHTML;
+    const WindowPrt = window.open('', '', 'width=900,height=650');
+    WindowPrt?.document.write(`
+      <html>
+        <head>
+          <title>Print Table</title>
+          <style>
+            table { width: 100%; border-collapse: collapse; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+            th { background: #f8f9fa; }
+          </style>
+        </head>
+        <body>${printContent}</body>
+      </html>
+    `);
+    WindowPrt?.document.close();
+    WindowPrt?.print();
+  }
+  
 }
