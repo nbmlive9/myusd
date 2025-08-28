@@ -23,6 +23,8 @@ export class DepositComponent {
   loading = false;
   errorMsg = '';
   ddata:any;
+  alertMessage: string = '';
+alertType: string = '';
   constructor(private api:UserService, private http:HttpClient, private token:TokenService, private router:Router,   private fb: FormBuilder, private sanitizer: DomSanitizer){
     this.form = this.fb.group({
       amount: [''],
@@ -78,7 +80,7 @@ async generatePayment() {
 
   const headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'x-api-key': 'PN033X5-111M6Z6-MD7XF60-7Q5W7RW'
+    'x-api-key': 'W4107KT-X5T4DC2-MMHPRF7-YDH3W8T'
   });
 
   this.http.post<any>('https://api.nowpayments.io/v1/payment', {
@@ -148,16 +150,8 @@ checkPaymentStatus() {
   this.checkingStatus = true;
   if (!this.paymentInfo?.payment_id) return;
 
-  this.checkingStatus = true;
-      setTimeout(() => {
-      this.checkingStatus = false;
-      alert('Payment status checked (demo).');
-    }, 2000);
-  
-// testt
-
   const headers = new HttpHeaders({
-    'x-api-key': 'PN033X5-111M6Z6-MD7XF60-7Q5W7RW'
+    'x-api-key': 'W4107KT-X5T4DC2-MMHPRF7-YDH3W8T'
   });
 
   this.http.get<any>(
@@ -169,21 +163,28 @@ checkPaymentStatus() {
       console.log('Payment status:', res);
 
       if (res.payment_status === 'finished') {
-        alert('Deposit successful! ✅');
-        // ✅ Pass actual paid amount & payment ID to backend
+        this.alertType = 'success';
+        this.alertMessage = 'Deposit successful! ✅';
         this.onSubmit(res.actually_paid, res.payment_id);
+
       } else if (res.payment_status === 'failed') {
-        alert('Payment failed ❌. Please try again.');
+        this.alertType = 'danger';
+        this.alertMessage = 'Payment failed ❌. Please try again.';
+
       } else {
-        alert('Payment is still pending ⏳.');
+        this.alertType = 'warning';
+        this.alertMessage = 'Payment is still pending ⏳. wait for 2min..';
       }
     },
     error: (err) => {
       console.error(err);
       this.checkingStatus = false;
+      this.alertType = 'danger';
+      this.alertMessage = 'Error checking payment status. Please try again later.';
     }
   });
 }
+
 
 formatAmount(event: any) {
   let value = event.target.value;
