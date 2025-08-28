@@ -145,7 +145,7 @@ onSubmit(amount: number, transno: string) {
     window.open(whatsappUrl, '_blank');
   }
 
-/** Step 2: Check payment status */
+/** Step 2: Caheck payment status */
 checkPaymentStatus() {
   this.checkingStatus = true;
   if (!this.paymentInfo?.payment_id) return;
