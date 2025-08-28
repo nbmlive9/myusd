@@ -1,5 +1,5 @@
 <!-- Self Transfer Section -->
-<div class="card container-fluid">
+<!-- <div class="card container-fluid">
   <div class="d-flex mt-4 align-items-center mb-4 gap-1">
     <h4 class="fw-bold">Self Transfer</h4>
     <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#selfTransferModal">
@@ -19,14 +19,14 @@
             </tr>
           </thead>
           <tbody>
-            <!-- Show No Data -->
+          
             <tr *ngIf="sPaginatedData.length === 0">
               <td colspan="3" class="text-center text-danger fw-bold">
                 No data is available
               </td>
             </tr>
   
-            <!-- Show Data -->
+          
             <tr *ngFor="let item of sPaginatedData; let i = index">
               <td>{{ (sCurrentPage - 1) * itemsPerPage + i + 1 }}</td>
               <td>{{ item.cdate | date:'dd-MM-yyyy' }}</td>
@@ -36,7 +36,7 @@
         </table>
       </div>
   
-      <!-- Pagination -->
+      
       <nav *ngIf="sTotalPages > 1" class="mt-2">
         <ul class="pagination justify-content-center">
           <li class="page-item" [class.disabled]="sCurrentPage === 1">
@@ -57,9 +57,9 @@
     </div>
   </div>
   
+</div> -->
 
-</div>
-<!-- Modal: Self Transfer -->
+
 <div class="modal fade" id="selfTransferModal" tabindex="-1" aria-labelledby="selfTransferModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -70,8 +70,6 @@
       </div>
       <form [formGroup]="form">
         <div class="modal-body text-center">
-          <!-- <input type="text" class="form-control mb-2" placeholder="Enter Amount" formControlName="amount"
-            style="border-radius: 16px; font-size: 25px;" /> -->
 
             <input
   type="text"
@@ -169,8 +167,7 @@
       </div>
       <form [formGroup]="form1">
         <div class="modal-body text-center">
-            <input type="text" class="form-control mb-2" placeholder="Enter Registered Id" formControlName="regid"  (keyup)="onRegIdKeyup()" 
-  style="border-radius: 16px; font-size: 25px;" />
+            <input type="text" class="form-control mb-2" placeholder="Enter Registered Id" formControlName="regid"  (keyup)="onRegIdKeyup()" style="border-radius: 16px; font-size: 20px;" />
 
           <!-- Display username if fetched -->
           <div *ngIf="idData" class="text-primary mt-2 fs-5">
@@ -184,17 +181,17 @@
 
           <!-- <input type="text" class="form-control mb-2" placeholder="Enter Amount" formControlName="amount"
             style="border-radius: 16px; font-size: 25px;" /> -->
-            <input
-  type="text"
-  class="form-control mb-2"
-  placeholder="Enter Amount"
-  formControlName="amount"
-  (input)="formatAmount($event, 'form1')"
-  style="border-radius: 16px; font-size: 25px;" />
+            <input type="text" class="form-control mb-2"  placeholder="Enter Amount" formControlName="amount"  (input)="formatAmount($event, 'form1')"  style="border-radius: 16px; font-size: 20px;" />
 
-   
-          <p class=" fw-bold "> Balance: <span >{{pffdata.actwallet |
-              currency:'USD':true:'1.0-2'}}</span></p>
+            <select class="form-control mb-2" formControlName="wallettyoe" style="border-radius: 16px; font-size: 20px;">
+              <option value="" selected>Select Wallet</option>
+              <option value="dwallet">Deposite Funds</option>
+              <option value="ewallet">Withdraw Funds</option>
+            </select>
+              <input type="text" class="form-control mb-2"  placeholder="Enter Amount" formControlName="amount"  (input)="formatAmount($event, 'form1')"  style="border-radius: 16px; font-size: 20px;" />
+
+          <p class=" fw-bold "> Deposite Funds: <span class="text-primary">{{pffdata.actwallet | currency:'USD':true:'1.0-2'}}</span></p>
+          <p class=" fw-bold "> Withdraw Funds: <span class="text-success">{{pffdata.walletamount | currency:'USD':true:'1.0-2'}}</span></p>
         </div>
         <div class="modal-footer d-flex justify-content-between">
         <button type="button" class="btn btn-primary"  [disabled]="errorMessage" style="border-radius: 16px;" data-bs-dismiss="modal"

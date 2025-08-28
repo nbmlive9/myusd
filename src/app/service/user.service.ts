@@ -198,7 +198,8 @@ DepositWallet(value: { amount: string, note: string, transno: string }) {
       this.AUTH_API + 'Wallet_SelfTransefer',
       {
         amount: value.amount,
-        remark:value.remark
+        remark:value.remark,
+        
       },
       httpOptions
     );
@@ -208,7 +209,6 @@ DepositWallet(value: { amount: string, note: string, transno: string }) {
     regid: string,
     amount:string,
     remark:string,
-
    }) {
     const token = this.token.getToken(); 
     const httpOptions = {
@@ -223,7 +223,7 @@ DepositWallet(value: { amount: string, note: string, transno: string }) {
       {
         regid: value.regid,
         amount:value.amount,
-        remark:value.remark,
+        remark:value.remark
       },
       httpOptions
     );

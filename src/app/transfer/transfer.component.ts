@@ -47,7 +47,8 @@ export class TransferComponent {
       this.form1 = this.fb.group({
         regid: ['', Validators.required],
         amount: ['', Validators.required],
-        remark: ['transfer to other user']
+        remark: ['transfer to other user'],
+        wallettyoe:['', Validators.required]
       });
     }
   
@@ -115,7 +116,8 @@ export class TransferComponent {
       const payload = {
         regid: this.form1.value.regid,
         amount: this.form1.value.amount,
-        remark: this.form1.value.remark
+        remark: this.form1.value.remark,
+        wallettyoe: this.form1.value.wallettyoe
       };
   
       this.api.walletTransfer(payload).subscribe({

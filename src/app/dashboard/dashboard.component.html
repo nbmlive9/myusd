@@ -44,7 +44,7 @@
         <div class="col-12 col-sm-6 col-lg-4">
           <div class="card h-100 text-center p-3 shadow-sm">
             <p class="mb-2">Business</p>
-            <h3 class="mb-3">{{homedata.credit | currency:'USD':true:'1.0-2'}}</h3>
+            <h3 class="mb-3">{{homedata?.credit | currency:'USD':true:'1.0-2'}}</h3>
             <a routerLink="/report" class="btn btn-custom btn-view">VIEW</a>
           </div>
         </div>
@@ -86,7 +86,7 @@
         <div class="col-sm-4 mb-2">
           <div class="card" style="background-color: #FFA500; color: white; padding: 20px; ">
             <h5 class="text-center"> Sponsor Income</h5>
-            <h3 class="text-center">{{homedata.sponcerincome | currency:'USD':true:'1.0-2'}}</h3>
+            <h3 class="text-center">{{homedata?.sponcerincome | currency:'USD':true:'1.0-2'}}</h3>
           </div>
         </div>
         <div class="col-sm-4 mb-2">
