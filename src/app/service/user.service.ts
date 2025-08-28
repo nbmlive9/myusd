@@ -209,6 +209,7 @@ DepositWallet(value: { amount: string, note: string, transno: string }) {
     regid: string,
     amount:string,
     remark:string,
+    wallettyoe:string
    }) {
     const token = this.token.getToken(); 
     const httpOptions = {
@@ -223,7 +224,8 @@ DepositWallet(value: { amount: string, note: string, transno: string }) {
       {
         regid: value.regid,
         amount:value.amount,
-        remark:value.remark
+        remark:value.remark,
+        wallettyoe:value.wallettyoe
       },
       httpOptions
     );

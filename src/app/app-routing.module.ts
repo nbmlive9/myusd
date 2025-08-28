@@ -37,7 +37,7 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
-      { path: 'wallet', component: WalletComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
+      //{ path: 'wallet', component: WalletComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       { path: 'profile', component: ProfileComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       { path: 'subscription', component: SubscriptionComponent , canActivate: [authGuard], data: { usertype: ['user'] }},
       { path: 'dashboard', component: DashboardComponent ,canActivate: [authGuard] , data: { usertype: ['user'] }},
