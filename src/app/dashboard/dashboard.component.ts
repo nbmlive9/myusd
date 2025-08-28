@@ -112,7 +112,7 @@ export class DashboardComponent {
   }
 
   sharwahtsapp(regid: any) {
-    const textToShare = `Welcome to MYUSD Family! Please click the link below to join our team for SignUp:  https://myusd.co.in/authshare/${regid}`;
+    const textToShare = `Welcome to MYUSD Family! Please click the link below to join our team for SignUp:  https://myusd.co.in/auth/authshare/${regid}`;
     const encodedText = encodeURIComponent(textToShare);
     const whatsappUrl = `https://api.whatsapp.com/send?text=${encodedText}`;
     window.open(whatsappUrl, '_blank');

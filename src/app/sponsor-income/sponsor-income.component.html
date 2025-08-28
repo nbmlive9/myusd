@@ -12,6 +12,8 @@
           <tr>
             <th>S.No</th>
             <th>userId</th>
+            <th>Name</th>
+
             <th>Date</th>
             <th>Income</th>
           </tr>
@@ -19,7 +21,9 @@
         <tbody>
           <tr *ngFor="let items of paginatedData; let i = index">
             <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
-            <td>{{items.userid}}</td>
+            <td>{{items.forid}}</td>
+            <td>{{items.fname}}</td>
+
             <td>{{ items.cdate | date:'dd/MM/yyyy' }}</td>
             <td class="text-success">{{ items.amount | currency:'USD':'symbol':'1.0-2' }}</td>
           </tr>

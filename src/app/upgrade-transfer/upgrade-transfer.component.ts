@@ -94,6 +94,33 @@ if (regid && regid.length >= 4) {
 }
 }
 
+formatAmount(event: any) {
+  let value = event.target.value;
+
+  // Allow only numbers and decimal
+  value = value.replace(/[^0-9.]/g, '');
+
+  // Restrict to only one decimal point
+  if ((value.match(/\./g) || []).length > 1) {
+    value = value.substring(0, value.length - 1);
+  }
+
+  // Restrict to 2 decimal places
+  if (value.includes('.')) {
+    const [integer, decimal] = value.split('.');
+    if (decimal.length > 2) {
+      value = integer + '.' + decimal.substring(0, 2);
+    }
+  }
+
+  // update UI input
+  event.target.value = value;
+
+  // ✅ update the form correctly
+  this.form.get('amount')?.setValue(value, { emitEvent: false });
+}
+
+
 }
 
 
