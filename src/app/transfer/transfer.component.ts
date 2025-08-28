@@ -58,7 +58,7 @@ export class TransferComponent {
       this.GetWalletTransfer();
     }
   
-    // ------------------ Profile ------------------
+    // ------------------ Profilesss ------------------
   
     getProfileData() {
       this.api.getProfiledata().subscribe((res: any) => {
