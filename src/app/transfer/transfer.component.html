@@ -8,7 +8,6 @@
   </div>
 
   <div class="container-fluid mt-3">
-    <!-- <h5 class="fw-semibold mb-4">Self Transfer</h5> -->
     <div class="transaction-table">
       <div class="table-responsive">
         <table class="table align-middle text-nowrap">
@@ -18,21 +17,84 @@
               <th class="fw-bold">Date</th>
               <th class="fw-bold">Amount</th>
             </tr>
+          </thead>
+          <tbody>
+            <!-- Show No Data -->
             <tr *ngIf="sPaginatedData.length === 0">
-              <td colspan="6" class="text-center text-danger fw-bold">
+              <td colspan="3" class="text-center text-danger fw-bold">
                 No data is available
               </td>
             </tr>
-
-          </thead>
-          <tbody>
-            <tr></tr>
+  
+            <!-- Show Data -->
+            <tr *ngFor="let item of sPaginatedData; let i = index">
+              <td>{{ (sCurrentPage - 1) * itemsPerPage + i + 1 }}</td>
+              <td>{{ item.cdate | date:'dd-MM-yyyy' }}</td>
+              <td>{{ item.amount }}</td>
+            </tr>
           </tbody>
         </table>
       </div>
+  
+      <!-- Pagination -->
+      <nav *ngIf="sTotalPages > 1" class="mt-2">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" [class.disabled]="sCurrentPage === 1">
+            <a class="page-link" (click)="setSelfPage(sCurrentPage - 1)">Previous</a>
+          </li>
+  
+          <li class="page-item"
+              *ngFor="let page of [].constructor(sTotalPages); let p = index"
+              [class.active]="sCurrentPage === (p + 1)">
+            <a class="page-link" (click)="setSelfPage(p + 1)">{{ p + 1 }}</a>
+          </li>
+  
+          <li class="page-item" [class.disabled]="sCurrentPage === sTotalPages">
+            <a class="page-link" (click)="setSelfPage(sCurrentPage + 1)">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  
+
+</div>
+<!-- Modal: Self Transfer -->
+<div class="modal fade" id="selfTransferModal" tabindex="-1" aria-labelledby="selfTransferModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius: 20px;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="selfTransferModalLabel">Self Transfer</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form [formGroup]="form">
+        <div class="modal-body text-center">
+          <!-- <input type="text" class="form-control mb-2" placeholder="Enter Amount" formControlName="amount"
+            style="border-radius: 16px; font-size: 25px;" /> -->
+
+            <input
+  type="text"
+  class="form-control mb-2"
+  placeholder="Enter Amount"
+  formControlName="amount"
+  (input)="formatAmount($event, 'form')"
+  style="border-radius: 16px; font-size: 25px;" />
+
+          <p class=" fw-bold " *ngIf="pffdata"> Balance: <span>{{pffdata.walletamount |
+            currency:'USD':true:'1.0-2'}}</span> </p>
+        </div>
+        <div class="modal-footer d-flex justify-content-between">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="border-radius: 16px;" (click)="SelfTransfer()">Transfer
+            Amount</button>
+          <button type="button" class="btn btn-danger" style="border-radius: 16px;"
+            data-bs-dismiss="modal">CLOSE</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
+
 
 <!-- Wallet Transfer Section -->
 <div class="card container-fluid mt-2">
@@ -96,42 +158,6 @@
     
   </div>
 </div>
-
-
-
-
-
-<!-- Modal: Self Transfer -->
-<div class="modal fade" id="selfTransferModal" tabindex="-1" aria-labelledby="selfTransferModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content" style="border-radius: 20px;">
-      <div class="modal-header">
-        <h5 class="modal-title" id="selfTransferModalLabel">Self Transfer</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form [formGroup]="form">
-        <div class="modal-body text-center">
-          <input type="text" class="form-control mb-2" placeholder="Enter Amount" formControlName="amount"
-            style="border-radius: 16px; font-size: 25px;" />
-          <!-- <div class="mb-3">
-              <label class="form-label d-flex justify-content-start">Remarks</label>
-              <textarea class="form-control" formControlName="remarks" id="exampleFormControlTextarea1" rows="2" style="border-radius: 16px; font-size: 25px;"></textarea>
-            </div> -->
-          <p class=" fw-bold " *ngIf="pffdata"> Balance: <span>{{pffdata.walletamount |
-            currency:'USD':true:'1.0-2'}}</span> </p>
-        </div>
-        <div class="modal-footer d-flex justify-content-between">
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="border-radius: 16px;" (click)="SelfTransfer()">Transfer
-            Amount</button>
-          <button type="button" class="btn btn-danger" style="border-radius: 16px;"
-            data-bs-dismiss="modal">CLOSE</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
 <!-- Modal: Wallet Transfer -->
 <div class="modal fade" id="walletTransferModal" tabindex="-1" aria-labelledby="walletTransferModalLabel"
   aria-hidden="true">
@@ -156,13 +182,17 @@
             {{ errorMessage }}
           </div>
 
-          <input type="text" class="form-control mb-2" placeholder="Enter Amount" formControlName="amount"
-            style="border-radius: 16px; font-size: 25px;" />
+          <!-- <input type="text" class="form-control mb-2" placeholder="Enter Amount" formControlName="amount"
+            style="border-radius: 16px; font-size: 25px;" /> -->
+            <input
+  type="text"
+  class="form-control mb-2"
+  placeholder="Enter Amount"
+  formControlName="amount"
+  (input)="formatAmount($event, 'form1')"
+  style="border-radius: 16px; font-size: 25px;" />
 
-          <!-- <div class="mb-3">
-              <label class="form-label d-flex justify-content-start">Remarks</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" style="border-radius: 16px; font-size: 25px;"></textarea>
-            </div> -->
+   
           <p class=" fw-bold "> Balance: <span >{{pffdata.actwallet |
               currency:'USD':true:'1.0-2'}}</span></p>
         </div>

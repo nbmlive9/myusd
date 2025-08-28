@@ -34,11 +34,11 @@ export class TreeRegistrationComponent {
         phone: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
         country: ['', Validators.required],
-        password: ['', Validators.required],
+        password: ['', [Validators.required, Validators.minLength(6)]], // ✅ min 6 chars
         sponcerid: [''],
-        position: [''], // Set default value to 'Left'
+        position: [''], 
         placementid: ['',],
-        terms:['', Validators.required],
+        terms: [false, Validators.requiredTrue] // ✅ checkbox must be checked
       });
       }
     
@@ -87,7 +87,7 @@ export class TreeRegistrationComponent {
     
       sign(): void {
         if (this.registerForm.invalid) {
-          this.toast.warning('Please fill all fields correctly.', 'Validation Error');
+          this.registerForm.markAllAsTouched(); // highlight errors
           return;
         }
       

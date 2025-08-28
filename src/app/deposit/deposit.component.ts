@@ -185,6 +185,28 @@ checkPaymentStatus() {
   });
 }
 
+formatAmount(event: any) {
+  let value = event.target.value;
+
+  // allow only digits and decimal
+  value = value.replace(/[^0-9.]/g, '');
+
+  // restrict to one decimal point
+  if ((value.match(/\./g) || []).length > 1) {
+    value = value.substring(0, value.length - 1);
+  }
+
+  // restrict to 2 decimal places
+  if (value.includes('.')) {
+    const [intPart, decPart] = value.split('.');
+    if (decPart.length > 2) {
+      value = intPart + '.' + decPart.substring(0, 2);
+    }
+  }
+
+  event.target.value = value;
+  this.form.get('amount')?.setValue(value, { emitEvent: false });
+}
 
 
 

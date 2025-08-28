@@ -1,16 +1,15 @@
 <!-- Self Transfer Section -->
-<div class="card container-fluid">
     
   <!-- Wallet Transfer Section -->
   <div class="card container-fluid mt-2">
     <div class="d-flex mt-4 align-items-center mb-4 gap-1">
-      <h4 class="fw-bold">Upgrade Transfer</h4>
+      <h4 class="fw-bold"> Transfer Holding Funds</h4>
       <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#walletTransferModal">
         <i class="fa-solid fa-money-bill-transfer"></i>  Transfer Holding Funds
       </button>
     </div>
-  
-    <!-- <div class="container-fluid mt-3">
+    <div class="container-fluid mt-3">
+      <!-- <h5 class="fw-semibold mb-4">Wallet Transfer</h5> -->
       <div class=" shadow-sm rounded-4 p-3 border-0">
         <div class="table-responsive">
           <table class="table  align-middle text-nowrap">
@@ -33,6 +32,7 @@
                 <td>${{ item.amount }}</td>
                 <td>{{ item.waltype }}</td>
               </tr>
+                  <!-- No data found message -->
                   <tr *ngIf="wPaginatedData.length === 0">
                     <td colspan="6" class="text-center text-danger fw-bold">
                       No data is available
@@ -44,13 +44,25 @@
           </table>
         </div>
       </div>
-
-  
-    </div> -->
+      <nav *ngIf="wTotalPages > 1">
+        <ul class="pagination justify-content-center mt-3">
+          <li class="page-item" [class.disabled]="wCurrentPage === 1">
+            <button class="page-link" (click)="setWalletPage(wCurrentPage - 1)">Previous</button>
+          </li>
+          <li class="page-item" *ngFor="let page of [].constructor(wTotalPages); let idx = index"
+              [class.active]="wCurrentPage === idx + 1">
+            <button class="page-link" (click)="setWalletPage(idx + 1)">{{ idx + 1 }}</button>
+          </li>
+          <li class="page-item" [class.disabled]="wCurrentPage === wTotalPages">
+            <button class="page-link" (click)="setWalletPage(wCurrentPage + 1)">Next</button>
+          </li>
+        </ul>
+      </nav>
+    
   </div>
   
   
-  
+ 
   
   
   

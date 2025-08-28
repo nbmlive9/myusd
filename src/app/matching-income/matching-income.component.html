@@ -10,7 +10,6 @@
     <thead class="table-light">
       <tr>
         <th>S.No</th>
-        <th>userId</th>
         <!-- <th>Name</th> -->
         <th>Date</th>
         <th>Income</th>
@@ -20,7 +19,6 @@
     <tbody>
       <tr *ngFor="let items of pagedData; let i = index">
         <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
-        <td>{{items.userid}}</td>
         <td>{{ items.cdate }}</td>
         <td class="text-success">
           {{ items.amount | currency:'USD':'symbol':'1.0-2' }}

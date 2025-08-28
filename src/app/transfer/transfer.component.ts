@@ -75,6 +75,7 @@ export class TransferComponent {
       console.log("payload:",payload);
       this.api.selfTransfer(payload).subscribe({
         next: (res: any) => {
+          
           this.toastr.success('Self Transfer Successful!', 'Success');
           this.form.reset();
           this.GetselfTransfer(); // Refresh list
@@ -90,6 +91,8 @@ export class TransferComponent {
   
     GetselfTransfer() {
       this.api.getselfTransfer().subscribe((res: any) => {
+        console.log("resself;",res);
+
         this.sTransferData = res.data || [];
         this.setSelfPage(1);
       });
@@ -133,6 +136,7 @@ export class TransferComponent {
   
     GetWalletTransfer() {
       this.api.getWalletTransfer().subscribe((res: any) => {
+
         this.wdata = res.data || [];
         this.setWalletPage(1);
       });
@@ -185,6 +189,32 @@ export class TransferComponent {
 
   if (regid && regid.length >= 4) {
     this.GetregistredData(regid);
+  }
+}
+formatAmount(event: any, formName: 'form' | 'form1') {
+  let value = event.target.value;
+
+  // allow only numbers and decimal
+  value = value.replace(/[^0-9.]/g, '');
+
+  // restrict to one decimal point
+  if ((value.match(/\./g) || []).length > 1) {
+    value = value.substring(0, value.length - 1);
+  }
+
+  // restrict to 2 decimal places
+  if (value.includes('.')) {
+    const [intPart, decPart] = value.split('.');
+    if (decPart.length > 2) {
+      value = intPart + '.' + decPart.substring(0, 2);
+    }
+  }
+
+  event.target.value = value;
+  if (formName === 'form') {
+    this.form.get('amount')?.setValue(value, { emitEvent: false });
+  } else {
+    this.form1.get('amount')?.setValue(value, { emitEvent: false });
   }
 }
 

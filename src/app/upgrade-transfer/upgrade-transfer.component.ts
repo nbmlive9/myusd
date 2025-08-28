@@ -14,6 +14,15 @@ export class UpgradeTransferComponent {
   pffdata: any;
   errorMessage: any;
   idData:any
+  // / Wallet Transfer
+  wdata: any;
+  wPaginatedData: any[] = [];
+  wCurrentPage = 1;
+
+
+
+  // Pagination config
+  itemsPerPage = 10;
 
   constructor(private api:UserService,private fb:FormBuilder, private toastr:ToastrService,private router:Router ){
     this.form = this.fb.group({
@@ -24,12 +33,12 @@ export class UpgradeTransferComponent {
 
   ngOnInit(): void {
     this.getProfileData();
+    this.GetWalletTransfer()
  
   }
   getProfileData() {
     this.api.getProfiledata().subscribe((res: any) => {
       console.log("pdata:",res);
-      
       this.pffdata = res.data[0];
     });
   }
@@ -119,6 +128,28 @@ formatAmount(event: any) {
   // ✅ update the form correctly
   this.form.get('amount')?.setValue(value, { emitEvent: false });
 }
+GetWalletTransfer() {
+  this.api.getWalletTransfer().subscribe((res: any) => {
+    console.log(res);
+
+    this.wdata = res.data.filter((item: any) => item.waltype === 'upgrade');
+
+    this.setWalletPage(1);
+  });
+}
+
+setWalletPage(page: number) {
+  this.wCurrentPage = page;
+  const start = (page - 1) * this.itemsPerPage;
+  const end = start + this.itemsPerPage;
+
+  this.wPaginatedData = this.wdata.slice(start, end);
+}
+
+get wTotalPages(): number {
+  return Math.ceil(this.wdata.length / this.itemsPerPage);
+}
+
 
 
 }

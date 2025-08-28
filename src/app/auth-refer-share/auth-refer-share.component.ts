@@ -30,12 +30,14 @@ export class AuthReferShareComponent {
       phone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       country: ['', Validators.required],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       sponcerid: [this.id],
       position: ['Left', Validators.required], // Set default value to 'Left'
       placementid: ['', Validators.required],
-      terms:['', Validators.required],
+      terms: [false, Validators.requiredTrue] // ✅ checkbox must be checked
+      
     });
+
     }
   
     ngOnInit(): void {
@@ -72,12 +74,13 @@ export class AuthReferShareComponent {
      
     }
   
+
     sign(): void {
       if (this.registerForm.invalid) {
-        this.toast.warning('Please fill all fields correctly.', 'Validation Error');
+        this.registerForm.markAllAsTouched(); // highlight errors
         return;
       }
-    
+  
       const form = this.registerForm.value;
       const payload = {
         sponcerid: form.sponcerid,
@@ -95,9 +98,7 @@ export class AuthReferShareComponent {
           console.log('Registration Response:', res);
           this.toast.success(res?.message || 'Registration successful ✅', 'Success');
           this.registerForm.reset();
-          // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-          //   this.router.navigate(['/authshare']);
-          // });
+      
         },
         error: (err) => {
           console.error('Registration error:', err);
