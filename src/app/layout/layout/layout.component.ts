@@ -9,8 +9,8 @@ import { UserService } from 'src/app/service/user.service';
   styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnInit {
-  isCollapsed = false;
-  isMobile = false;
+  isCollapsed = true;
+  isMobile = true;
   udata: any;
   activeLink: string = '';
   constructor(
@@ -46,7 +46,7 @@ export class LayoutComponent implements OnInit {
   checkScreenSize() {
     this.isMobile = window.innerWidth <= 768;
     if (!this.isMobile) {
-      this.isCollapsed = true; // Show sidebar on desktop
+      this.isCollapsed = false; // Show sidebar on desktop
     }
   }
 

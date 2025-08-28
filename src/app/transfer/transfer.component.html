@@ -125,7 +125,7 @@
               <td>{{ item.userid }}</td>
               <td>{{ item.rname }}</td>
               <td>${{ item.amount }}</td>
-              <td> <span class="text-primary" *ngIf="item.waltype=='dwallet'">Deosite Funds</span> 
+              <td> <span class="text-primary" *ngIf="item.waltype=='dwallet'">Deposit Funds</span> 
                 <span class="text-success" *ngIf="item.waltype=='ewallet'">Withdraw Funds</span>
               </td>
             </tr>
@@ -194,12 +194,12 @@
 
             <select class="form-control mb-2" formControlName="wallettyoe" style="border-radius: 16px; font-size: 20px;">
               <option value="" selected>Select Wallet</option>
-              <option value="dwallet">Deposite Funds</option>
+              <option value="dwallet">Deposit Funds</option>
               <option value="ewallet">Withdraw Funds</option>
             </select>
               <input type="text" class="form-control mb-2"  placeholder="Enter Amount" formControlName="amount"  (input)="formatAmount($event, 'form1')"  style="border-radius: 16px; font-size: 20px;" />
 
-          <p class=" fw-bold "> Deposite Funds: <span class="text-primary">{{pffdata.actwallet | currency:'USD':true:'1.0-2'}}</span></p>
+          <p class=" fw-bold "> Deposit Funds: <span class="text-primary">{{pffdata.actwallet | currency:'USD':true:'1.0-2'}}</span></p>
           <p class=" fw-bold "> Withdraw Funds: <span class="text-success">{{pffdata.walletamount | currency:'USD':true:'1.0-2'}}</span></p>
         </div>
         <div class="modal-footer d-flex justify-content-between">

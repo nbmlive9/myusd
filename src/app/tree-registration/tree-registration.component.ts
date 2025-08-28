@@ -31,7 +31,6 @@ export class TreeRegistrationComponent {
       constructor(private fb: FormBuilder,private router:Router, private api: UserService, private activeroute:ActivatedRoute,private toast:ToastrService) {
           this.registerForm = this.fb.group({
         name: ['', Validators.required],
-        phone: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
         country: ['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(6)]], // ✅ min 6 chars
@@ -95,7 +94,6 @@ export class TreeRegistrationComponent {
         const payload = {
           sponcerid: form.sponcerid,
           name: form.name,
-          phone: form.phone,
           email: form.email,
           password: form.password,
           position: form.position,
