@@ -181,7 +181,14 @@
 
           <!-- <input type="text" class="form-control mb-2" placeholder="Enter Amount" formControlName="amount"
             style="border-radius: 16px; font-size: 25px;" /> -->
-            <input type="text" class="form-control mb-2"  placeholder="Enter Amount" formControlName="amount"  (input)="formatAmount($event, 'form1')"  style="border-radius: 16px; font-size: 20px;" />
+            <input
+  type="text"
+  class="form-control mb-2"
+  placeholder="Enter Amount"
+  formControlName="amount"
+  (input)="formatAmount($event, 'form1')"
+  style="border-radius: 16px; font-size: 25px;" />
+  <!-- shdvajsygv -->
 
             <select class="form-control mb-2" formControlName="wallettyoe" style="border-radius: 16px; font-size: 20px;">
               <option value="" selected>Select Wallet</option>
