@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <!-- Toggle Button (Visible only on Mobile) -->
-<div class="toggle-btn" style="margin-left: 20px; margin-top: 10px;" (click)="toggleSidebar()">
+<div class="toggle-btn" style="margin-left: 20px; margin-top: 20px;" (click)="toggleSidebar()">
   <i class="fas fa-bars"></i>
 </div>
 </div>
@@ -8,7 +8,7 @@
 <div class="sidebar-overlay" [class.show]="isMobile && isCollapsed" (click)="toggleSidebar()"></div>
 
 <!-- Sidebar -->
-<div class="sidebar" [class.collapsed]="isMobile && !isCollapsed">
+<div class="sidebar" [class.collapsed]="!isCollapsed">
   <div class="sidebar-content">
     <!-- User Info -->
     <div class="card bg-white p-3 text-center">
