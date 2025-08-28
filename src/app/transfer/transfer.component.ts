@@ -138,7 +138,8 @@ export class TransferComponent {
   
     GetWalletTransfer() {
       this.api.getWalletTransfer().subscribe((res: any) => {
-
+          console.log(res);
+          
         this.wdata = res.data || [];
         this.setWalletPage(1);
       });

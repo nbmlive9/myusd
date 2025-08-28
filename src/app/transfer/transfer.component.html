@@ -125,7 +125,9 @@
               <td>{{ item.userid }}</td>
               <td>{{ item.rname }}</td>
               <td>${{ item.amount }}</td>
-              <td>{{ item.waltype }}</td>
+              <td> <span class="text-primary" *ngIf="item.waltype=='dwallet'">Deosite Funds</span> 
+                <span class="text-success" *ngIf="item.waltype=='ewallet'">Withdraw Funds</span>
+              </td>
             </tr>
                 <!-- No data found message -->
                 <tr *ngIf="wPaginatedData.length === 0">
