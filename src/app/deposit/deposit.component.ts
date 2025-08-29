@@ -27,7 +27,7 @@ export class DepositComponent {
 alertType: string = '';
   constructor(private api:UserService, private http:HttpClient, private token:TokenService, private router:Router,   private fb: FormBuilder, private sanitizer: DomSanitizer){
     this.form = this.fb.group({
-      amount: [''],
+      amount: ['', [Validators.required, Validators.min(12)]],
       transno:[''],
       note:['nowpayments url']
     });
@@ -162,19 +162,21 @@ checkPaymentStatus() {
       this.checkingStatus = false;
       console.log('Payment status:', res);
 
-      if (res.payment_status === 'finished') {
-        this.alertType = 'success';
-        this.alertMessage = 'Deposit successful! ✅';
-        this.onSubmit(res.actually_paid, res.payment_id);
+     if (res.payment_status === 'finished') {
+          this.alertType = 'success';
+          const roundedAmount = Math.round(res.outcome_amount * 2) / 2;
+          this.alertMessage = `✅ Payment finished! Amount credited: ${roundedAmount}`;
+          this.onSubmit(roundedAmount, res.payment_id);
 
-      } else if (res.payment_status === 'failed') {
-        this.alertType = 'danger';
-        this.alertMessage = 'Payment failed ❌. Please try again.';
+        } else if (res.payment_status === 'failed') {
+          this.alertType = 'danger';
+          this.alertMessage = `❌ Payment failed! (status: ${res.payment_status})`;
 
-      } else {
-        this.alertType = 'warning';
-        this.alertMessage = 'Payment is still pending ⏳. wait for 2min..';
-      }
+        } else {
+          this.alertType = 'warning';
+          this.alertMessage = `⏳ Payment is still pending (status: ${res.payment_status}). Please wait 2 minutes...`;
+        }
+
     },
     error: (err) => {
       console.error(err);

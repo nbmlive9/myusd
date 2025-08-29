@@ -66,7 +66,7 @@ export class WithdrawComponent {
   const amount = this.withdrawForm.value.amount;
   const wallet = this.withdrawForm.value.wallet;
 
-  if (!amount || amount < 5) {
+  if (!amount || amount < 1) {
     this.errorMsg = 'Minimum withdrawal amount is $5';
     return;
   }
@@ -87,7 +87,7 @@ export class WithdrawComponent {
     amount: amount,
     currency: 'USDTBEP20',
     address: wallet,
-    ipn_callback_url: 'https://yourapp.com/payout/callback'
+    ipn_callback_url: 'https://myusd.co/payout/callback'
   };
 
   this.http.post<any>(url, payload, { headers }).subscribe({

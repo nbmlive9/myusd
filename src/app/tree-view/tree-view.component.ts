@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { UserService } from '../service/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { TreeNode } from 'primeng/api';
+import { jsPDF } from 'jspdf';
 
 @Component({
   selector: 'app-tree-view',
@@ -10,6 +11,7 @@ import { TreeNode } from 'primeng/api';
   styleUrls: ['./tree-view.component.scss']
 })
 export class TreeViewComponent {
+@ViewChild('tableToPrint') tableToPrint!: ElementRef;
 
   id: any;
   udata = { regid: '' };
@@ -24,6 +26,9 @@ export class TreeViewComponent {
   repd: any;
   pdata:any;
   loading: boolean = true;
+  ldata:any;
+  rdata: any;
+  allData: any;
   constructor(private uapi:UserService, private activeroute:ActivatedRoute, private router:Router, private location: Location) { 
     this.id = '';
   }
@@ -42,7 +47,23 @@ export class TreeViewComponent {
       this.loadUserTreeData();
     });
     this.profileData();
+
+   this.uapi.getleftTeam().subscribe((res:any) => {
+    this.ldata = res.data || [];
+    this.combineData();
+  });
+
+  this.uapi.getrightTeam().subscribe((res:any) => {
+    this.rdata = res.data || [];
+    this.combineData();
+  });
+
   }
+  
+  combineData() {
+  // Merge only if both arrays are ready
+  this.allData = [...this.ldata, ...this.rdata];
+}
 
   profileData(){
         this.uapi.home().subscribe((res: any) => {
@@ -245,34 +266,170 @@ goBack() {
   this.location.back();
 }
 
+ printTable() {
+    // Fetch both left + right data before printing
+    Promise.all([
+      this.uapi.getleftTeam().toPromise(),
+      this.uapi.getrightTeam().toPromise()
+    ]).then((results: any[]) => {
+      this.ldata = results[0]?.data || [];
+      this.rdata = results[1]?.data || [];
 
-printTable() {
-  const printContents = document.getElementById('orgChartToPrint')?.innerHTML;
-  if (!printContents) return;
+      const printContents = this.generatePrintHtml();
+      const popupWin = window.open('', '_blank', 'width=900,height=650');
+      popupWin!.document.open();
+      popupWin!.document.write(printContents);
+      popupWin!.document.close();
+    });
+  }
 
-  const popupWin = window.open('', '_blank', 'width=900,height=650');
-  if (popupWin) {
-    popupWin.document.open();
-    popupWin.document.write(`
+  downloadPDF() {
+    Promise.all([
+      this.uapi.getleftTeam().toPromise(),
+      this.uapi.getrightTeam().toPromise()
+    ]).then((results: any[]) => {
+      this.ldata = results[0]?.data || [];
+      this.rdata = results[1]?.data || [];
+
+      const doc = new jsPDF({ orientation: 'p', unit: 'pt', format: 'a4' });
+
+      let y = 40;
+
+      // Left team
+      doc.setFontSize(14);
+      doc.text('Left Team', 40, y);
+      y += 20;
+      this.buildPdfTable(doc, this.ldata, y);
+      y += (this.ldata.length + 2) * 20;
+
+      // Right team
+      doc.setFontSize(14);
+      doc.text('Right Team', 40, y);
+      y += 20;
+      this.buildPdfTable(doc, this.rdata, y);
+
+      doc.save('team-report.pdf');
+    });
+  }
+
+  buildPdfTable(doc: jsPDF, data: any[], startY: number) {
+    if (!data.length) {
+      doc.text('No records found', 40, startY);
+      return;
+    }
+
+    const headers = ['S.No', 'Date', 'User Id', 'Subscription', 'Status'];
+    const colWidths = [50, 100, 100, 150, 100];
+    let x = 40;
+    let y = startY;
+
+    // Header
+    headers.forEach((h, i) => {
+      doc.text(h, x, y);
+      x += colWidths[i];
+    });
+
+    y += 20;
+
+    // Rows
+    data.forEach((row, i) => {
+      x = 40;
+      const rowData = [
+        (i + 1).toString(),
+        row.cdate,
+        row.forid,
+        this.mapBoard(row.board),
+        row.status == '1' ? 'Active' : 'Inactive'
+      ];
+      rowData.forEach((val, j) => {
+        doc.text(val, x, y);
+        x += colWidths[j];
+      });
+      y += 20;
+    });
+  }
+
+  // 🔹 Map board values
+  mapBoard(board: string): string {
+    switch (board) {
+      case '0': return 'Not Subscribe';
+      case '1': return 'Subscribed';
+      case '2': return 'Silver Upgrade';
+      case '3': return 'Gold Upgrade';
+      case '4': return 'Diamond Upgrade';
+      default: return '';
+    }
+  }
+
+  generatePrintHtml(): string {
+    return `
       <html>
         <head>
-          <title>Organization Chart</title>
+          <title>Team Report</title>
           <style>
-            body { font-family: Arial, sans-serif; padding: 20px; }
-            .node-container { text-align: center; }
-            .node-image { width: 80px; height: 80px; border-radius: 50%; }
-            .node-name { font-size: 14px; font-weight: bold; margin-top: 5px; }
-            .node-title { font-size: 12px; color: #555; }
+            table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-bottom: 30px;
+            }
+            th, td {
+              border: 1px solid #333;
+              padding: 8px;
+              text-align: center;
+            }
+            th {
+              background-color: #f8f9fa;
+            }
+            h3 {
+              margin: 20px 0 10px;
+            }
           </style>
         </head>
-        <body onload="window.print(); window.close();">
-          ${printContents}
+        <body onload="window.print();window.close()">
+          <h3>Left Team</h3>
+          ${this.buildTable(this.ldata)}
+
+          <h3>Right Team</h3>
+          ${this.buildTable(this.rdata)}
         </body>
       </html>
-    `);
-    popupWin.document.close();
+    `;
   }
-}
+
+  buildTable(data: any[]): string {
+    if (!data.length) {
+      return `<p>No records found</p>`;
+    }
+    return `
+      <table>
+        <tr>
+          <th>S.No</th>
+          <th>Date</th>
+          <th>User Id</th>
+          <th>Subscription</th>
+          <th>Status</th>
+        </tr>
+        ${data.map((row, i) => `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${row.cdate}</td>
+            <td>${row.forid}</td>
+            <td>
+              ${row.board == '0' ? 'Not Subscribe' :
+                row.board == '1' ? 'Subscribed' :
+                row.board == '2' ? 'Silver Upgrade' :
+                row.board == '3' ? 'Gold Upgrade' :
+                row.board == '4' ? 'Diamond Upgrade' : ''}
+            </td>
+            <td>
+              ${row.status == '1' ? 'Active' : 'Inactive'}
+            </td>
+          </tr>
+        `).join('')}
+      </table>
+    `;
+  }
+
 
 
 }

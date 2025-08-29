@@ -26,7 +26,7 @@ getPayments(token:any): Observable<any> {
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'x-api-key': 'PN033X5-111M6Z6-MD7XF60-7Q5W7RW',
+    'x-api-key': 'W4107KT-X5T4DC2-MMHPRF7-YDH3W8T',
      ...(token && { Authorization: `Bearer ${token}` })
   }),
 };

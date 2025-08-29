@@ -48,7 +48,7 @@
         <p class="mb-2 fw-semibold">Available Balance :
           <span class="text-success fw-bold">
             <i class="fas fa-wallet me-1"></i>
-            {{ pfdata.walletamount | currency:'USD':true:'1.0-2' }}
+            {{ pfdata?.walletamount | currency:'USD':true:'1.0-2' }}
           </span>
         </p>
       
@@ -84,13 +84,7 @@
 
     <div class="mb-2">
       <label for="wallet">USDT BEP20 Wallet Address</label>
-      <input
-        id="wallet"
-        type="text"
-        formControlName="wallet"
-        class="form-control"
-        [(ngModel)]="pfdata.wallet1" readonly
-      />
+      <input id="wallet" type="text" formControlName="wallet" class="form-control"  [(ngModel)]="pfdata.wallet1" readonly  />
     </div>
 
     <button type="submit" class="btn btn-success" [disabled]="submitting">

@@ -127,7 +127,7 @@
           <div class="card text-white" style="background-color: #08A046; padding: 20px;">
             <h5 class="text-center">Holding Wallet</h5>
             <h3 class="text-center">
-              ${{ homedata.profiledata.upgrade}}
+              ${{ homedata.profiledata.upgrade | currency:'USD':true:'1.0-2'}}
             </h3>
           </div>
         </div>
