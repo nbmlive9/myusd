@@ -514,12 +514,6 @@ totalusers(page: number = 1) {
 }
 
 
-
-
-
-
-
-
 upgradeTransfer(value: {
   regid: string;
   amount:string;
@@ -572,11 +566,6 @@ cupdateprofile(id: string, value: {
 }
 
 
-
-
-
-
-
 totalMembers() {
   const token = this.token.getToken();
   const httpOptions = {
@@ -591,6 +580,40 @@ totalMembers() {
     httpOptions
   );
 }
+
+
+  GenerateOtp() {
+    const token = this.token.getToken(); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      }),
+    };
+      return this.http.get(this.AUTH_API + 'GenerateOtp', httpOptions);
+  }
+
+  VerifyOtp(value: {
+  otp: string;
+}) {
+  const token = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` })
+    }),
+  };
+
+  return this.http.post(
+    this.AUTH_API + 'Verify_Otp', 
+   {
+        otp: value.otp,
+      },
+    httpOptions
+  );
+}
+
+
 
 }
 

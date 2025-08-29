@@ -45,7 +45,7 @@ export class CompanyDasboardComponent {
   getDashboard() {
     this.api.dashboard().subscribe({
       next: (res: any) => {
-        console.log(res);
+        // console.log(res);
         
         if (res.status === 1) this.dashboardData = res.data;
       },
@@ -79,7 +79,7 @@ export class CompanyDasboardComponent {
           nextpage: res.data.nextpage,        // 👈 URL string
           previouspage: res.data.previouspage // 👈 URL string or null
         };
-        console.log("tuser:", this.tuser);
+        // console.log("tuser:", this.tuser);
       },
       error: (err) => console.error('Total Users API error:', err),
     });
@@ -109,7 +109,7 @@ export class CompanyDasboardComponent {
   
 
   openProfile(item: any) {
-    console.log("item:",item.regid);
+    // console.log("item:",item.regid);
     this.userid=item.regid
     
     this.isEdit = false;   
@@ -136,7 +136,7 @@ export class CompanyDasboardComponent {
   
     this.api.cupdateprofile(id, payload).subscribe({
       next: (res: any) => {
-        console.log("updateprofile:", res);
+        // console.log("updateprofile:", res);
         if (res.status === 1) {
           this.toast.success("Profile updated successfully");
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
@@ -168,7 +168,7 @@ export class CompanyDasboardComponent {
     this.api.totalMembers().subscribe({
       next: (res: any) => {
         this.totalmembers=res
-        console.log("Total Members:", res);
+        // console.log("Total Members:", res);
       },
       error: (err) => console.error("API Error:", err)
     });

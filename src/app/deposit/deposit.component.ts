@@ -36,7 +36,7 @@ alertType: string = '';
 ngOnInit() {
  this.loadPayments();
  this.api.DepositeData().subscribe((res:any)=>{
-    console.log('depositdata',res);
+    // console.log('depositdata',res);
     this.ddata=res.data;
  })
 }
@@ -54,7 +54,7 @@ loadPayments() {
 
   this.api.getPayments(token).subscribe({
     next: (res: any) => {
-      console.log('Payments data:', res);
+      // console.log('Payments data:', res);
       this.payments = res.data || [];
       this.loading = false;
     },
@@ -90,7 +90,7 @@ async generatePayment() {
     ipn_callback_url: 'https://myusd.co/payment/callback'
   }, { headers }).subscribe({
     next: (res) => {
-      console.log('Payment details', res);
+      // console.log('Payment details', res);
       this.paymentInfo = res; // save payment info for QR & status check
       this.submitting = false;
     },
@@ -113,7 +113,7 @@ onSubmit(amount: number, transno: string) {
 
   this.api.DepositWallet(payload).subscribe({
     next: (res) => {
-      console.log('Wallet updated:', res);
+      // console.log('Wallet updated:', res);
       this.submitting = false;
 
       alert('Wallet credited successfully 🎉');
@@ -160,7 +160,7 @@ checkPaymentStatus() {
   ).subscribe({
     next: (res) => {
       this.checkingStatus = false;
-      console.log('Payment status:', res);
+      // console.log('Payment status:', res);
 
      if (res.payment_status === 'finished') {
           this.alertType = 'success';

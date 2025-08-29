@@ -53,15 +53,15 @@ export class AuthReferShareComponent {
       if (selected) {
         const cca2 = selected.cca2;
         this.CountryCode = cca2;
-        console.log("Selected Country:", selected.name.common);
-        console.log("Selected Country Code (cca2):", cca2);
+        // console.log("Selected Country:", selected.name.common);
+        // console.log("Selected Country Code (cca2):", cca2);
     
         // 🔔 Call the API to get the calling code
         this.api.getCallingCode(cca2).subscribe({
           next: (res: any) => {
-            console.log("📞 Calling Code Response:", res.data);
+            // console.log("📞 Calling Code Response:", res.data);
             this.numbercode=res.data.callingcodes[0]
-            console.log("numbercode:",this.numbercode);
+            // console.log("numbercode:",this.numbercode);
             
           },
           error: (err) => {
@@ -93,7 +93,7 @@ export class AuthReferShareComponent {
     
       this.api.register(payload).subscribe({
         next: (res: any) => {
-          console.log('Registration Response:', res);
+          // console.log('Registration Response:', res);
           this.toast.success(res?.message || 'Registration successful ✅', 'Success');
           this.registerForm.reset();
       
@@ -117,7 +117,7 @@ export class AuthReferShareComponent {
       this.errorMessage = null;
       this.api.getregiddata(id).subscribe({
         next: (res: any) => {
-          console.log("regid:",res);
+          // console.log("regid:",res);
           
           if (res?.data?.length > 0) {
             this.idData = res.data[0];
@@ -155,8 +155,8 @@ export class AuthReferShareComponent {
           .sort();
 
         const countryCodes = res.map((c: any) => c.cca2).filter(Boolean);
-        console.log("Country List:", this.countries);
-        console.log("Country Codes (cca2):", countryCodes);
+        // console.log("Country List:", this.countries);
+        // console.log("Country Codes (cca2):", countryCodes);
       },
       error: (err) => {
         console.error('API Error:', err);
@@ -168,7 +168,7 @@ export class AuthReferShareComponent {
     this.api.getCountries().subscribe({
       next: (res: any) => {
         this.countries = res.map((country: { name: { common: any; }; }) => country.name?.common).filter(Boolean).sort();
-        console.log("Country List:", this.countries);
+        // console.log("Country List:", this.countries);
       },
       error: (err) => {
         console.error('API Error:', err);

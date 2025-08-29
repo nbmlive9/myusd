@@ -22,7 +22,7 @@ export class TeamRightComponent {
 
   ngOnInit() {
     this.api.getrightTeam().subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.data1 = res.data || [];
       this.filteredData = [...this.data1];
       this.updatePagination();

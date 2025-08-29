@@ -26,7 +26,7 @@ export class DirectTeamComponent implements OnInit {
 
   getdata(): void {
     this.api.DirectTeam().subscribe((res: any) => {
-      console.log("directteam:", res);
+      // console.log("directteam:", res);
       this.data1 = res.data || [];
       this.filteredData = [...this.data1];
       this.updatePagination();

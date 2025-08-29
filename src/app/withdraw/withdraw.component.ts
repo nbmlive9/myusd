@@ -92,7 +92,7 @@ export class WithdrawComponent {
 
   this.http.post<any>(url, payload, { headers }).subscribe({
     next: (res) => {
-      console.log('Withdraw response:', res);
+      // console.log('Withdraw response:', res);
       this.successMsg = `Withdrawal submitted! Transaction ID: ${res.id}`;
       this.submitting = false;
       this.withdrawForm.reset();
@@ -102,11 +102,11 @@ export class WithdrawComponent {
       this.api.WithdrawWallet({ 
         amount: amount.toString()
       }).subscribe((res:any) => {
-        console.log('Backend withdraw response:', res);
+        // console.log('Backend withdraw response:', res);
       });
     },
     error: (err) => {
-      console.error('Withdrawal error:', err);
+      // console.error('Withdrawal error:', err);
       this.errorMsg = 'Withdrawal failed. Try again.';
       this.submitting = false;
     }
@@ -117,11 +117,11 @@ export class WithdrawComponent {
   Home() {
     this.api.home().subscribe({
       next: (res) => {
-        console.log('Home API response:', res);
+        // console.log('Home API response:', res);
         this.dashboarddata=res;
         this.homedata=this.dashboarddata.data;
         this.pfdata=this.dashboarddata.data.profiledata;
-        console.log("home:",this.homedata);
+        // console.log("home:",this.homedata);
 
       },
       error: (err) => {

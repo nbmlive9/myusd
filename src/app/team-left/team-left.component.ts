@@ -23,7 +23,7 @@ export class TeamLeftComponent {
 
   ngOnInit() {
     this.api.getleftTeam().subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.data1 = res.data || [];
       this.filteredData = [...this.data1];
       this.updatePagination();
