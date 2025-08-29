@@ -73,7 +73,7 @@ export class TransferComponent {
         amount: this.form.value.amount,
         remark: this.form.value.remark
       };
-      console.log("payload:",payload);
+      // console.log("payload:",payload);
       this.api.selfTransfer(payload).subscribe({
         next: (res: any) => {
           
@@ -92,7 +92,7 @@ export class TransferComponent {
   
     GetselfTransfer() {
       this.api.getselfTransfer().subscribe((res: any) => {
-        console.log("resself;",res);
+        // console.log("resself;",res);
 
         this.sTransferData = res.data || [];
         this.setSelfPage(1);
@@ -138,7 +138,7 @@ export class TransferComponent {
   
     GetWalletTransfer() {
       this.api.getWalletTransfer().subscribe((res: any) => {
-          console.log(res);
+          // console.log(res);
           
         this.wdata = res.data || [];
         this.setWalletPage(1);

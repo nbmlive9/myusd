@@ -54,15 +54,15 @@ export class SignInComponent implements OnInit {
       if (selected) {
         const cca2 = selected.cca2;
         this.CountryCode = cca2;
-        console.log("Selected Country:", selected.name.common);
-        console.log("Selected Country Code (cca2):", cca2);
+        // console.log("Selected Country:", selected.name.common);
+        // console.log("Selected Country Code (cca2):", cca2);
     
         // 🔔 Call the API to get the calling code
         this.api.getCallingCode(cca2).subscribe({
           next: (res: any) => {
-            console.log("📞 Calling Code Response:", res.data);
+            // console.log("📞 Calling Code Response:", res.data);
             this.numbercode=res.data.callingcodes[0]
-            console.log("numbercode:",this.numbercode);
+            // console.log("numbercode:",this.numbercode);
             
           },
           error: (err) => {
@@ -78,7 +78,7 @@ export class SignInComponent implements OnInit {
     this.api.getCountries().subscribe({
       next: (res: any) => {
         this.codes = res;
-        console.log("dddddd:",res);
+        // console.log("dddddd:",res);
         
 
         this.countries = res

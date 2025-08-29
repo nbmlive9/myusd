@@ -25,13 +25,13 @@ export class MatchingIncomeComponent implements OnInit {
   MatchIncome() {
     this.api.matchIncome().subscribe({
       next: (res: any) => {
-        console.log(res);
+        // console.log(res);
         
         this.mdata = res?.data || [];
         this.noData = this.mdata.length === 0;
       },
       error: (err) => {
-        console.error("API error:", err);
+        // console.error("API error:", err);
         this.mdata = [];
         this.noData = true;
       }

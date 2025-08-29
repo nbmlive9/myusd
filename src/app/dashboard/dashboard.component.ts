@@ -40,13 +40,13 @@ export class DashboardComponent {
   Home() {
     this.api.home().subscribe({
       next: (res: any) => {
-        console.log('Home API response:', res);
+        // console.log('Home API response:', res);
 
         if (res && res.data) {
           this.dashboarddata = res;
           this.homedata = res.data;
           this.pfdata = res.data.profiledata;
-          console.log('home:', this.pfdata);
+          // console.log('home:', this.pfdata);
         } else {
           console.warn('Unexpected API response structure:', res);
           this.homedata = null;
@@ -61,11 +61,11 @@ export class DashboardComponent {
 
   Subscription(): void {
     const payload = { regid: this.form.value.regid };
-    console.log('Payload:', payload);
+    // console.log('Payload:', payload);
   
     this.api.subscription(payload).subscribe({
       next: (res: any) => {
-        console.log('Subscription successful:', res);
+        // console.log('Subscription successful:', res);
         this.toast.success(res?.message || 'Subscription successful ✅', 'Success');
         this.sdata=res;
         // Refresh dashboard
@@ -89,7 +89,7 @@ export class DashboardComponent {
     this.noData = false; // reset before loading
     this.api.ActivationData().subscribe({
       next: (res: any) => {
-        console.log('Activation data:', res);
+        // console.log('Activation data:', res);
         this.activationDetails = res?.data || [];
         this.noData = this.activationDetails.length === 0;
       },

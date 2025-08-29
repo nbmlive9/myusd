@@ -103,7 +103,7 @@ export class LoginComponent implements OnInit {
       },
       error: (err) => {
         this.isLoading = false;
-        console.error('Login error:', err);
+        // console.error('Login error:', err);
   
         this.errorMessage = 'Enter valid credentials';
         this.toastr.error(this.errorMessage, 'Error');
@@ -128,11 +128,11 @@ export class LoginComponent implements OnInit {
   sentotp(): void {
     if (this.forgotForm.valid) {
       const formValue = this.forgotForm.value;
-      console.log("payload:",formValue);
+      // console.log("payload:",formValue);
       
       this.user.forgotpassword(formValue).subscribe({
         next: (res: any) => {
-          console.log("sentotp:",res);
+          // console.log("sentotp:",res);
           
           if (res.status === 1) {
             this.otpSentMessage = '✅ OTP sent successfully to your email.';

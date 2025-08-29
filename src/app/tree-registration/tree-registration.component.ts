@@ -43,7 +43,7 @@ export class TreeRegistrationComponent {
     
       ngOnInit(): void {
           this.regid = this.activeroute.snapshot.paramMap.get('regid') || '';
-          console.log("regid:",this.regid);
+          // console.log("regid:",this.regid);
           
     this.position = this.activeroute.snapshot.paramMap.get('position') || '';
            this.Country();
@@ -51,9 +51,9 @@ export class TreeRegistrationComponent {
         this.getProfileData();
 
      this.api.getProfiledata().subscribe((res: any) => {
-      console.log("profiledata:", res);
+      // console.log("profiledata:", res);
       this.hpdata = res.data[0];
-      console.log("pffdata:", this.hpdata);
+      // console.log("pffdata:", this.hpdata);
     });
 
            this.registerForm.get('country')?.valueChanges.subscribe((selectedCountry: string) => {
@@ -103,7 +103,7 @@ export class TreeRegistrationComponent {
       
         this.api.register(payload).subscribe({
           next: (res: any) => {
-            console.log('Registration Response:', res);
+            // console.log('Registration Response:', res);
                const newRegId = this.regid; 
             this.toast.success(res?.message || 'Registration successful ✅', 'Success');
             this.registerForm.reset();
@@ -112,7 +112,7 @@ export class TreeRegistrationComponent {
             });
           },
           error: (err) => {
-            console.error('Registration error:', err);
+            // console.error('Registration error:', err);
             this.toast.error(err?.error?.message || 'Registration failed. Please try again.', 'Error');
           }
         });
@@ -123,7 +123,7 @@ export class TreeRegistrationComponent {
       getProfileData() {
         this.api.getregiddata(this.regid).subscribe((res: any) => {
           this.pffdata = res.data[0];
-          console.log("gfhd:",this.pffdata)
+          // console.log("gfhd:",this.pffdata)
         });
       }
     

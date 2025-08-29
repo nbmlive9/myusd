@@ -39,7 +39,7 @@ export class TreeViewComponent {
       // console.log(this.id);
       if (this.id) {
         this.uapi.getregiddata(this.id).subscribe((res: any) => {
-          console.log('Response data:', res.data);
+          // console.log('Response data:', res.data);
           this.udata=res.data[0];
         });
         // jsauuasd
@@ -67,7 +67,7 @@ export class TreeViewComponent {
 
   profileData(){
         this.uapi.home().subscribe((res: any) => {
-      console.log('profile',res)
+      // console.log('profile',res)
         this.data1 = res.data.profiledata; // Set data1 to the first item in the array
     });
   }
@@ -92,7 +92,7 @@ mytree1(regid: string) {
 loadUserTreeData() {
   this.uapi.UserTreeView(this.id).subscribe(
       (res: any) => {
-        console.log('treeview',res);
+        // console.log('treeview',res);
           // Success response
           this.data2 = res.data;
           if (this.data2) {
@@ -245,7 +245,7 @@ getImageByBoardStatus(boardstatus: string): string {
 gettreeviewdata(id: string) {
   this.loading = true; 
   this.uapi.UserTreeViewDataById(id).subscribe((res: any) => {
-    console.log('Response data:', res.data);
+    // console.log('Response data:', res.data);
     this.tdata = res.data;
     this.loading = false; 
   });

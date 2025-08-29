@@ -42,7 +42,7 @@ export class ReportsComponent implements OnInit {
   // --- API Calls ---
   getTotalReport() {
     this.api.totalReport().subscribe((res: any) => {
-      console.log('total:', res);
+      // console.log('total:', res);
       this.treport = res.data;
       this.filteredReport = [...this.treport];
     });
@@ -50,7 +50,7 @@ export class ReportsComponent implements OnInit {
 
   getTodayReport() {
     this.api.todayReport().subscribe((res: any) => {
-      console.log('today:', res);
+      // console.log('today:', res);
       this.dreport = res.data;
     });
   }

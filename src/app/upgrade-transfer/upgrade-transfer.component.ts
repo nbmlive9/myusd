@@ -38,7 +38,7 @@ export class UpgradeTransferComponent {
   }
   getProfileData() {
     this.api.getProfiledata().subscribe((res: any) => {
-      console.log("pdata:",res);
+      // console.log("pdata:",res);
       this.pffdata = res.data[0];
     });
   }
@@ -48,7 +48,7 @@ export class UpgradeTransferComponent {
       regid: this.form.value.regid,
       amount: this.form.value.amount
     };
-    console.log("payload:",payload);
+    // console.log("payload:",payload);
     this.api.upgradeTransfer(payload).subscribe({
       next: (res: any) => {
         
@@ -130,7 +130,7 @@ formatAmount(event: any) {
 }
 GetWalletTransfer() {
   this.api.getWalletTransfer().subscribe((res: any) => {
-    console.log(res);
+    // console.log(res);
 
     this.wdata = res.data.filter((item: any) => item.waltype === 'upgrade');
 

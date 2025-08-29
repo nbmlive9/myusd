@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from '../service/user.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TokenService } from '../service/token.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -20,7 +20,9 @@ export class ProfileComponent {
   numbercode: any;
   codes: any;
   countries:any;
-
+  gotp: any;
+form1:FormGroup;
+  showOtpForm: boolean | undefined;
   constructor(private api: UserService, private fb: FormBuilder,private token:TokenService,private toast:ToastrService) {
     this.form = this.fb.group({
       name: [''],
@@ -29,6 +31,9 @@ export class ProfileComponent {
       email: [''],
       wallet1:['']
     });
+    this.form1=this.fb.group({
+       otp: ['', Validators.required],
+    })
   }
 
 
@@ -38,7 +43,7 @@ export class ProfileComponent {
 
   getdata() {
     this.api.getProfiledata().subscribe((res: any) => {
-      console.log("profiledata:", res);
+      // console.log("profiledata:", res);
       this.pffdata = res.data[0];
       console.log("pffdata:", this.pffdata);
     });
@@ -58,26 +63,69 @@ export class ProfileComponent {
   }
 
   save() {
-    if (this.form.valid) {
-      const payload = this.form.value;
-  
-      this.api.updateProfile(payload).subscribe({
-        next: (res: any) => {
-          console.log(res);
-          if (res.status === 1) {
-            this.toast.success(res?.message || 'Update successful ✅', 'Success');
-            this.isEdit = false;
-            this.getdata();
-          } else {
-            this.toast.error(res?.message || 'Update failed. Please try again.', 'Error');
-          }
-        },
-        error: (err) => {
-          this.toast.error(err?.error?.message || 'Something went wrong. Please try again.', 'Error');
-        }
-      });
-    }
+  if (this.form.valid) {
+    // Step 1: Generate OTP before saving
+    this.generateOtp();
   }
+}
+
+generateOtp() {
+  this.api.GenerateOtp().subscribe((res: any) => {
+    if (res.status === 1) {
+      this.toast.success(res?.message || 'OTP sent ✅', 'Success');
+      this.showOtpForm = true; // show OTP input
+    } else {
+      this.toast.error(res?.message || 'OTP generation failed ❌', 'Error');
+    }
+  });
+}
+
+verifyOtpAndSave() {
+  if (this.form1.invalid) {
+    this.form1.markAllAsTouched();
+    return;
+  }
+
+  const payload = { otp: this.form1.value.otp };
+
+  this.api.VerifyOtp(payload).subscribe({
+    next: (res: any) => {
+      if (res.status === 1) {
+        this.toast.success(res?.message || 'OTP Verified ✅', 'Success');
+        this.showOtpForm = false;
+
+        // ✅ Now call actual save API
+        this.callSaveApi();
+         this.form1.reset();
+      } else {
+        this.toast.error(res?.message || 'Invalid OTP ❌', 'Error');
+      }
+    },
+    error: (err) => {
+      this.toast.error(err?.error?.message || 'OTP verification failed ❌', 'Error');
+    }
+  });
+}
+
+callSaveApi() {
+  const payload = this.form.value;
+
+  this.api.updateProfile(payload).subscribe({
+    next: (res: any) => {
+      if (res.status === 1) {
+        this.toast.success(res?.message || 'Profile updated ✅', 'Success');
+        this.isEdit = false;
+        this.getdata();
+      } else {
+        this.toast.error(res?.message || 'Update failed ❌', 'Error');
+      }
+    },
+    error: (err) => {
+      this.toast.error(err?.error?.message || 'Something went wrong ❌', 'Error');
+    }
+  });
+}
+
   
 
   logout() {

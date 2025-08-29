@@ -22,7 +22,7 @@ export class SponsorIncomeComponent implements OnInit {
 
   SponsorIncome() {
     this.api.sponsorIncome().subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       
       this.sdata = res.data || [];
       this.setPage(1);

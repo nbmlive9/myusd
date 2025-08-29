@@ -29,11 +29,11 @@ export class ReceivedComponent implements OnInit {
     this.api.receivedWallet().subscribe({
       next: (res: any) => {
         this.rwallet = res.data || [];
-        console.log("rwallet:", res);
+        // console.log("rwallet:", res);
         this.setReceivedPage(1);
       },
       error: (err) => {
-        console.error('Error fetching received wallet data:', err);
+        // console.error('Error fetching received wallet data:', err);
         this.toastr.error('Failed to load received wallet data');
       }
     });
