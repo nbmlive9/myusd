@@ -144,7 +144,7 @@ onSubmit(amount: number, transno: string) {
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   }
-
+// change
 /** Step 2: Caheck payment status */
 checkPaymentStatus() {
   this.checkingStatus = true;
