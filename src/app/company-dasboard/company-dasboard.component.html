@@ -5,14 +5,17 @@
           {title: 'Total Users', value: (dashboardData.activeusers || 0) + (dashboardData.inactiveusers || 0)},
           {title: 'Active Users', value: dashboardData.activeusers},
           {title: 'Inactive Users', value: dashboardData.inactiveusers},
+          {title: 'Today Users', value: dashboardData.todayactiveusers + dashboardData.todayinactiveusers},
           {title: 'Today Active', value: dashboardData.todayactiveusers},
           {title: 'Today Inactive', value: dashboardData.todayinactiveusers},
-          {title: 'Credit', value: dashboardData.credit},
+          {title: 'Credit Amount', value: dashboardData.activeusers * 12},
+          {title: 'Sponsor Amount', value: dashboardData.sponcercredit},
+          {title: 'Total Level Binary Pairs', value: dashboardData.levelbinarycredit / 11},
+          {title: 'Level Binary Fund', value: dashboardData.levelbinarycredit},
           {title: 'Debit', value: dashboardData.debit},
           {title: 'Diamond Binary Credit', value: dashboardData.diamondbinarycredit},
           {title: 'Gold Binary Credit', value: dashboardData.goldbnarycredit},
           {title: 'Silver Binary Credit', value: dashboardData.silverbinarycredit},
-          {title: 'Level Binary Credit', value: dashboardData.levelbinarycredit},
           {title: 'Sponsor Credit', value: dashboardData.sponcercredit}
         ]">
         <div class="card shadow-sm border-0 h-100">
@@ -28,7 +31,41 @@
     
   
     <hr class="my-4">
-  
+    <h4>Power ID Generate</h4>
+    <div class="card p-3">
+           <form [formGroup]="form" (ngSubmit)="Active()">
+            <div class="row g-3">
+          
+              <!-- Full Name -->
+              <div class="col-sm-6">
+                <label class="form-label">User Id</label>
+                <div class="input-wrapper">
+                  <input type="text" formControlName="regid" placeholder="Enter Userid" class="form-control" (keyup)="onRegIdKeyup()" />
+                       <div *ngIf="idData" class="text-success small">Name: {{ idData.name }}</div>
+                </div>
+                <div *ngIf="form.get('regid')?.touched && form.get('regid')?.invalid" class="text-danger small">
+                  User Id is required
+                </div>
+              </div>
+          
+              <!-- Password -->
+              <div class="col-sm-6">
+                <label class="form-label">Points</label>
+                <div class="input-wrapper">
+                  <input type="number" formControlName="points" placeholder="Enter points" class="form-control" />
+                </div>
+                <div *ngIf="form.get('points')?.touched && form.get('points')?.invalid" class="text-danger small">
+                  <span *ngIf="form.get('points')?.errors?.['required']">points is required</span>
+                </div>
+              </div>
+          
+          
+            </div>
+          
+            <button type="submit" class="btn btn-success w-25 mt-3 rounded-pill">Active</button>
+          </form>
+    </div>
+   
     <!-- <h4 class="mb-3 fw-bold">💸 Withdraw Users</h4> -->
     <!-- <div class="container-fluid mt-3">
       <div class="transaction-table">

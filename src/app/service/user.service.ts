@@ -499,7 +499,27 @@ withdrawpaid() {
     return this.http.get(this.AUTH_API + 'Withdraw_Paid', httpOptions);
 }
 
+ActivatePremiumId(value: {
+  regid: string;
+  points:string;
+}) {
+  const token = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` })
+    }),
+  };
 
+  return this.http.post(
+    this.AUTH_API + 'ActivatePremimum', 
+   {
+        regid: value.regid,
+        points:value.points,
+      },
+    httpOptions
+  );
+}
 
 totalusers(page: number = 1) {
   const token = this.token.getToken();
