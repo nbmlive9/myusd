@@ -276,78 +276,103 @@ goBack() {
       this.rdata = results[1]?.data || [];
 
       const printContents = this.generatePrintHtml();
-      const popupWin = window.open('', '_blank', 'width=900,height=650');
+      const popupWin = window.open('', '_blank', 'width=900');
       popupWin!.document.open();
       popupWin!.document.write(printContents);
       popupWin!.document.close();
     });
   }
+downloadPDF() {
+  Promise.all([
+    this.uapi.getleftTeam().toPromise(),
+    this.uapi.getrightTeam().toPromise()
+  ]).then((results: any[]) => {
+    this.ldata = results[0]?.data || [];
+    this.rdata = results[1]?.data || [];
 
-  downloadPDF() {
-    Promise.all([
-      this.uapi.getleftTeam().toPromise(),
-      this.uapi.getrightTeam().toPromise()
-    ]).then((results: any[]) => {
-      this.ldata = results[0]?.data || [];
-      this.rdata = results[1]?.data || [];
+    const doc = new jsPDF({ orientation: 'p', unit: 'pt', format: 'a4' });
 
-      const doc = new jsPDF({ orientation: 'p', unit: 'pt', format: 'a4' });
+    let y = 40;
 
-      let y = 40;
+    // Left team
+    y = this.buildPdfTable(doc, this.ldata, y, 'Left Team');
 
-      // Left team
-      doc.setFontSize(14);
-      doc.text('Left Team', 40, y);
-      y += 20;
-      this.buildPdfTable(doc, this.ldata, y);
-      y += (this.ldata.length + 2) * 20;
+    // Right team
+    y = this.buildPdfTable(doc, this.rdata, y + 30, 'Right Team');
 
-      // Right team
-      doc.setFontSize(14);
-      doc.text('Right Team', 40, y);
-      y += 20;
-      this.buildPdfTable(doc, this.rdata, y);
+    doc.save('team-report.pdf');
+  });
+}
 
-      doc.save('team-report.pdf');
-    });
+buildPdfTable(doc: jsPDF, data: any[], startY: number, sectionTitle: string): number {
+  const headers = ['S.No', 'Date', 'User Id', 'Name', 'Subscription', 'Status'];
+  const colWidths = [50, 100, 100, 150, 100, 100];
+  let x = 40;
+  let y = startY;
+  const lineHeight = 20;
+  const pageHeight = doc.internal.pageSize.height;
+
+  // 🔹 Section Title
+  doc.setFontSize(14);
+  doc.text(sectionTitle, 40, y);
+  y += lineHeight;
+
+  if (!data.length) {
+    doc.text('No records found', 40, y);
+    return y + lineHeight;
   }
 
-  buildPdfTable(doc: jsPDF, data: any[], startY: number) {
-    if (!data.length) {
-      doc.text('No records found', 40, startY);
-      return;
-    }
+  // Header
+  doc.setFontSize(11);
+  x = 40;
+  headers.forEach((h, i) => {
+    doc.text(h, x, y);
+    x += colWidths[i];
+  });
+  y += lineHeight;
 
-    const headers = ['S.No', 'Date', 'User Id', 'Subscription', 'Status'];
-    const colWidths = [50, 100, 100, 150, 100];
-    let x = 40;
-    let y = startY;
+  // Rows
+  data.forEach((row, i) => {
+    // ✅ Page break logic
+    if (y + lineHeight > pageHeight - 40) {
+      doc.addPage();
+      y = 40;
 
-    // Header
-    headers.forEach((h, i) => {
-      doc.text(h, x, y);
-      x += colWidths[i];
-    });
+      // 🔹 Re-draw section title + header
+      doc.setFontSize(14);
+      doc.text(sectionTitle + ' (contd.)', 40, y);
+      y += lineHeight;
 
-    y += 20;
-
-    // Rows
-    data.forEach((row, i) => {
+      doc.setFontSize(11);
       x = 40;
-      const rowData = [
-        (i + 1).toString(),
-        row.cdate,
-        row.forid,
-        this.mapBoard(row.board),
-        row.status == '1' ? 'Active' : 'Inactive'
-      ];
-      rowData.forEach((val, j) => {
-        doc.text(val, x, y);
+      headers.forEach((h, j) => {
+        doc.text(h, x, y);
         x += colWidths[j];
       });
-      y += 20;
+      y += lineHeight;
+    }
+
+    // Row values
+    x = 40;
+    const rowData = [
+      (i + 1).toString(),
+      row.cdate,
+      row.forid,
+      row.fname,
+      this.mapBoard(row.board),
+      row.status == '1' ? 'Active' : 'Inactive'
+    ];
+    rowData.forEach((val, j) => {
+      doc.text(val ? String(val) : '', x, y);
+      x += colWidths[j];
     });
-  }
+    y += lineHeight;
+  });
+
+  return y;
+}
+
+
 
   // 🔹 Map board values
   mapBoard(board: string): string {
@@ -406,6 +431,7 @@ goBack() {
           <th>S.No</th>
           <th>Date</th>
           <th>User Id</th>
+          <th>Name</th>
           <th>Subscription</th>
           <th>Status</th>
         </tr>
@@ -414,6 +440,7 @@ goBack() {
             <td>${i + 1}</td>
             <td>${row.cdate}</td>
             <td>${row.forid}</td>
+             <td>${row.fname}</td>
             <td>
               ${row.board == '0' ? 'Not Subscribe' :
                 row.board == '1' ? 'Subscribed' :

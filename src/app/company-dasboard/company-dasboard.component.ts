@@ -20,7 +20,9 @@ export class CompanyDasboardComponent {
   codes: string[] = [];
   userid:any;
   totalmembers:any;
-
+  form:FormGroup;
+    errorMessage: any;
+  idData: any;
   constructor(private api: UserService, private fb: FormBuilder, private toast: ToastrService,private router:Router) {
     this.profileform = this.fb.group({
       regid: [''],   // <-- Add this
@@ -28,6 +30,11 @@ export class CompanyDasboardComponent {
       email: [''],
       country: [''],
       wallet1: ['']
+    });
+
+    this.form = this.fb.group({
+      regid: ['', Validators.required],   // <-- Add this
+      points: ['', Validators.required],
     });
     
   }
@@ -45,8 +52,7 @@ export class CompanyDasboardComponent {
   getDashboard() {
     this.api.dashboard().subscribe({
       next: (res: any) => {
-        // console.log(res);
-        
+        console.log(res);
         if (res.status === 1) this.dashboardData = res.data;
       },
       error: (err) => console.error('Dashboard API error:', err),
@@ -154,6 +160,30 @@ export class CompanyDasboardComponent {
       }
     });
   }
+
+  Active(): void {
+      if (this.form.invalid) {
+        this.form.markAllAsTouched(); // highlight errors
+        return;
+      }
+      const form = this.form.value;
+      const payload = {
+        regid: form.regid,
+        points: form.points,
+      };
+      this.api.ActivatePremiumId(payload).subscribe({
+        next: (res: any) => {
+          // console.log('Registration Response:', res);
+          this.toast.success(res?.message || 'Activate Premium Account successful ✅', 'Success');
+          this.form.reset();
+        },
+        error: (err) => {
+          console.error('Activate Premium Account error:', err);
+          this.toast.error(err?.error?.message || 'Activate Premium Account failed. Please try again.', 'Error');
+        }
+      });
+    }
+
   getCountries() {
     this.api.getCountries().subscribe({
       next: (res: any) => {
@@ -172,6 +202,35 @@ export class CompanyDasboardComponent {
       },
       error: (err) => console.error("API Error:", err)
     });
+  }
+
+  GetregistredData(id: any) {
+    this.errorMessage = null;
+    this.api.getregiddata(id).subscribe({
+      next: (res: any) => {
+        if (res?.data?.length > 0) {
+          this.idData = res.data[0];
+          this.errorMessage = null;
+        } else {
+          this.idData = null;
+          this.errorMessage = 'User not found.';
+        }
+      },
+      error: (err) => {
+        this.idData = null;
+        this.errorMessage = err?.error?.message || 'Something went wrong.';
+      }
+    });
+  }
+
+  onRegIdKeyup() {
+    const regid = this.form.get('regid')?.value;
+    if (regid && regid.length >= 4) {
+      this.GetregistredData(regid);
+    } else {
+      this.idData = null;
+      this.errorMessage = null;
+    }
   }
   
 }

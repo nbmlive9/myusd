@@ -154,8 +154,6 @@ export class SignInComponent implements OnInit {
     });
   }
 
-   
-
   onRegIdKeyup() {
     const regid = this.registerForm.get('sponcerid')?.value;
     if (regid && regid.length >= 4) {
