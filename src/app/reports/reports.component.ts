@@ -103,4 +103,6 @@ export class ReportsComponent implements OnInit {
       this.page = page;
     }
   }
+
+  
 }

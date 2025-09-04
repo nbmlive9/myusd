@@ -1,32 +1,140 @@
     <h2 class="mb-4 fw-bold">📊 Company Dashboard</h2>
   
     <div class="row g-3">
-      <div class="col-md-3" *ngFor="let item of [
-          {title: 'Total Users', value: (dashboardData.activeusers || 0) + (dashboardData.inactiveusers || 0)},
-          {title: 'Active Users', value: dashboardData.activeusers},
-          {title: 'Inactive Users', value: dashboardData.inactiveusers},
-          {title: 'Today Users', value: dashboardData.todayactiveusers + dashboardData.todayinactiveusers},
-          {title: 'Today Active', value: dashboardData.todayactiveusers},
-          {title: 'Today Inactive', value: dashboardData.todayinactiveusers},
-          {title: 'Credit Amount', value: dashboardData.activeusers * 12},
-          {title: 'Sponsor Amount', value: dashboardData.sponcercredit},
-          {title: 'Total Level Binary Pairs', value: dashboardData.levelbinarycredit / 11},
-          {title: 'Level Binary Fund', value: dashboardData.levelbinarycredit},
-          {title: 'Debit', value: dashboardData.debit},
-          {title: 'Diamond Binary Credit', value: dashboardData.diamondbinarycredit},
-          {title: 'Gold Binary Credit', value: dashboardData.goldbnarycredit},
-          {title: 'Silver Binary Credit', value: dashboardData.silverbinarycredit},
-          {title: 'Sponsor Credit', value: dashboardData.sponcercredit}
-        ]">
-        <div class="card shadow-sm border-0 h-100">
-          <div class="card-body text-center">
-            <h5 class="card-title fw-bold">{{item.title}}</h5>
-            <p class="fs-4 text-success fw-semibold">
-              {{item.value || 0}}
-            </p>
-          </div>
-        </div>
-      </div>
+          <div class="container mt-4">
+  <table class="table table-bordered table-striped text-center align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>Title</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Total Users Section -->
+      <tr>
+        <td>Total Users</td>
+        <td>{{ (dashboardData.activeusers || 0) + (dashboardData.inactiveusers || 0) }}</td>
+      </tr>
+      <tr>
+        <td>Total Active Users</td>
+        <td>{{ dashboardData.activeusers || 0 }}</td>
+      </tr>
+      <tr>
+        <td>Total Inactive Users</td>
+        <td>{{ dashboardData.inactiveusers || 0 }}</td>
+      </tr>
+
+      <!-- Today's Users Section -->
+      <tr>
+        <td>Today Users</td>
+        <td>{{ (dashboardData.todayactiveusers || 0) + (dashboardData.todayinactiveusers || 0) }}</td>
+      </tr>
+      <tr>
+        <td>Today Active Users</td>
+        <td>{{ dashboardData.todayactiveusers || 0 }}</td>
+      </tr>
+      <tr>
+        <td>Today Inactive Users</td>
+        <td>{{ dashboardData.todayinactiveusers || 0 }}</td>
+      </tr>
+
+      <!-- Credit & Sponsor -->
+      <tr>
+        <td>Total Credit</td>
+        <td>{{ dashboardData.credit | currency:'USD':true:'1.0-2' }}</td>
+      </tr>
+      <tr>
+        <td>Total Sponsor Amount</td>
+        <td>{{ dashboardData.sponcercredit || 0 | currency:'USD':true:'1.0-2' }}</td>
+      </tr>
+
+      <!-- Binary Pairs -->
+      <tr>
+        <td>Total Level Binary Pairs</td>
+        <td>{{ (dashboardData.levelbinarycredit || 0) / 11 }}</td>
+      </tr>
+      <tr>
+        <td>Today Level Binary Pairs</td>
+        <td>{{ dashboardData.todaylevelpairs || 0 }}</td>
+      </tr>
+      <tr>
+        <td>Total Level Binary Output Pairs Fund</td>
+        <td>{{ dashboardData.levelbinarycredit || 0 | currency:'USD':true:'1.0-2' }}</td>
+      </tr>
+
+      <!-- Silver -->
+      <tr>
+        <td>Total Silver Binary Pairs</td>
+        <td>{{ (dashboardData.silverbinarycredit || 0) / 3.5 }}</td>
+      </tr>
+      <tr>
+        <td>Today Silver Binary Pairs</td>
+        <td>{{ dashboardData.todaysilverpairs || 0 }}</td>
+      </tr>
+      <tr>
+        <td>Total Silver Binary Output Pairs Fund</td>
+        <td>{{ dashboardData.silverbinarycredit || 0 | currency:'USD':true:'1.0-2' }}</td>
+      </tr>
+      <!-- <tr>
+        <td>Total Gold Holding Fund</td>
+        <td>{{ (dashboardData.silverbinarycredit || 0) * 0.525 }}</td>
+      </tr> -->
+
+      <!-- Gold -->
+      <tr>
+        <td>Total Gold Binary Pairs</td>
+        <td>{{ (dashboardData.goldbnarycredit || 0) / 14 }}</td>
+      </tr>
+      <tr>
+        <td>Today Gold Binary Pairs</td>
+        <td>{{ dashboardData.todaygoldpairs || 0  }}</td>
+      </tr>
+      <tr>
+        <td>Total Gold Binary Output Pairs Fund</td>
+        <td>{{dashboardData.goldbnarycredit | currency:'USD':true:'1.0-2' }}</td>
+      </tr>
+      <!-- <tr>
+        <td>Total Diamond Holding Fund</td>
+        <td>{{dashboardData.goldbnarycredit }}</td>
+      </tr> -->
+
+      <!-- Diamond -->
+      <tr>
+        <td>Total Diamond Binary Pairs</td>
+        <td>{{ (dashboardData.diamondbinarycredit || 0) / 58 }}</td>
+      </tr>
+      <tr>
+        <td>Today Diamond Binary Pairs</td>
+        <td>{{ dashboardData.todaydiamondpairs || 0 }}</td>
+      </tr>
+      <tr>
+        <td>Total Diamond Binary Output Pairs Fund</td>
+        <td>{{ dashboardData.diamondbinarycredit || 0 | currency:'USD':true:'1.0-2' }}</td>
+      </tr>
+
+      <!-- Final Totals -->
+      <tr>
+        <td>Total Output Funds</td>
+        <td>
+           {{ dashboardData.debit || 0 | currency:'USD':true:'1.0-2' }}
+        </td>
+      </tr>
+      <tr>
+        <td>Total Holding Wallet</td>
+        <td>
+          {{ (dashboardData.hold || 0) | currency:'USD':true:'1.0-2'  }}
+        </td>
+      </tr>
+      <tr class="table-success">
+        <td>Total Available Amount</td>
+        <td>
+          {{ (dashboardData.credit || 0) - (dashboardData.debit || 0) | currency:'USD':true:'1.0-2'}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
     </div>
     
   
