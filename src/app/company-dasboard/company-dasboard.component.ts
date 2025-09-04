@@ -52,7 +52,7 @@ export class CompanyDasboardComponent {
   getDashboard() {
     this.api.dashboard().subscribe({
       next: (res: any) => {
-        console.log(res);
+        // console.log(res);
         if (res.status === 1) this.dashboardData = res.data;
       },
       error: (err) => console.error('Dashboard API error:', err),
